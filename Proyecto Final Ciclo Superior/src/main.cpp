@@ -1,5 +1,6 @@
+#include "Common.h"
 #include "Dependencies.h"
-#include <Arduino.h>
+#include "Functionalities.h"
 
 void setup() {
   // put your setup code here, to run once:

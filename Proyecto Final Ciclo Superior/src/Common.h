@@ -4,6 +4,8 @@
 /*The aim of this file is to set all the values related with the pins used in
  * arduino for functionalities*/
 
+#include "Configuracion.h"
+
 /*====================================================================*/
 
 /*Control Emergency Door*/
