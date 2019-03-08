@@ -1,8 +1,8 @@
-#ifndef _CONF_H_
-#define _CONF_H_
+#ifndef _COMMON_H_
+#define _COMMON_H_
 
-/*The aim of this file is to set strings, values for the timers and other
- * features that we can control in our program*/
+/*The aim of this file is to set all the values related with the pins used in
+ * arduino for functionalities*/
 
 /*====================================================================*/
 
