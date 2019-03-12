@@ -9,13 +9,10 @@ PROBE::PROBE() {
 
 void PROBE::Setup(bool debug) {
   if (debug) {
-    Serial.println(F(">>> INICIANDO SONDAS TEMPERATURA"));
+    Serial.println(F("===== Iniciando Sondas de Temperatura ====="));
   }
   PROBE::sensorDS18B20.begin();
   PROBE::Find_devices();
-  if (debug) {
-    Serial.println(F("Sondas de temperatura iniciadas\n"));
-  }
 }
 void PROBE::Find_devices(bool debug) {
   PROBE::NUM_SENSORS = PROBE::sensorDS18B20.getDeviceCount();
@@ -41,9 +38,9 @@ void PROBE::Read(bool debug) {
     for (uint8_t id = 0; id < PROBE::NUM_SENSORS; id++) {
       PROBE::TEMP_VALUES[id] = PROBE::sensorDS18B20.getTempCByIndex(id);
       if (debug) {
-        Serial.print("Sonda ");
+        Serial.print(F("Sonda Temperatura "));
         Serial.print(id);
-        Serial.print(" : ");
+        Serial.print(F(" : "));
         Serial.println(PROBE::TEMP_VALUES[id]);
       }
     }
@@ -54,7 +51,7 @@ void PROBE::Read(bool debug) {
     }
   }
 }
-void PROBE::Save_SD(bool debug) {
+/*void PROBE::Save_SD(bool debug) {
   if (PROBE::State) {
     LOGGUER::Change_dir(LOGGUER::FILES_PATH, debug);
     if (LOGGUER::SD.exists(FILE_PROBES)) {
@@ -97,4 +94,4 @@ void PROBE::Save_SD(bool debug) {
       PROBE::Save_SD(debug);
     }
   }
-}
+}*/

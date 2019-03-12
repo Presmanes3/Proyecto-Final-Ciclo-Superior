@@ -2,7 +2,7 @@
 #define _FUNCTIONALITIES_H_
 
 /* These two macros activate or deactivate main code */
-#define SPECTS_BASIC false
+#define SPECTS_BASIC true
 #define SPECTS_EXTRA false
 
 /*Basic Features*/
