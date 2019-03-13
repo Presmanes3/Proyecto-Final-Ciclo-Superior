@@ -4,6 +4,7 @@
 #include "Arduino.h"
 
 /*====================================================================*/
+#include "Agenda.h"
 #include "Capacity.h"
 #include "Emergency_door.h"
 #include "Equipo.h"

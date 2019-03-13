@@ -24,5 +24,6 @@ public:
   void Find_devices(bool debug = false);
   void Read(bool debug = false);
   void Save_SD(bool debug = false);
+  void Show();
 };
 #endif

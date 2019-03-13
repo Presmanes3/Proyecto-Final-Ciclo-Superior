@@ -9,6 +9,7 @@ void LDRController::Setup(bool debug) {
     Serial.println(F("===== Iniciando Controlador LDR ====="));
   }
   pinMode(LDR_PIN, INPUT);
+  pinMode(LDR_LED, OUTPUT);
 }
 
 bool LDRController::Read(bool debug) {
@@ -20,4 +21,18 @@ bool LDRController::Read(bool debug) {
     return true;
   }
   return false;
+}
+
+void LDRController::Turn_on_light(bool debug) {
+  if (debug) {
+    Serial.println(F("===== Encendiento Luz Exterior ====="));
+  }
+  digitalWrite(LDR_LED, 1);
+}
+
+void LDRController::Turn_off_light(bool debug) {
+  if (debug) {
+    Serial.println(F("===== Apagando Luz Exterior ====="));
+  }
+  digitalWrite(LDR_LED, 0);
 }

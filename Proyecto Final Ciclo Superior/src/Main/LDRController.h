@@ -13,7 +13,8 @@ public:
 
   void Setup(bool debug = false);
   bool Read(bool debug = false);
-  void Light_up(bool debug);
+  void Turn_on_light(bool debug = false);
+  void Turn_off_light(bool debug = false);
 };
 
 #endif

@@ -26,7 +26,7 @@
 
 /*Control External Light*/
 #define LDR_PIN A1
-#define LDR_PIN 3
+#define LDR_LED 3
 
 /*Control Humidity*/
 #define DHT_PIN 12

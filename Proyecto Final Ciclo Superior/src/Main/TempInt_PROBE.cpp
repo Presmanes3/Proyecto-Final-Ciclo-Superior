@@ -31,25 +31,28 @@ void PROBE::Read(bool debug) {
   PROBE::Find_devices(debug);
   if (PROBE::State) {
     if (debug) {
-      Serial.println(F("Leyendo sondas temperatura"));
+      Serial.println(F("===== Leyendo Sondas Temperatura ====="));
     }
 
     PROBE::sensorDS18B20.requestTemperatures();
     for (uint8_t id = 0; id < PROBE::NUM_SENSORS; id++) {
       PROBE::TEMP_VALUES[id] = PROBE::sensorDS18B20.getTempCByIndex(id);
-      if (debug) {
-        Serial.print(F("Sonda Temperatura "));
-        Serial.print(id);
-        Serial.print(F(" : "));
-        Serial.println(PROBE::TEMP_VALUES[id]);
-      }
     }
-    Serial.println();
   } else {
     if (debug) {
       Serial.println(F("Error, sondas desconectadas\n"));
     }
   }
+}
+void PROBE::Show() {
+  Serial.println(F("===== Mostrando Informacion Temperatura ====="));
+  for (uint8_t id = 0; id < PROBE::NUM_SENSORS; id++) {
+    Serial.print(F("Sonda Temperatura "));
+    Serial.print(id);
+    Serial.print(F(" : "));
+    Serial.println(PROBE::TEMP_VALUES[id]);
+  }
+  Serial.println();
 }
 /*void PROBE::Save_SD(bool debug) {
   if (PROBE::State) {

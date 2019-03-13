@@ -16,7 +16,7 @@ bool EmergencyDoorController::Read(bool debug) {
   }
   if (digitalRead(EMERGENCY_DOOR_PIN)) {
     if (debug) {
-      Serial.println(F("Sensor Puerta Emergencia Activado"));
+      Serial.println(F("Puerta de emergencia abierta"));
     }
     return true;
   }
