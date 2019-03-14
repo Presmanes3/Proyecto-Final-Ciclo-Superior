@@ -32,6 +32,7 @@ public:
   /*void Save_SD(char *time, bool header = false, bool debug = false);*/
 
   bool Alarm();
+  void Show();
 };
 
 #endif

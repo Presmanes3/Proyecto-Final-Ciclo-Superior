@@ -125,3 +125,13 @@ bool DHT_S::Alarm() {
   }
   return false;
 }
+
+void DHT_S::Show() {
+  Serial.println(F("===== Mostranso Informacion Sensor Humedad ====="));
+  Serial.print(F("Temperatura : "));
+  Serial.print(DHT_S::Temperature, 3);
+  Serial.println(F("ºC"));
+  Serial.print(F("Humedad Relativa : "));
+  Serial.print(DHT_S::Humidity, 3);
+  Serial.println(F("%"));
+}
