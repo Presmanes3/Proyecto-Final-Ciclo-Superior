@@ -12,7 +12,8 @@ public:
   uint32_t customers_in;
 
   void Setup(bool debug = false);
-  void Check_Door(bool debug = false);
+  void Add(bool debug = false);
+  void Substract(bool debug = false);
   void Show(bool debug = false);
 };
 
