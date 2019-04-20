@@ -1,8 +1,8 @@
 #ifndef _EQUIP_H
 #define _EQUIP_H
 
+#include "../Common.h"
 #include "Arduino.h"
-#include "Common.h"
 
 namespace EQUIPO {
 

@@ -1,13 +1,13 @@
-#ifndef _EMERGENCY_DOOR_H_
-#define _EMERGENCY_DOOR_H_
+#ifndef _PIR_CONTROLLER_H
+#define _PIR_CONTROLLER_H
 
+#include "../Common.h"
 #include "Arduino.h"
-#include "Common.h"
 
-class EmergencyDoorController {
+class PIRController {
 
 public:
-  EmergencyDoorController();
+  PIRController();
 
   void Setup(bool debug = false);
   bool Read(bool debug = false);

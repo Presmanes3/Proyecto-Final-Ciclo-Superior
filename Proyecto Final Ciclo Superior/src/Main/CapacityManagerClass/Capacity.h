@@ -1,8 +1,8 @@
 #ifndef _AFORO_H_
 #define _AFORO_H_
 
+#include "../Common.h"
 #include "Arduino.h"
-#include "Common.h"
 
 class CapacityManager {
 public:

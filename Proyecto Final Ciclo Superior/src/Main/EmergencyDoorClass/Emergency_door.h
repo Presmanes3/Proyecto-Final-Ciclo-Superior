@@ -1,15 +1,13 @@
-#ifndef _LDR_CONTROLLER_H
-#define _LDR_CONTROLLER_H
+#ifndef _EMERGENCY_DOOR_H_
+#define _EMERGENCY_DOOR_H_
 
+#include "../Common.h"
 #include "Arduino.h"
-#include "Common.h"
 
-class LDRController {
+class EmergencyDoorController {
 
 public:
-  LDRController(uint16_t treshold);
-
-  uint16_t threshold;
+  EmergencyDoorController();
 
   void Setup(bool debug = false);
   bool Read(bool debug = false);

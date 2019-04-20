@@ -3,8 +3,8 @@
 #ifndef _TEMPINT_PROBE_H
 #define _TEMPINT_PROBE_H
 
+#include "../Common.h"
 #include "Arduino.h"
-#include "Common.h"
 #include "DallasTemperature.h"
 #include "OneWire.h"
 

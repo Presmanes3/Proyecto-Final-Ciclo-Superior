@@ -1,13 +1,15 @@
-#ifndef _PIR_CONTROLLER_H
-#define _PIR_CONTROLLER_H
+#ifndef _LDR_CONTROLLER_H
+#define _LDR_CONTROLLER_H
 
+#include "../Common.h"
 #include "Arduino.h"
-#include "Common.h"
 
-class PIRController {
+class LDRController {
 
 public:
-  PIRController();
+  LDRController(uint16_t treshold);
+
+  uint16_t threshold;
 
   void Setup(bool debug = false);
   bool Read(bool debug = false);

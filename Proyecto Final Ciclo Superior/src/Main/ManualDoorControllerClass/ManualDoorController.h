@@ -1,9 +1,8 @@
 #ifndef _MANUAL_DOOR_CONTROLLER_H
 #define _MANUAL_DOOR_CONTROLLER_H
 
+#include "../Common.h"
 #include "Arduino.h"
-#include "Capacity.h"
-#include "Common.h"
 
 class ManualDoorController {
 public:

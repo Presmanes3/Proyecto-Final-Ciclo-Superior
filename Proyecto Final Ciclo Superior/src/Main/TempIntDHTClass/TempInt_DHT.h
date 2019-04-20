@@ -3,8 +3,8 @@
 #ifndef _TEMPINT_DHT_H
 #define _TEMPINT_DHT_H
 
+#include "../Common.h"
 #include "Arduino.h"
-#include "Common.h"
 #include "DHT.h"
 
 class DHT_S {

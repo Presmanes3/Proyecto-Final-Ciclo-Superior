@@ -1,8 +1,8 @@
 #ifndef _AGENDA_H
 #define _AGENDA_H
 
+#include "../Common.h"
 #include "Arduino.h"
-#include "Common.h"
 
 namespace AGENDA {
 
