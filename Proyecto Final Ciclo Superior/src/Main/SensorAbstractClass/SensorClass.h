@@ -10,7 +10,6 @@ public:
 
   virtual bool read(bool debug = false) = 0;
   virtual bool setup(bool debug = false) = 0;
-  virtual bool update(bool debug = false) = 0;
 };
 
 #endif // _SENSOR_H_

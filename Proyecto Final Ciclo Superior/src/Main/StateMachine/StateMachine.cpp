@@ -8,4 +8,12 @@ void StateMachine::changeState(State *newState) {
   this->currentState = newState;
 }
 
-void StateMachine::update() { this->currentState->update(); }
+void StateMachine::updateCurrentState() { this->currentState->update(); }
+
+/*===========================================================*/
+
+State::State(StateMachine *_parent) { this->parent = _parent; }
+
+void State::changeState(State *newState) {
+  this->parent->changeState(newState);
+}

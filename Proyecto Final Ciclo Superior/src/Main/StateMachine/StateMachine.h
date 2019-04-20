@@ -8,9 +8,21 @@ public:
   StateMachine(State *initialState);
 
   void changeState(State *newState);
-  void update();
+  void updateCurrentState();
 
 private:
   State currentState;
 };
+
+class State {
+public:
+  State(StateMachine *_parent);
+
+  virtual void update() = 0;
+  void changeState(State *newState);
+
+private:
+  StateMachine *parent;
+};
+
 #endif
