@@ -1,12 +1,12 @@
 #include "Contact.h"
 
-Contact::Contact(char *ID, char *name, char *surname, char *mail,
-                 char *phoneNumber) {
-  snprintf(Contact::ID, MAX_SIZE_ID, "%s", ID);
-  snprintf(Contact::name, MAX_SIZE_NAME, "%s", name);
-  snprintf(Contact::surname, MAX_SIZE_SURNAME, "%s", surname);
-  snprintf(Contact::mail, MAX_SIZE_MAIL, "%s", mail);
-  snprintf(Contact::phoneNumber, MAX_SIZE_PHONENUMBER, "%s", phoneNumber);
+Contact::Contact(char *_ID, char *_name, char *_surname, char *_mail,
+                 char *_phoneNumber) {
+  snprintf(Contact::ID, MAX_SIZE_ID, "%s", _ID);
+  snprintf(Contact::name, MAX_SIZE_NAME, "%s", _name);
+  snprintf(Contact::surname, MAX_SIZE_SURNAME, "%s", _surname);
+  snprintf(Contact::mail, MAX_SIZE_MAIL, "%s", _mail);
+  snprintf(Contact::phoneNumber, MAX_SIZE_PHONENUMBER, "%s", _phoneNumber);
 }
 
 void Contact::setID(char *newID) {
@@ -46,4 +46,12 @@ void Contact::showSerialData() {
 
   Serial.print(F("Phone Number : "));
   Serial.println(Contact::phoneNumber);
+}
+
+void Contact::clear() {
+  memset(Contact::ID, '\0', MAX_SIZE_ID);
+  memset(Contact::name, '\0', MAX_SIZE_NAME);
+  memset(Contact::surname, '\0', MAX_SIZE_SURNAME);
+  memset(Contact::mail, '\0', MAX_SIZE_MAIL);
+  memset(Contact::phoneNumber, '\0', MAX_SIZE_PHONENUMBER);
 }

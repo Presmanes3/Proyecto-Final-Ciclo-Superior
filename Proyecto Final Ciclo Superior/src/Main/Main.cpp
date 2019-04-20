@@ -7,11 +7,12 @@ bool Past_min(uint32_t time, uint32_t &var);
 bool Past_mil(uint32_t time, uint32_t &var);
 void Main_program();
 
+Agenda myAgenda = Agenda();
 PROBE myProbe = PROBE();
 CapacityManager myCapacityManager = CapacityManager(MAX_CAPACITY);
 LDRController myLDR = LDRController(LDR_THRESHOLD);
 PIRController myPIR = PIRController();
-RFIDController myRFID = RFIDController();
+RFIDController myRFID = RFIDController(&myAgenda);
 DHT_S myDHT = DHT_S();
 EmergencyDoorController myEmergencyDoor = EmergencyDoorController();
 ManualDoorController myManualDoorController = ManualDoorController();
@@ -42,7 +43,7 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   EQUIPO::Setup(SERIAL_GUI);
-  AGENDA::Setup(SERIAL_GUI);
+  myAgenda.Setup(SERIAL_GUI);
 
   EmergencyDoorCheck.time = TIME_TO_CHECK_EMERGENCY_DOOR;
   CapacityCheck.time = TIME_TO_CHECK_CAPACITY;
@@ -92,7 +93,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  // myRFID.Read(AGENDA::Contact_List, 2, DEBUG);
+  // myRFID.Read(myAgenda.Contact_List, 2, DEBUG);
 
   Main_program();
 }
@@ -219,7 +220,7 @@ void Main_program() {
           if (DEBUG) {
             Serial.println(F("===== Leyendo RFID Sensor ====="));
           }
-          if (myRFID.Read(AGENDA::Contact_List, 2, SERIAL_GUI)) {
+          if (myRFID.Read(myRFID.getAgenda()->ContactList, 2, SERIAL_GUI)) {
             RFIDCheck.flag = false;
           }
         }

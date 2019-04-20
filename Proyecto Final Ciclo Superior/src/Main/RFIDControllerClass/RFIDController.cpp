@@ -1,6 +1,8 @@
 #include "RFIDController.h"
 
-RFIDController::RFIDController() {}
+RFIDController::RFIDController(Agenda *myAgenda) {
+  RFIDController::myAgenda = myAgenda;
+}
 
 void RFIDController::Setup(bool debug) {
   if (debug) {
@@ -10,8 +12,7 @@ void RFIDController::Setup(bool debug) {
   mfrc522.PCD_Init(); // Initiate MFRC522
 }
 
-bool RFIDController::Read(AGENDA::Contacto *list, uint8_t contact_list_size,
-                          bool debug) {
+bool RFIDController::Read(Contact *list, uint8_t size, bool debug) {
   // Look for new cards
   if (!mfrc522.PICC_IsNewCardPresent()) {
     return false;
@@ -35,15 +36,15 @@ bool RFIDController::Read(AGENDA::Contacto *list, uint8_t contact_list_size,
      Serial.println();
  }*/
   UID.toUpperCase();
-  for (uint8_t index = 0; index < contact_list_size; index++) {
+  for (uint8_t index = 0; index < size; index++) {
     /*Serial.print(F("Contact "));
     Serial.print(index);
     Serial.print(F(" ID : "));
     Serial.println(list[index].ID);*/
-    if (UID.substring(1) == String(list[index].ID)) {
+    if (UID.substring(1) == String(list[index].getID())) {
       if (debug) {
         Serial.println(F("===== Mostrando Informacion Contacto ====="));
-        AGENDA::Print_contact(list[index]);
+        RFIDController::myAgenda->printContact(list[index]);
       }
       return true;
     }
@@ -51,3 +52,5 @@ bool RFIDController::Read(AGENDA::Contacto *list, uint8_t contact_list_size,
 
   return false;
 }
+
+Agenda *RFIDController::getAgenda() { return myAgenda; }

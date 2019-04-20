@@ -11,8 +11,8 @@
 
 class Contact {
 public:
-  Contact(char *ID, char *name, char *surname, char *mail, char *phoneNumber);
-  ~Contact();
+  Contact(char *_ID, char *_name, char *_surname, char *_mail,
+          char *_phoneNumber);
 
   /*===== Setters =====*/
   void setID(char *newID);
@@ -30,6 +30,7 @@ public:
 
   /*=====     =====*/
   void showSerialData();
+  void clear();
 
 private:
   char ID[MAX_SIZE_ID];

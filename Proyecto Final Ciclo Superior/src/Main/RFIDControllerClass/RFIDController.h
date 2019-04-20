@@ -10,15 +10,19 @@
 class RFIDController {
 
 public:
-  RFIDController();
+  RFIDController(Agenda *myAgenda);
 
   char Access_list[2][15];
 
   MFRC522 mfrc522 = MFRC522(RFID_SDA, RFID_RST);
 
   void Setup(bool debug = false);
-  bool Read(AGENDA::Contacto *list, uint8_t contact_list_size,
-            bool debug = false);
+  bool Read(Contact *list, uint8_t size, bool debug = false);
+
+  Agenda *getAgenda();
+
+private:
+  Agenda *myAgenda;
 };
 
 #endif
