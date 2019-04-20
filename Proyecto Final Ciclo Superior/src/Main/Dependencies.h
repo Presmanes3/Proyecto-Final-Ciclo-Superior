@@ -4,7 +4,7 @@
 #include "Arduino.h"
 
 /*====================================================================*/
-#include "Agenda/Agenda.h"
+#include "AgendaClass/Agenda.h"
 
 #include "EquipClass/Equipo.h"
 
