@@ -12,9 +12,9 @@
 #define EMERGENCY_DOOR_PIN 22
 #define EMERGENCY_LED 4
 
-/*Control Capacity*/
+/*Control Capacity
 #define CAPACITY_INPUT_PIN 23
-#define CAPACITY_OUTPUT_PIN 24
+#define CAPACITY_OUTPUT_PIN 24*/
 
 /*Control Smart Corridor Light*/
 #define PIR_PIN 10
@@ -44,8 +44,8 @@
 #define RFID_RST 8
 
 /*In Out Manual*/
-#define MANUAL_DOOR_IN_PIN 25
-#define MANUAL_DOOR_OUT_PIN 26
+#define MANUAL_DOOR_IN_PIN 23
+#define MANUAL_DOOR_OUT_PIN 24
 
 #define MANUAL_OUT_LED 6
 #define MANUAL_IN_LED 5

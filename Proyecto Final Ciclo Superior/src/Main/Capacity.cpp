@@ -14,7 +14,7 @@ void CapacityManager::Setup(bool debug) {
   pinMode(CAPACITY_INPUT_PIN, INPUT);
   pinMode(CAPACITY_OUTPUT_PIN, INPUT);
 }
-void CapacityManager::Check_Door(bool debug) {}
+
 void CapacityManager::Show(bool debug) {
   if (debug) {
     Serial.println(F("===== Mostrando Informacion Aforo ====="));
@@ -23,5 +23,31 @@ void CapacityManager::Show(bool debug) {
     Serial.print(F("Actualmente hay: "));
     Serial.println(CapacityManager::customers_in);
     Serial.println(F("======================================="));
+  }
+}
+
+void CapacityManager::Add(bool debug) {
+  if (debug) {
+    Serial.println(F("===== Añadiendo una persona al aforo ====="));
+  }
+  if (CapacityManager::customers_in + 1 < CapacityManager::max_capacity) {
+    CapacityManager::customers_in++;
+  } else {
+    if (debug) {
+      Serial.println(F("No cabe mas gente"));
+    }
+  }
+}
+
+void CapacityManager::Substract(bool debug) {
+  if (debug) {
+    Serial.println(F("===== Retirando una persona al aforo ====="));
+  }
+  if (CapacityManager::customers_in - 1 >= 0) {
+    CapacityManager::customers_in--;
+  } else {
+    if (debug) {
+      Serial.println(F("No queda nadie"));
+    }
   }
 }
