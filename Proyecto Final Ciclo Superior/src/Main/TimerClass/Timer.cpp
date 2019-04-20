@@ -1,20 +1,29 @@
 #include "Timer.h"
 
-Timer::Timer(uint32_t _time, uint32_t _reference, bool _flag) {
-  Timer::time = _time;
-  Timer::reference = _reference;
-  Timer::flag = _flag;
+Timer::Timer(uint32_t _time, uint32_t _inactiveTime, uint32_t _reference,
+             bool _flag) {
+  this->time = _time;
+  this->time = _inactiveTime;
+  this->reference = _reference;
+  this->flag = _flag;
 }
 
-void Timer::setTime(uint32_t newTime) { Timer::time = newTime; }
+/*===== Setters =====*/
+void Timer::setTime(uint32_t newTime) { this->time = newTime; }
+void Timer::setInactiveTime(uint32_t newInactiveTime) {
+  this->inactiveTime = newInactiveTime;
+}
 void Timer::setReference(uint32_t newReference) {
-  Timer::reference = newReference;
+  this->reference = newReference;
 }
-void Timer::setFlag(bool newFlag) { Timer::reference = newFlag; }
+void Timer::setFlag(bool newFlag) { this->reference = newFlag; }
 
-uint32_t getTime() { return Timer::time; }
-uint32_t getReference() { return Timer::reference; }
-bool getFlag() { return Timer::flag; }
+/*===== Getters =====*/
+uint32_t Timer::getTime() { return this->time; }
+uint32_t Timer::getInactiveTime() { return this->inactiveTime; }
+uint32_t Timer::getReference() { return this->reference; }
+bool Timer::getFlag() { return this->flag; }
 
-void Timer::activateFlag() { Timer::flag = true; }
-void Timer::deactivateFlag() { Timer::flag = false; }
+/*=====     =====*/
+void Timer::activateFlag() { this->flag = true; }
+void Timer::deactivateFlag() { this->flag = false; }

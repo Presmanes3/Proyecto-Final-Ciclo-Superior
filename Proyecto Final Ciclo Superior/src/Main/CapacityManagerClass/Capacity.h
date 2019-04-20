@@ -8,8 +8,8 @@ class CapacityManager {
 public:
   CapacityManager(uint32_t max_capacity);
 
-  uint32_t max_capacity;
-  uint32_t customers_in;
+  uint32_t maxCapacity;
+  uint32_t currentCustomersIn;
 
   void Setup(bool debug = false);
   void Add(bool debug = false);

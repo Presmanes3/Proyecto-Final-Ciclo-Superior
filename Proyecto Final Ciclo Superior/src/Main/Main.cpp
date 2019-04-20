@@ -7,6 +7,7 @@ bool Past_min(uint32_t time, uint32_t &var);
 bool Past_mil(uint32_t time, uint32_t &var);
 void Main_program();
 
+TimeManager timeManager = TimeManager();
 Agenda myAgenda = Agenda();
 PROBE myProbe = PROBE();
 CapacityManager myCapacityManager = CapacityManager(MAX_CAPACITY);
@@ -18,12 +19,6 @@ EmergencyDoorController myEmergencyDoor = EmergencyDoorController();
 ManualDoorController myManualDoorController = ManualDoorController();
 
 /* ======================= Timers ======================= */
-
-struct Timer {
-  uint32_t time; // Time that must pass
-  uint32_t var;  // Var to compare
-  bool flag = true;
-};
 
 Timer EmergencyDoorCheck;
 Timer CapacityCheck;
