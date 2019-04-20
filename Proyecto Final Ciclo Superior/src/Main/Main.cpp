@@ -139,7 +139,7 @@ void Main_program() {
         }
       }
     }
-    if (CONTROL_CAPACITY) {
+    /*if (CONTROL_CAPACITY) {
       if (CapacityCheck.flag) {
         if (Past_mil(CapacityCheck.time, CapacityCheck.var)) {
 
@@ -152,7 +152,7 @@ void Main_program() {
           CapacityCheck.flag = true;
         }
       }
-    }
+  }*/
     if (CONTROL_SMART_CORRIDOR_LIGHT) {
       if (CorridorLightCheck.flag) {
         if (Past_sec(CorridorLightCheck.time, CorridorLightCheck.var)) {
@@ -234,10 +234,16 @@ void Main_program() {
       if (ManualDoorCheck.flag) {
         if (Past_mil(ManualDoorCheck.time, ManualDoorCheck.var)) {
           if (myManualDoorController.Read(DEBUG)) {
+            myManualDoorController.Turn_on_light(DEBUG);
+            if (myManualDoorController.getButtonOption()) {
+              myCapacityManager.Add(DEBUG);
+            }
+            { myCapacityManager.Substract(DEBUG); }
           }
         }
       } else {
         if (Past_mil(INACTIVE_TIME_MANUAL, ManualDoorCheck.var)) {
+          myManualDoorController.Turn_off_light(DEBUG);
           ManualDoorCheck.flag = false;
         }
       }

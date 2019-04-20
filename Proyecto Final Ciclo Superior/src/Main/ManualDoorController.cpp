@@ -73,3 +73,10 @@ void ManualDoorController::Turn_off_light(bool debug) {
     ManualDoorController::read_flag = false;
   }
 }
+
+bool ManualDoorController::getButtonOption(bool debug) {
+  if (debug) {
+    Serial.println(F("===== Devolviendo el valor de Button Option ====="));
+  }
+  return ManualDoorController::button_option;
+}
