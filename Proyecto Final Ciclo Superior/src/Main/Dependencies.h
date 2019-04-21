@@ -10,7 +10,7 @@
 
 #include "CapacityManagerClass/Capacity.h"
 
-#include "EmergencyDoorClass/Emergency_door.h"
+#include "EmergencyDoorClass/EmerDoor.h"
 
 #include "LDRControllerClass/LDRController.h"
 
@@ -24,6 +24,6 @@
 
 #include "TempIntProbesClass/TempInt_PROBE.h"
 
-#include "TimerClass/TimeManager/TimeManager.h"
+#include "TimerClass/TimeManager.h"
 
 #endif

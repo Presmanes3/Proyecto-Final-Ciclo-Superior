@@ -1,7 +1,7 @@
 #ifndef _RFID_CONTROLLER_H
 #define _RFID_CONTROLLER_H
 
-#include "../Agenda/Agenda.h"
+#include "../AgendaClass/Agenda.h"
 #include "../Common.h"
 #include "Arduino.h"
 #include "MFRC522.h"
