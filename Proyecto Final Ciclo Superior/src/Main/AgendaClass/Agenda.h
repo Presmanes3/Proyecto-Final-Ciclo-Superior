@@ -10,7 +10,9 @@
 class Agenda {
 public:
   Agenda();
+
   Contact *ContactList;
+  uint16_t size;
 
   /*
   extern Contacto Contacto1;
@@ -24,9 +26,9 @@ public:
   void printContact(Contact contact);
   void printContactList(Contact *list, uint8_t size);
   void clearContact(Contact &contact);
-  // Contact *getContactList();
+  Contact *getContactList();
 
-private:
+protected:
   Contact Contacto1 =
       Contact((char *)CONTACTO1_ID, (char *)CONTACTO1_NOMBRE,
               (char *)CONTACTO1_APELLIDO, (char *)CONTACTO1_CORREO,

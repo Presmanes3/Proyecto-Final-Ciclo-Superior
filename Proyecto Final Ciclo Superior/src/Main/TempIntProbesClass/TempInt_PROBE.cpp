@@ -5,6 +5,9 @@ PROBE::PROBE(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer)
   this->NUM_SENSORS = PROBE_NUM_PROBES;
   this->TEMP_VALUES[1];
   this->State;
+
+  this->checkTimer->activateFlag();
+  this->standByTimer->deactivateFlag();
 }
 
 void PROBE::setup(bool debug) {
@@ -110,7 +113,7 @@ void PROBE::run(bool debug) {
     }
   }
   if (this->standByTimer->getFlag()) {
-    if (this->timeManager->pastMil(*this->standByTimer)) {
+    if (this->timeManager->pastMin(*this->standByTimer)) {
       this->standByTimer->deactivateFlag();
       this->checkTimer->activateFlag();
     }

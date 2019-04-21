@@ -9,6 +9,7 @@
 #define EQUIP_LOCATION "Taller Informatica"
 
 /*================================ CONTACTOS ===========================*/
+#define AGENDA_SIZE 2
 
 #define CONTACTO1_NOMBRE "Javier"
 #define CONTACTO1_APELLIDO "Presmanes"

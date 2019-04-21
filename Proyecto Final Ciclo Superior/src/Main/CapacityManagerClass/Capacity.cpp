@@ -10,9 +10,9 @@ void CapacityManager::Setup(bool debug) {
     Serial.print(F("Aforo Maximo: "));
     Serial.println(this->maxCapacity);
     Serial.println();
-  }
-  pinMode(MANUAL_DOOR_IN_PIN, INPUT);
-  pinMode(MANUAL_DOOR_OUT_PIN, INPUT);
+  } /*
+     pinMode(MANUAL_DOOR_IN_PIN, INPUT);
+     pinMode(MANUAL_DOOR_OUT_PIN, INPUT);*/
 }
 
 void CapacityManager::Show(bool debug) {

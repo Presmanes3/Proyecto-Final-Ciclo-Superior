@@ -2,7 +2,10 @@
 
 PIRController::PIRController(TimeManager *timeManager, Timer *checkTimer,
                              Timer *standByTimer)
-    : EventManager(timeManager, checkTimer, standByTimer) {}
+    : EventManager(timeManager, checkTimer, standByTimer) {
+  this->checkTimer->activateFlag();
+  this->standByTimer->deactivateFlag();
+}
 
 void PIRController::setup(bool debug) {
   if (debug) {

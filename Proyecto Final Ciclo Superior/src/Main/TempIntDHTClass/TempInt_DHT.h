@@ -7,11 +7,25 @@
 #include "Arduino.h"
 #include "DHT.h"
 
-class DHT_S {
+class DHT_S : public EventManager, public AbstractSensor {
 
 public:
-  DHT_S();
+  DHT_S(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer);
 
+  void Update_Temperature();
+  void Update_Humidity();
+  void Update_Heat();
+
+  void run(bool debug = false);
+
+  void setup(bool debug = false) override;
+  bool read(bool debug = false) override;
+  /*void Save_SD(char *time, bool header = false, bool debug = false);*/
+
+  bool Alarm();
+  void Show();
+
+private:
   DHT dht = DHT(DHT_PIN, DHT_TYPE);
 
   uint32_t Alarm_time_reference;
@@ -23,16 +37,6 @@ public:
   float Humidity;
   float Heat;
   bool State;
-  void Update_Temperature();
-  void Update_Humidity();
-  void Update_Heat();
-
-  void Setup(bool debug = false);
-  void Read(bool debug = false);
-  /*void Save_SD(char *time, bool header = false, bool debug = false);*/
-
-  bool Alarm();
-  void Show();
 };
 
 #endif

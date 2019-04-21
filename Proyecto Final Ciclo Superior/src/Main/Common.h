@@ -10,8 +10,6 @@
 
 #include "SensorAbstractClass/SensorClass.h"
 
-#include "StateMachine/StateMachine.h"
-
 #include "TimerClass/TimeManager.h"
 
 #include "TimerClass/Timer.h"

@@ -27,7 +27,7 @@ Timer RfidStandBy = Timer(INACTIVE_TIME_RFID, 0, false);
 Timer ManualDoorCheck = Timer(TIME_TO_CHECK_IN_OUT_MANUAL, 0, false);
 Timer ManualDoorStandBy = Timer(INACTIVE_TIME_MANUAL, 0, false);
 
-/* ======================= Istances ======================= */
+/* ======================= Global Objects ======================= */
 
 Agenda myAgenda = Agenda();
 TimeManager timeManager = TimeManager();
@@ -41,71 +41,61 @@ PIRController myPIR =
 
 PROBE myProbe = PROBE(&timeManager, &TempCheck, &TempStandBy);
 
-LDRController myLDR = LDRController(LDR_THRESHOLD);
+LDRController myLDR = LDRController(&timeManager, &LdrCheck, &LdrStandBy);
 
-DHT_S myDHT = DHT_S();
+DHT_S myDHT = DHT_S(&timeManager, &DhtCheck, &DhtStandBy);
 
-RFIDController myRFID = RFIDController(&myAgenda);
+RFIDController myRFID =
+    RFIDController(&myAgenda, &timeManager, &RfidCheck, &RfidStandBy);
 
-ManualDoorController myManualDoorController = ManualDoorController();
+ManualDoorController myManualDoorController = ManualDoorController(
+    &myCapacityManager, &timeManager, &ManualDoorCheck, &ManualDoorStandBy);
 
 /* ======================================================= */
 
 void setup() {
   // put your setup code here, to run once:
-  /* Serial.begin(115200);
-   EQUIPO::Setup(SERIAL_GUI);
-   myAgenda.Setup(SERIAL_GUI);
+  Serial.begin(115200);
+  EQUIPO::Setup(SERIAL_GUI);
+  myAgenda.Setup(SERIAL_GUI);
 
-   CorridorLightCheck.time = TIME_TO_CHECK_CORRIDOR_LIGHT;
-   TempCheck.time = TIME_TO_CHECK_TEMP;
-   LDRCheck.time = TIME_TO_CHECK_EXTERNAL_LIGHT;
-   HumidityCheck.time = TIME_TO_CHECK_HUMIDITY;
-
-   RFIDCheck.time = TIME_TO_CHECK_IN_OUT_RFID;
-   ManualDoorCheck.time = TIME_TO_CHECK_IN_OUT_MANUAL;
-
-   CapacityCheck.var = EmergencyDoorCheck.var = CorridorLightCheck.var =
-       TempCheck.var = LDRCheck.var = HumidityCheck.var = RFIDCheck.var =
-           ManualDoorCheck.var = millis();
-
-   if (SPECTS_BASIC) {
-     if (CONTROL_EMERGERCY_DOOR) {
-       myEmergencyDoor.Setup(SERIAL_GUI);
-     }
-     if (CONTROL_CAPACITY) {
-       myCapacityManager.Setup(SERIAL_GUI);
-     }
-     if (CONTROL_SMART_CORRIDOR_LIGHT) {
-       myPIR.Setup(SERIAL_GUI);
-     }
-     if (CONTROL_TEMP) {
-       myProbe.Setup(SERIAL_GUI);
-     }
-     if (CONTROL_EXTERNAL_LIGHT) {
-       myLDR.Setup(SERIAL_GUI);
-     }
-     if (CONTROL_HUMIDITY) {
-       myDHT.Setup(SERIAL_GUI);
-     }
-   }
-   if (SPECTS_EXTRA) {
-     if (IN_OUT_BARRIER) {
-     }
-     if (IN_OUT_RFID) {
-       myRFID.Setup(SERIAL_GUI);
-     }
-     if (IN_OUT_MANUAL) {
-       myManualDoorController.Setup(SERIAL_GUI);
-     }
- }*/
+  if (SPECTS_BASIC) {
+    if (CONTROL_EMERGERCY_DOOR) {
+      myEmerDoorCont.setup(SERIAL_GUI);
+    }
+    if (CONTROL_CAPACITY) {
+      myCapacityManager.Setup(SERIAL_GUI);
+    }
+    if (CONTROL_SMART_CORRIDOR_LIGHT) {
+      myPIR.setup(SERIAL_GUI);
+    }
+    if (CONTROL_TEMP) {
+      myProbe.setup(SERIAL_GUI);
+    }
+    if (CONTROL_EXTERNAL_LIGHT) {
+      myLDR.setup(SERIAL_GUI);
+    }
+    if (CONTROL_HUMIDITY) {
+      myDHT.setup(SERIAL_GUI);
+    }
+  }
+  if (SPECTS_EXTRA) {
+    if (IN_OUT_BARRIER) {
+    }
+    if (IN_OUT_RFID) {
+      myRFID.setup(SERIAL_GUI);
+    }
+    if (IN_OUT_MANUAL) {
+      myManualDoorController.setup(SERIAL_GUI);
+    }
+  }
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   // myRFID.Read(myAgenda.Contact_List, 2, DEBUG);
 
-  // Main_program();
+  Main_program();
 }
 
 void Main_program() {
@@ -145,6 +135,7 @@ void Main_program() {
     }*/
     }
     if (CONTROL_TEMP) {
+      myProbe.run(DEBUG);
       /* if (TempCheck.flag) {
          if (Past_mil(TempCheck.time, TempCheck.var)) {
            myProbe.Read(DEBUG);
@@ -158,6 +149,7 @@ void Main_program() {
      }*/
     }
     if (CONTROL_EXTERNAL_LIGHT) {
+      myLDR.run(DEBUG);
       /* if (LDRCheck.flag) {
          if (Past_mil(LDRCheck.time, LDRCheck.var)) {
            if (myLDR.Read(DEBUG)) {
@@ -173,6 +165,7 @@ void Main_program() {
      }*/
     }
     if (CONTROL_HUMIDITY) {
+      myDHT.run(DEBUG);
       /* if (HumidityCheck.flag) {
          if (Past_mil(HumidityCheck.time, HumidityCheck.var)) {
            myDHT.Read(DEBUG);
@@ -192,6 +185,7 @@ void Main_program() {
     if (IN_OUT_BARRIER) {
     }
     if (IN_OUT_RFID) {
+      myRFID.run(DEBUG);
       /*if (RFIDCheck.flag) {
         if (Past_mil(RFIDCheck.time, RFIDCheck.var)) {
           if (DEBUG) {
@@ -209,6 +203,7 @@ void Main_program() {
     }*/
     }
     if (IN_OUT_MANUAL) {
+      myManualDoorController.run(DEBUG);
       /* if (ManualDoorCheck.flag) {
          if (Past_mil(ManualDoorCheck.time, ManualDoorCheck.var)) {
            if (myManualDoorController.Read(DEBUG)) {
@@ -218,7 +213,9 @@ void Main_program() {
              }
              { myCapacityManager.Substract(DEBUG); }
            }
-         }
+       }else{
+       myCapacityManager.Substract(DEBUG);
+   }
        } else {
          if (Past_mil(INACTIVE_TIME_MANUAL, ManualDoorCheck.var)) {
            myManualDoorController.Turn_off_light(DEBUG);

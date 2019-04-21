@@ -1,10 +1,15 @@
 #include "RFIDController.h"
 
-RFIDController::RFIDController(Agenda *myAgenda) {
-  RFIDController::myAgenda = myAgenda;
+RFIDController::RFIDController(Agenda *agenda, TimeManager *timeManager,
+                               Timer *checkTimer, Timer *standByTimer)
+    : EventManager(timeManager, checkTimer, standByTimer) {
+  this->agenda = agenda;
+
+  this->checkTimer->activateFlag();
+  this->standByTimer->deactivateFlag();
 }
 
-void RFIDController::Setup(bool debug) {
+void RFIDController::setup(bool debug) {
   if (debug) {
     Serial.println(F("===== Iniciando Lector RFID ====="));
   }
@@ -44,7 +49,7 @@ bool RFIDController::Read(Contact *list, uint8_t size, bool debug) {
     if (UID.substring(1) == String(list[index].getID())) {
       if (debug) {
         Serial.println(F("===== Mostrando Informacion Contacto ====="));
-        RFIDController::myAgenda->printContact(list[index]);
+        this->agenda->printContact(list[index]);
       }
       return true;
     }
@@ -53,4 +58,25 @@ bool RFIDController::Read(Contact *list, uint8_t size, bool debug) {
   return false;
 }
 
-Agenda *RFIDController::getAgenda() { return myAgenda; }
+Agenda *RFIDController::getAgenda() { return this->agenda; }
+
+void RFIDController::run(bool debug) {
+  if (this->checkTimer->getFlag()) {
+    if (this->timeManager->pastMil(*this->checkTimer)) {
+      this->Read(this->agenda->ContactList, this->agenda->size, debug);
+
+      this->checkTimer->deactivateFlag();
+      this->standByTimer->activateFlag();
+    }
+  }
+
+  if (this->standByTimer->getFlag()) {
+    if (this->timeManager->pastMil(*this->standByTimer)) {
+
+      this->standByTimer->deactivateFlag();
+      this->checkTimer->activateFlag();
+    }
+  }
+}
+
+bool RFIDController::read(bool debug) { return false; }

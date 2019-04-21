@@ -1,21 +1,29 @@
 #ifndef _MANUAL_DOOR_CONTROLLER_H
 #define _MANUAL_DOOR_CONTROLLER_H
 
+#include "../CapacityManagerClass/Capacity.h"
 #include "../Common.h"
 #include "Arduino.h"
 
-class ManualDoorController {
+class ManualDoorController : public EventManager, public AbstractSensor {
 public:
-  ManualDoorController();
+  ManualDoorController(CapacityManager *capacityManager,
+                       TimeManager *timeManager, Timer *checkTimer,
+                       Timer *standByTimer);
 
   bool button_option;
   bool read_flag;
 
-  void Setup(bool debug = false);
-  bool Read(bool debug);
-  void Turn_on_light(bool debug = false);
-  void Turn_off_light(bool debug = false);
+  void run(bool debug = false);
+  void setup(bool debug = false) override;
+  bool read(bool debug = false) override;
+
+  void turnOnLight(bool debug = false);
+  void turnOffLight(bool debug = false);
 
   bool getButtonOption(bool debug = false);
+
+private:
+  CapacityManager *capacityManager;
 };
 #endif
