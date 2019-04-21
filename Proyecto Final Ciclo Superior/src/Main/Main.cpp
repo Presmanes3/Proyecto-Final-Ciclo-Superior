@@ -6,26 +6,26 @@ void Main_program();
 
 /* ======================= Timers ======================= */
 
-Timer EmerDoorCheck = Timer(TIME_TO_CHECK_EMERGENCY_DOOR, 0, false);
-Timer EmerDoorStandBy = Timer(INACTIVE_TIME_EMERGENCY_DOOR, 0, false);
+Timer EmerDoorCheck = Timer(TIME_TO_CHECK_EMERGENCY_DOOR, millis(), true);
+Timer EmerDoorStandBy = Timer(INACTIVE_TIME_EMERGENCY_DOOR, millis(), false);
 
-Timer CorrLightCheck = Timer(TIME_TO_CHECK_CORRIDOR_LIGHT, 0, false);
-Timer CorrLightStandBy = Timer(INACTIVE_TIME_CORRIDOR_LIGHT, 0, false);
+Timer CorrLightCheck = Timer(TIME_TO_CHECK_CORRIDOR_LIGHT, millis(), true);
+Timer CorrLightStandBy = Timer(INACTIVE_TIME_CORRIDOR_LIGHT, millis(), false);
 
-Timer TempCheck = Timer(TIME_TO_CHECK_TEMP, 0, false);
-Timer TempStandBy = Timer(INACTIVE_TIME_TEMPERATURE, 0, false);
+Timer TempCheck = Timer(TIME_TO_CHECK_TEMP, millis(), true);
+Timer TempStandBy = Timer(INACTIVE_TIME_TEMPERATURE, millis(), false);
 
-Timer LdrCheck = Timer(TIME_TO_CHECK_EXTERNAL_LIGHT, 0, false);
-Timer LdrStandBy = Timer(INACTIVE_TIME_EXTERNAL_LIGHT, 0, false);
+Timer LdrCheck = Timer(TIME_TO_CHECK_EXTERNAL_LIGHT, millis(), true);
+Timer LdrStandBy = Timer(INACTIVE_TIME_EXTERNAL_LIGHT, millis(), false);
 
-Timer DhtCheck = Timer(TIME_TO_CHECK_HUMIDITY, 0, false);
-Timer DhtStandBy = Timer(INACTIVE_TIME_HUMIDITY, 0, false);
+Timer DhtCheck = Timer(TIME_TO_CHECK_HUMIDITY, millis(), true);
+Timer DhtStandBy = Timer(INACTIVE_TIME_HUMIDITY, millis(), false);
 
-Timer RfidCheck = Timer(TIME_TO_CHECK_IN_OUT_RFID, 0, false);
-Timer RfidStandBy = Timer(INACTIVE_TIME_RFID, 0, false);
+Timer RfidCheck = Timer(TIME_TO_CHECK_IN_OUT_RFID, 0, true);
+Timer RfidStandBy = Timer(INACTIVE_TIME_RFID, millis(), false);
 
-Timer ManualDoorCheck = Timer(TIME_TO_CHECK_IN_OUT_MANUAL, 0, false);
-Timer ManualDoorStandBy = Timer(INACTIVE_TIME_MANUAL, 0, false);
+Timer ManualDoorCheck = Timer(TIME_TO_CHECK_IN_OUT_MANUAL, millis(), true);
+Timer ManualDoorStandBy = Timer(INACTIVE_TIME_MANUAL, millis(), false);
 
 /* ======================= Global Objects ======================= */
 
