@@ -7,8 +7,6 @@
 class TimeManager {
 
 public:
-  TimeManager();
-
   bool pastMil(Timer &timer);
   bool pastSec(Timer &timer);
   bool pastMin(Timer &timer);

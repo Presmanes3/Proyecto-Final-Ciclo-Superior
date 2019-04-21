@@ -5,9 +5,15 @@
  * arduino for functionalities*/
 
 #include "Configuracion.h"
+
+#include "EventClass/EventManager.h"
+
 #include "SensorAbstractClass/SensorClass.h"
+
 #include "StateMachine/StateMachine.h"
+
 #include "TimerClass/TimeManager.h"
+
 #include "TimerClass/Timer.h"
 
 /*====================================================================*/

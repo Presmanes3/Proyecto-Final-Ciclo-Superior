@@ -3,23 +3,20 @@
 
 #include "../Common.h"
 #include "Arduino.h"
-#include "EmerDoorFSM.h"
+//#include "EmerDoorFSM.h"
 
-class EmerDoorController : AbstractSensor {
+class EmerDoorController : public EventManager, public AbstractSensor {
 
 public:
-  EmerDoorController();
+  EmerDoorController(TimeManager *timeManager, Timer *checkTimer,
+                     Timer *standByTimer);
 
-  /*void Setup(bool debug = false);
-  bool Read(bool debug = false);*/
   bool read(bool debug = false) override;
-  bool setup(bool debug = false) override;
+  void setup(bool debug = false) override;
+  void run(bool debug = false);
 
-  void Turn_on_light(bool debug = false);
-  void Turn_off_light(bool debug = false);
-
-private:
-  EmerDoorFSM machine = EmerDoorFSM(&this->machine.readState);
+  void turnOnLight(bool debug = false);
+  void turnOffLight(bool debug = false);
 };
 
 #endif

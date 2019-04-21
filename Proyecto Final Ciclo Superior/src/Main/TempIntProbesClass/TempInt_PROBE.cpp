@@ -1,56 +1,57 @@
 #include "TempInt_PROBE.h"
 
-PROBE::PROBE() {
-
-  PROBE::NUM_SENSORS = PROBE_NUM_PROBES;
-  PROBE::TEMP_VALUES[1];
-  PROBE::State;
+PROBE::PROBE(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer)
+    : EventManager(timeManager, checkTimer, standByTimer) {
+  this->NUM_SENSORS = PROBE_NUM_PROBES;
+  this->TEMP_VALUES[1];
+  this->State;
 }
 
-void PROBE::Setup(bool debug) {
+void PROBE::setup(bool debug) {
   if (debug) {
     Serial.println(F("===== Iniciando Sondas de Temperatura ====="));
   }
-  PROBE::sensorDS18B20.begin();
-  PROBE::Find_devices();
+  this->sensorDS18B20.begin();
+  this->Find_devices();
 }
 void PROBE::Find_devices(bool debug) {
-  PROBE::NUM_SENSORS = PROBE::sensorDS18B20.getDeviceCount();
+  PROBE::NUM_SENSORS = this->sensorDS18B20.getDeviceCount();
   if (PROBE::NUM_SENSORS <= 0) {
-    PROBE::State = false;
+    this->State = false;
   } else {
-    PROBE::State = true;
+    this->State = true;
   }
   if (debug) {
     Serial.println(F("Buscando dispositivos"));
     Serial.print(F("Encontrados: "));
-    Serial.println(PROBE::NUM_SENSORS);
+    Serial.println(this->NUM_SENSORS);
   }
 }
-void PROBE::Read(bool debug) {
-  PROBE::Find_devices(debug);
-  if (PROBE::State) {
+bool PROBE::read(bool debug) {
+  this->Find_devices(debug);
+  if (this->State) {
     if (debug) {
       Serial.println(F("===== Leyendo Sondas Temperatura ====="));
     }
 
     PROBE::sensorDS18B20.requestTemperatures();
-    for (uint8_t id = 0; id < PROBE::NUM_SENSORS; id++) {
-      PROBE::TEMP_VALUES[id] = PROBE::sensorDS18B20.getTempCByIndex(id);
+    for (uint8_t id = 0; id < this->NUM_SENSORS; id++) {
+      this->TEMP_VALUES[id] = this->sensorDS18B20.getTempCByIndex(id);
     }
   } else {
     if (debug) {
       Serial.println(F("Error, sondas desconectadas\n"));
     }
   }
+  return false;
 }
 void PROBE::Show() {
   Serial.println(F("===== Mostrando Informacion Temperatura ====="));
-  for (uint8_t id = 0; id < PROBE::NUM_SENSORS; id++) {
+  for (uint8_t id = 0; id < this->NUM_SENSORS; id++) {
     Serial.print(F("Sonda Temperatura "));
     Serial.print(id);
     Serial.print(F(" : "));
-    Serial.println(PROBE::TEMP_VALUES[id]);
+    Serial.println(this->TEMP_VALUES[id]);
   }
   Serial.println();
 }
@@ -98,3 +99,20 @@ void PROBE::Show() {
     }
   }
 }*/
+
+void PROBE::run(bool debug) {
+  if (this->checkTimer->getFlag()) {
+    if (this->timeManager->pastMil(*this->checkTimer)) {
+      this->read(debug);
+      this->Show();
+      this->checkTimer->deactivateFlag();
+      this->standByTimer->activateFlag();
+    }
+  }
+  if (this->standByTimer->getFlag()) {
+    if (this->timeManager->pastMil(*this->standByTimer)) {
+      this->standByTimer->deactivateFlag();
+      this->checkTimer->activateFlag();
+    }
+  }
+}

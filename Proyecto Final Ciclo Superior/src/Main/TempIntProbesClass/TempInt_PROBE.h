@@ -8,22 +8,23 @@
 #include "DallasTemperature.h"
 #include "OneWire.h"
 
-class PROBE {
+class PROBE : public EventManager, public AbstractSensor {
 public:
-  PROBE();
+  PROBE(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer);
 
+  void run(bool debug = false);
+  void setup(bool debug = false) override;
+  bool read(bool debug = false) override;
+
+  void Find_devices(bool debug = false);
+  // void Save_SD(bool debug = false);
+  void Show();
+
+private:
   OneWire oneWireObjeto = OneWire(PROBE_DATA_PIN);
   DallasTemperature sensorDS18B20 = DallasTemperature(&oneWireObjeto);
-
   uint8_t NUM_SENSORS;
   float TEMP_VALUES[5];
-
   bool State;
-
-  void Setup(bool debug = false);
-  void Find_devices(bool debug = false);
-  void Read(bool debug = false);
-  void Save_SD(bool debug = false);
-  void Show();
 };
 #endif

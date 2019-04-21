@@ -24,6 +24,4 @@
 
 #include "TempIntProbesClass/TempInt_PROBE.h"
 
-#include "TimerClass/TimeManager.h"
-
 #endif

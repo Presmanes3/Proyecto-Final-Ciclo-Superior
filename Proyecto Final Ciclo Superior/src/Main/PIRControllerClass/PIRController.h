@@ -4,15 +4,18 @@
 #include "../Common.h"
 #include "Arduino.h"
 
-class PIRController {
+class PIRController : public EventManager, public AbstractSensor {
 
 public:
-  PIRController();
+  PIRController(TimeManager *timeManager, Timer *checkTimer,
+                Timer *standByTimer);
 
-  void Setup(bool debug = false);
-  bool Read(bool debug = false);
-  void Turn_on_light(bool debug = false);
-  void Turn_off_light(bool debug = false);
+  void run(bool debug = false);
+  void setup(bool debug = false) override;
+  bool read(bool debug = false) override;
+
+  void turnOnLight(bool debug = false);
+  void turnOffLight(bool debug = false);
 };
 
 #endif

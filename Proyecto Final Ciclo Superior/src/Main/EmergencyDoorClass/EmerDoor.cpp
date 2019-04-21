@@ -1,7 +1,11 @@
 #include "EmerDoor.h"
-#include "EmerDoorFSM.h"
 
-EmerDoorController::EmerDoorController() {}
+EmerDoorController::EmerDoorController(TimeManager *timeManager,
+                                       Timer *checkTimer, Timer *standByTimer)
+    : EventManager(timeManager, checkTimer, standByTimer) {
+  this->checkTimer->activateFlag();
+  this->standByTimer->deactivateFlag();
+}
 /*
 void EmergencyDoorController::Setup(bool debug) {
   if (debug) {
@@ -39,13 +43,25 @@ void EmergencyDoorController::Turn_on_light(bool debug) {
 }
 */
 
-bool EmerDoorController::setup(bool debug) {
+void EmerDoorController::turnOnLight(bool debug) {
+  if (debug) {
+    Serial.println(F("===== Encendiendo Luz Emergencia ====="));
+  }
+  digitalWrite(EMERGENCY_LED, 1);
+}
+void EmerDoorController::turnOffLight(bool debug) {
+  if (debug) {
+    Serial.println(F("===== Apagando Luz Emergencia ====="));
+  }
+  digitalWrite(EMERGENCY_LED, 0);
+}
+
+void EmerDoorController::setup(bool debug) {
   if (debug) {
     Serial.println(F("===== Iniciando Controlador Puerta Emergencia ====="));
   }
   pinMode(EMERGENCY_DOOR_PIN, INPUT);
   pinMode(EMERGENCY_LED, OUTPUT);
-  return false;
 }
 bool EmerDoorController::read(bool debug) {
   if (debug) {
@@ -55,9 +71,26 @@ bool EmerDoorController::read(bool debug) {
     if (debug) {
       Serial.println(F("Puerta de emergencia abierta"));
     }
-    // this->changeState(this->inectiveState);
+    return true;
   }
   return false;
 }
 
-/*========== EmergencyDoorControllerFSM ==========*/
+void EmerDoorController::run(bool debug) {
+  if (this->checkTimer->getFlag()) {
+    if (this->timeManager->pastMil(*this->checkTimer)) {
+      if (this->read(debug)) {
+        this->turnOnLight(debug);
+        this->checkTimer->deactivateFlag();
+        this->standByTimer->activateFlag();
+      }
+    }
+  }
+  if (this->standByTimer->getFlag()) {
+    if (this->timeManager->pastMil(*this->standByTimer)) {
+      this->turnOffLight(debug);
+      this->standByTimer->deactivateFlag();
+      this->checkTimer->activateFlag();
+    }
+  }
+}
