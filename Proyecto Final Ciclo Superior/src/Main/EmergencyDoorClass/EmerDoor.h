@@ -11,12 +11,12 @@ public:
   EmerDoorController(TimeManager *timeManager, Timer *checkTimer,
                      Timer *standByTimer);
 
-  bool read(bool debug = false) override;
-  void setup(bool debug = false) override;
-  void run(bool debug = false);
+  bool read() override;
+  void setup() override;
+  void run();
 
-  void turnOnLight(bool debug = false);
-  void turnOffLight(bool debug = false);
+  void turnOnLight();
+  void turnOffLight();
 };
 
 #endif

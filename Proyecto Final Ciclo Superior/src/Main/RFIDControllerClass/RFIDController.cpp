@@ -9,15 +9,15 @@ RFIDController::RFIDController(Agenda *agenda, TimeManager *timeManager,
   this->standByTimer->deactivateFlag();
 }
 
-void RFIDController::setup(bool debug) {
-  if (debug) {
-    Serial.println(F("===== Iniciando Lector RFID ====="));
-  }
+void RFIDController::setup() {
+#if IN_OUT_RFID_DEBUG
+  Serial.println(F("===== Iniciando Lector RFID ====="));
+#endif
   SPI.begin();        // Initiate  SPI bus
   mfrc522.PCD_Init(); // Initiate MFRC522
 }
 
-bool RFIDController::Read(Contact *list, uint8_t size, bool debug) {
+bool RFIDController::Read(Contact *list, uint8_t size) {
   // Look for new cards
   if (!mfrc522.PICC_IsNewCardPresent()) {
     return false;
@@ -29,28 +29,34 @@ bool RFIDController::Read(Contact *list, uint8_t size, bool debug) {
 
   String UID = "";
   for (byte i = 0; i < mfrc522.uid.size; i++) {
-    /*if (debug) {
+    /*#if IN_OUT_RFID_DEBUG
       Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
       Serial.print(mfrc522.uid.uidByte[i], HEX);
+      #endif
   }*/
 
     UID.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " "));
     UID.concat(String(mfrc522.uid.uidByte[i], HEX));
   }
-  /* if (debug) {
+  /* #if IN_OUT_RFID_DEBUG
      Serial.println();
+     #endif
  }*/
   UID.toUpperCase();
   for (uint8_t index = 0; index < size; index++) {
-    /*Serial.print(F("Contact "));
+    /*
+#if IN_OUT_RFID_DEBUG
+    Serial.print(F("Contact "));
     Serial.print(index);
     Serial.print(F(" ID : "));
-    Serial.println(list[index].ID);*/
+    Serial.println(list[index].ID);
+
+    #endif*/
     if (UID.substring(1) == String(list[index].getID())) {
-      if (debug) {
-        Serial.println(F("===== Mostrando Informacion Contacto ====="));
-        this->agenda->printContact(list[index]);
-      }
+#if IN_OUT_RFID_DEBUG
+      Serial.println(F("===== Mostrando Informacion Contacto ====="));
+      this->agenda->printContact(list[index]);
+#endif
       return true;
     }
   }
@@ -60,10 +66,10 @@ bool RFIDController::Read(Contact *list, uint8_t size, bool debug) {
 
 Agenda *RFIDController::getAgenda() { return this->agenda; }
 
-void RFIDController::run(bool debug) {
+void RFIDController::run() {
   if (this->checkTimer->getFlag()) {
     if (this->timeManager->pastMil(*this->checkTimer)) {
-      this->Read(this->agenda->ContactList, this->agenda->size, debug);
+      this->Read(this->agenda->ContactList, this->agenda->size);
 
       this->checkTimer->deactivateFlag();
       this->standByTimer->activateFlag();
@@ -79,4 +85,4 @@ void RFIDController::run(bool debug) {
   }
 }
 
-bool RFIDController::read(bool debug) { return false; }
+bool RFIDController::read() { return false; }

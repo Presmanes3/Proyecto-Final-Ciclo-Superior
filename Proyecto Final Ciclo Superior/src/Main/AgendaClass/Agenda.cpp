@@ -5,11 +5,11 @@ Agenda::Agenda() {
   // printContactList(this->ContactList, this->size);
 }
 
-void Agenda::Setup(bool debug) {
+void Agenda::Setup() {
 
-  if (debug) {
-    printContactList(Agenda::ContactList, this->size);
-  }
+#if SERIAL_DEBUG
+  printContactList(Agenda::ContactList, this->size);
+#endif
 }
 void Agenda::printContact(Contact contact) { contact.showSerialData(); }
 void Agenda::printContactList(Contact *list, uint8_t size) {

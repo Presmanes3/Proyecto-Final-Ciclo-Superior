@@ -22,7 +22,7 @@ public:
 
   extern Contacto Contact_List[4];
   */
-  void Setup(bool debug = false);
+  void Setup();
   void printContact(Contact contact);
   void printContactList(Contact *list, uint8_t size);
   void clearContact(Contact &contact);

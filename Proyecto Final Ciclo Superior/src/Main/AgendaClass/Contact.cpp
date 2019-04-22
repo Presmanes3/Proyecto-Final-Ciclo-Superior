@@ -32,7 +32,7 @@ char *Contact::getMail() { return this->mail; }
 char *Contact::getPhoneNumber() { return this->phoneNumber; }
 
 void Contact::showSerialData() {
-
+#if SERIAL_DEBUG
   Serial.print(F("Contacto : "));
   Serial.print(this->name);
   Serial.print(F(" "));
@@ -46,6 +46,13 @@ void Contact::showSerialData() {
 
   Serial.print(F("Phone Number : "));
   Serial.println(this->phoneNumber);
+#endif
+}
+
+void Contact::showLcdData() {
+#if LCD_DEBUG
+  // code here
+#endif
 }
 
 void Contact::clear() {

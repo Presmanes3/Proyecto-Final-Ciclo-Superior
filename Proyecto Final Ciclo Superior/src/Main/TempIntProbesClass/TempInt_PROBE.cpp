@@ -10,45 +10,46 @@ PROBE::PROBE(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer)
   this->standByTimer->deactivateFlag();
 }
 
-void PROBE::setup(bool debug) {
-  if (debug) {
-    Serial.println(F("===== Iniciando Sondas de Temperatura ====="));
-  }
+void PROBE::setup() {
+#if TEMP_PROBE_DEBUG
+  Serial.println(F("===== Iniciando Sondas de Temperatura ====="));
+#endif
   this->sensorDS18B20.begin();
   this->Find_devices();
 }
-void PROBE::Find_devices(bool debug) {
+void PROBE::Find_devices() {
   PROBE::NUM_SENSORS = this->sensorDS18B20.getDeviceCount();
   if (PROBE::NUM_SENSORS <= 0) {
     this->State = false;
   } else {
     this->State = true;
   }
-  if (debug) {
-    Serial.println(F("Buscando dispositivos"));
-    Serial.print(F("Encontrados: "));
-    Serial.println(this->NUM_SENSORS);
-  }
+#if TEMP_PROBE_DEBUG
+  Serial.println(F("Buscando dispositivos"));
+  Serial.print(F("Encontrados: "));
+  Serial.println(this->NUM_SENSORS);
+#endif
 }
-bool PROBE::read(bool debug) {
-  this->Find_devices(debug);
+bool PROBE::read() {
+  this->Find_devices();
   if (this->State) {
-    if (debug) {
-      Serial.println(F("===== Leyendo Sondas Temperatura ====="));
-    }
+#if TEMP_PROBE_DEBUG
+    Serial.println(F("===== Leyendo Sondas Temperatura ====="));
+#endif
 
     PROBE::sensorDS18B20.requestTemperatures();
     for (uint8_t id = 0; id < this->NUM_SENSORS; id++) {
       this->TEMP_VALUES[id] = this->sensorDS18B20.getTempCByIndex(id);
     }
   } else {
-    if (debug) {
-      Serial.println(F("Error, sondas desconectadas\n"));
-    }
+#if TEMP_PROBE_DEBUG
+    Serial.println(F("Error, sondas desconectadas\n"));
+#endif
   }
   return false;
 }
 void PROBE::Show() {
+#if TEMP_PROBE_DEBUG
   Serial.println(F("===== Mostrando Informacion Temperatura ====="));
   for (uint8_t id = 0; id < this->NUM_SENSORS; id++) {
     Serial.print(F("Sonda Temperatura "));
@@ -57,12 +58,13 @@ void PROBE::Show() {
     Serial.println(this->TEMP_VALUES[id]);
   }
   Serial.println();
+#endif
 }
-/*void PROBE::Save_SD(bool debug) {
+/*void PROBE::Save_SD() {
   if (PROBE::State) {
     LOGGUER::Change_dir(LOGGUER::FILES_PATH, debug);
     if (LOGGUER::SD.exists(FILE_PROBES)) {
-      if (debug) {
+      #if TEMP_PROBE_DEBUG
         Serial.println(F("Guardando Temp. Ext. sd"));
       }
       LOGGUER::myFile.open(FILE_PROBES, O_APPEND | O_WRITE); // open it
@@ -76,7 +78,7 @@ void PROBE::Show() {
 
         for (uint8_t ID = 0; ID < PROBE::NUM_SENSORS; ID++) {
           // for each sensor installed
-          if (debug) {
+          #if TEMP_PROBE_DEBUG
             Serial.print(F("Sensor "));
             Serial.print(ID);
             Serial.print(" : ");
@@ -103,10 +105,10 @@ void PROBE::Show() {
   }
 }*/
 
-void PROBE::run(bool debug) {
+void PROBE::run() {
   if (this->checkTimer->getFlag()) {
     if (this->timeManager->pastMil(*this->checkTimer)) {
-      this->read(debug);
+      this->read();
       this->Show();
       this->checkTimer->deactivateFlag();
       this->standByTimer->activateFlag();

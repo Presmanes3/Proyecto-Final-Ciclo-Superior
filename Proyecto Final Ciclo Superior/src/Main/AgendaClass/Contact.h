@@ -30,6 +30,7 @@ public:
 
   /*=====     =====*/
   void showSerialData();
+  void showLcdData();
   void clear();
 
 private:

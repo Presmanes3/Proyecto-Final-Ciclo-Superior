@@ -29,6 +29,7 @@ Timer ManualDoorStandBy = Timer(INACTIVE_TIME_MANUAL, millis(), false);
 
 /* ======================= Global Objects ======================= */
 
+Equip myEquip = Equip();
 Agenda myAgenda = Agenda();
 TimeManager timeManager = TimeManager();
 CapacityManager myCapacityManager = CapacityManager(MAX_CAPACITY);
@@ -56,7 +57,7 @@ ManualDoorController myManualDoorController = ManualDoorController(
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  EQUIPO::Setup();
+  myEquip.setup();
   myAgenda.Setup();
 
   if (SPECTS_BASIC) {

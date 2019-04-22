@@ -5,8 +5,8 @@
 
 class AbstractSensor {
 public:
-  virtual bool read(bool debug = false) = 0;
-  virtual void setup(bool debug = false) = 0;
+  virtual bool read() = 0;
+  virtual void setup() = 0;
 };
 
 #endif // _SENSOR_H_

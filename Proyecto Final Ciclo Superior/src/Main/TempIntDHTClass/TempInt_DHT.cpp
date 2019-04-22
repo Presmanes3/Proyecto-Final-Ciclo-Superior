@@ -12,76 +12,77 @@ DHT_S::DHT_S(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer)
   this->standByTimer->deactivateFlag();
 }
 
-void DHT_S::setup(bool debug) {
-  if (debug) {
-    Serial.println(F("===== Iniciando Sensor Humedad DHT22 ====="));
-  }
+void DHT_S::setup() {
+#if DHT_DEBUG
+  Serial.println(F("===== Iniciando Sensor Humedad DHT22 ====="));
+#endif
 
   this->dht.begin();
   if (isnan(this->Humidity || this->Temperature || this->Heat)) {
     this->State = false;
-    if (debug) {
-      Serial.println(F("DHT_S22 no iniciado\n"));
-    }
+#if DHT_DEBUG
+    Serial.println(F("DHT_S22 no iniciado\n"));
+#endif
     return;
-  } else {
+  }
+
+  else {
     this->State = true;
-    if (debug) {
-      Serial.println(F("DHT_S22 iniciado\n"));
-    }
-    this->Alarm_times_activated = 0;
-    this->Alarm_option = false;
-    this->Alarm_time_reference = millis();
+#if DHT_DEBUG
+    Serial.println(F("DHT_S22 iniciado\n"));
+#endif
   }
+  this->Alarm_times_activated = 0;
+  this->Alarm_option = false;
+  this->Alarm_time_reference = millis();
 }
-bool DHT_S::read(bool debug) {
+
+bool DHT_S::read() {
   if (this->State) {
-    if (debug) {
-      Serial.println(F("===== Leyendo Sensor Humedad DHT22 ====="));
-    }
-    this->Update_Temperature();
-    this->Update_Humidity();
-    this->Update_Heat();
+#if DHT_DEBUG
+    Serial.println(F("===== Leyendo Sensor Humedad DHT22 ====="));
+#endif
+    this->updateTemperature();
+    this->updateHumidity();
+    this->updateHeat();
 
-    if (debug) {
-      char buff[10];
-      dtostrf(this->Temperature, 3, 2, buff);
-      Serial.print(F("Temperatura : "));
-      Serial.println(buff);
-      dtostrf(this->Humidity, 3, 2, buff);
-      Serial.print(F("Humedad : "));
-      Serial.println(buff);
-      dtostrf(this->Heat, 3, 2, buff);
-      Serial.print(F("Calor : "));
-      Serial.println(buff);
-      Serial.println();
-
-      if (debug) {
-        Serial.println(F("====================================="));
-      }
-    }
+#if DHT_DEBUG
+    char buff[10];
+    dtostrf(this->Temperature, 3, 2, buff);
+    Serial.print(F("Temperatura : "));
+    Serial.println(buff);
+    dtostrf(this->Humidity, 3, 2, buff);
+    Serial.print(F("Humedad : "));
+    Serial.println(buff);
+    dtostrf(this->Heat, 3, 2, buff);
+    Serial.print(F("Calor : "));
+    Serial.println(buff);
+    Serial.println();
+    Serial.println(F("====================================="));
+#endif
   }
 }
-void DHT_S::Update_Temperature() {
+
+void DHT_S::updateTemperature() {
   this->Temperature = this->dht.readTemperature();
 }
-void DHT_S::Update_Humidity() { this->Humidity = this->dht.readHumidity(); }
-void DHT_S::Update_Heat() {
+void DHT_S::updateHumidity() { this->Humidity = this->dht.readHumidity(); }
+void DHT_S::updateHeat() {
   this->Heat =
       this->dht.computeHeatIndex(this->Temperature, this->Humidity, false);
 }
-/*void DHT_S::Save_SD(char *time, bool header, bool debug) {
+/*void DHT_S::Save_SD(char *time, bool header, ) {
   if (DHT_S::State) {
     LOGGUER::Change_dir(LOGGUER::FILES_PATH, true);
     if (LOGGUER::SD.exists(FILE_TEMPINT)) {
-      if (debug) {
+      #if DHT_DEBUG
         Serial.println(
             F("===== Guardando Temperatura Interior DHT22 SD ====="));
       }
       LOGGUER::myFile.open(FILE_TEMPINT, O_APPEND | O_WRITE);
       if (LOGGUER::myFile.fileSize() > 9000) {
         LOGGUER::myFile.close();
-        if (debug) {
+        #if DHT_DEBUG
           Serial.println(F("El archivo es mayor de 9kB"));
         }
       } else {
@@ -111,7 +112,7 @@ void DHT_S::Update_Heat() {
 
 bool DHT_S::Alarm() {
   if (millis() - DHT_S::Alarm_time_reference >= (1000 * 60 * 5)) {
-    DHT_S::Update_Temperature();
+    DHT_S::updateTemperature();
     if (DHT_S::Temperature > Alarm_thresholds[0]) {
       DHT_S::Alarm_times_activated++;
       DHT_S::Alarm_time_reference = millis();
@@ -141,10 +142,10 @@ void DHT_S::Show() {
   Serial.println(F("%"));
 }
 
-void DHT_S::run(bool debug) {
+void DHT_S::run() {
   if (this->checkTimer->getFlag()) {
     if (this->timeManager->pastMil(*this->checkTimer)) {
-      this->read(debug);
+      this->read();
       this->Show();
       this->checkTimer->deactivateFlag();
       this->standByTimer->activateFlag();

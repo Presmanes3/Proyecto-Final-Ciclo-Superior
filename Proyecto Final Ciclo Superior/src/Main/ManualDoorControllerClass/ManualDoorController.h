@@ -14,14 +14,14 @@ public:
   bool button_option;
   bool read_flag;
 
-  void run(bool debug = false);
-  void setup(bool debug = false) override;
-  bool read(bool debug = false) override;
+  void run();
+  void setup() override;
+  bool read() override;
 
-  void turnOnLight(bool debug = false);
-  void turnOffLight(bool debug = false);
+  void turnOnLight();
+  void turnOffLight();
 
-  bool getButtonOption(bool debug = false);
+  bool getButtonOption();
 
 private:
   CapacityManager *capacityManager;

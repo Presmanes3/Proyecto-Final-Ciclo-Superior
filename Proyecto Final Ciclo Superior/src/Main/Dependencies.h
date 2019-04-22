@@ -6,7 +6,7 @@
 /*====================================================================*/
 #include "AgendaClass/Agenda.h"
 
-#include "EquipClass/Equipo.h"
+#include "EquipClass/EquipClass.h"
 
 #include "CapacityManagerClass/Capacity.h"
 

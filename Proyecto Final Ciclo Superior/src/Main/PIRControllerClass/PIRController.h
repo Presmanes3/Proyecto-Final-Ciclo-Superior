@@ -10,12 +10,12 @@ public:
   PIRController(TimeManager *timeManager, Timer *checkTimer,
                 Timer *standByTimer);
 
-  void run(bool debug = false);
-  void setup(bool debug = false) override;
-  bool read(bool debug = false) override;
+  void run();
+  void setup() override;
+  bool read() override;
 
-  void turnOnLight(bool debug = false);
-  void turnOffLight(bool debug = false);
+  void turnOnLight();
+  void turnOffLight();
 };
 
 #endif

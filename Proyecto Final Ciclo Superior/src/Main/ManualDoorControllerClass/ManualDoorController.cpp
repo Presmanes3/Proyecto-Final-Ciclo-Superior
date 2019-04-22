@@ -10,11 +10,11 @@ ManualDoorController::ManualDoorController(CapacityManager *capacityManager,
   this->standByTimer->deactivateFlag();
 }
 
-void ManualDoorController::setup(bool debug) {
-  if (debug) {
-    Serial.println(
-        F("===== Iniciando Controlador Apertura Manual Puertas ====="));
-  }
+void ManualDoorController::setup() {
+#if IN_OUT_MANUAL_DEBUG
+  Serial.println(
+      F("===== Iniciando Controlador Apertura Manual Puertas ====="));
+#endif
   pinMode(MANUAL_DOOR_IN_PIN, INPUT);
   pinMode(MANUAL_DOOR_OUT_PIN, INPUT);
 
@@ -25,22 +25,21 @@ void ManualDoorController::setup(bool debug) {
   this->read_flag = false;
 }
 
-bool ManualDoorController::read(bool debug) {
-  if (debug) {
-    Serial.println(
-        F("===== Leyendo Controlador Apertura Manual Puertas ====="));
-  }
+bool ManualDoorController::read() {
+#if IN_OUT_MANUAL_DEBUG
+  Serial.println(F("===== Leyendo Controlador Apertura Manual Puertas ====="));
+#endif
   if (digitalRead(MANUAL_DOOR_IN_PIN)) {
-    if (debug) {
-      Serial.println(F("Boton Entrada Detectado"));
-    }
+#if IN_OUT_MANUAL_DEBUG
+    Serial.println(F("Boton Entrada Detectado"));
+#endif
     this->button_option = true;
     this->read_flag = true;
     return true;
   } else if (digitalRead(MANUAL_DOOR_OUT_PIN)) {
-    if (debug) {
-      Serial.println(F("Boton Salida Detectado"));
-    }
+#if IN_OUT_MANUAL_DEBUG
+    Serial.println(F("Boton Salida Detectado"));
+#endif
     this->button_option = false;
     this->read_flag = true;
     return true;
@@ -48,57 +47,57 @@ bool ManualDoorController::read(bool debug) {
   return false;
 }
 
-void ManualDoorController::turnOnLight(bool debug) {
+void ManualDoorController::turnOnLight() {
   if (this->read_flag) {
     if (this->button_option) {
-      if (debug) {
-        Serial.println(F("===== Encenciendo Led Salida ====="));
-      }
+#if IN_OUT_MANUAL_DEBUG
+      Serial.println(F("===== Encenciendo Led Salida ====="));
+#endif
       digitalWrite(MANUAL_IN_LED, 1);
     } else {
-      if (debug) {
-        Serial.println(F("===== Encenciendo Led Salida ====="));
-      }
+#if IN_OUT_MANUAL_DEBUG
+      Serial.println(F("===== Encenciendo Led Salida ====="));
+#endif
       digitalWrite(MANUAL_OUT_LED, 1);
     }
     this->read_flag = false;
   }
 }
 
-void ManualDoorController::turnOffLight(bool debug) {
+void ManualDoorController::turnOffLight() {
   if (this->read_flag) {
     if (this->button_option) {
-      if (debug) {
-        Serial.println(F("===== Apagando Led Salida ====="));
-      }
+#if IN_OUT_MANUAL_DEBUG
+      Serial.println(F("===== Apagando Led Salida ====="));
+#endif
       digitalWrite(MANUAL_IN_LED, 1);
     } else {
-      if (debug) {
-        Serial.println(F("===== Apagando Led Salida ====="));
-      }
+#if IN_OUT_MANUAL_DEBUG
+      Serial.println(F("===== Apagando Led Salida ====="));
+#endif
       digitalWrite(MANUAL_OUT_LED, 1);
     }
     this->read_flag = false;
   }
 }
 
-bool ManualDoorController::getButtonOption(bool debug) {
-  if (debug) {
-    Serial.println(F("===== Devolviendo el valor de Button Option ====="));
-  }
+bool ManualDoorController::getButtonOption() {
+#if IN_OUT_MANUAL_DEBUG
+  Serial.println(F("===== Devolviendo el valor de Button Option ====="));
+#endif
   return this->button_option;
 }
 
-void ManualDoorController::run(bool debug) {
+void ManualDoorController::run() {
   if (this->checkTimer->getFlag()) {
     if (this->timeManager->pastMil(*this->checkTimer)) {
-      if (this->read(debug)) {
-        this->turnOnLight(debug);
+      if (this->read()) {
+        this->turnOnLight();
 
         if (this->button_option) {
-          this->capacityManager->Add(debug);
+          this->capacityManager->Add();
         } else {
-          this->capacityManager->Substract(debug);
+          this->capacityManager->Substract();
         }
         this->checkTimer->deactivateFlag();
         this->standByTimer->activateFlag();
@@ -107,7 +106,7 @@ void ManualDoorController::run(bool debug) {
   }
   if (this->standByTimer->getFlag()) {
     if (this->timeManager->pastMil(*this->standByTimer)) {
-      this->turnOffLight(debug);
+      this->turnOffLight();
       this->standByTimer->deactivateFlag();
       this->checkTimer->activateFlag();
     }

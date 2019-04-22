@@ -13,10 +13,10 @@ public:
   RFIDController(Agenda *myAgenda, TimeManager *timeManager, Timer *checkTimer,
                  Timer *standByTimer);
 
-  void run(bool debug = false);
-  void setup(bool debug = false) override;
-  bool read(bool debug = false) override;
-  bool Read(Contact *list, uint8_t size, bool debug = false);
+  void run();
+  void setup() override;
+  bool read() override;
+  bool Read(Contact *list, uint8_t size);
 
   Agenda *getAgenda();
 

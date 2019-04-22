@@ -11,10 +11,10 @@ public:
   uint32_t maxCapacity;
   uint32_t currentCustomersIn;
 
-  void Setup(bool debug = false);
-  void Add(bool debug = false);
-  void Substract(bool debug = false);
-  void Show(bool debug = false);
+  void Setup();
+  void Add();
+  void Substract();
+  void Show();
 };
 
 #endif

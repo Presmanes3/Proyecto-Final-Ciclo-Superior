@@ -12,12 +12,14 @@
 #define EMER_DOOR_DEBUG true
 #define CAPACITY_DEBUG true
 #define SMART_CORRIDOR_LIGHT_DEBUG true
-#define TEMP_DEBUG true
+#define TEMP_PROBE_DEBUG true
 #define EXTERNAL_LIGHT_DEBUG true
-#define HUMIDITY_DEBUG true
+#define DHT_DEBUG true
 
 #define IN_OUT_RFID_DEBUG true
 #define IN_OUT_MANUAL_DEBUG true
+
+#define LCD_SERIAL_DEBUG true
 
 #endif // SERIAL_DEBUG
 /*===========================================*/

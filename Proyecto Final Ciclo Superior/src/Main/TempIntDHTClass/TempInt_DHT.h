@@ -12,15 +12,15 @@ class DHT_S : public EventManager, public AbstractSensor {
 public:
   DHT_S(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer);
 
-  void Update_Temperature();
-  void Update_Humidity();
-  void Update_Heat();
+  void updateTemperature();
+  void updateHumidity();
+  void updateHeat();
 
-  void run(bool debug = false);
+  void run();
 
-  void setup(bool debug = false) override;
-  bool read(bool debug = false) override;
-  /*void Save_SD(char *time, bool header = false, bool debug = false);*/
+  void setup() override;
+  bool read() override;
+  /*void Save_SD(char *time, bool header = false, );*/
 
   bool Alarm();
   void Show();

@@ -11,8 +11,10 @@
 #include "SensorAbstractClass/SensorClass.h"
 
 #include "TimerClass/TimeManager.h"
-
 #include "TimerClass/Timer.h"
+
+#include "LCDManagerClass/Frame.h"
+#include "LCDManagerClass/LCDClass.h"
 
 /*====================================================================*/
 

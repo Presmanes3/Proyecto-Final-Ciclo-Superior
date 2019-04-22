@@ -7,19 +7,19 @@ LDRController::LDRController(TimeManager *timeManager, Timer *checkTimer,
   this->standByTimer->deactivateFlag();
 }
 
-void LDRController::setup(bool debug) {
-  if (debug) {
-    Serial.println(F("===== Iniciando Controlador LDR ====="));
-  }
+void LDRController::setup() {
+#if EXTERNAL_LIGHT_DEBUG
+  Serial.println(F("===== Iniciando Controlador LDR ====="));
+#endif
   pinMode(LDR_PIN, INPUT);
   pinMode(LDR_LED, OUTPUT);
   this->threshold = LDR_THRESHOLD;
 }
 
-bool LDRController::read(bool debug) {
-  if (debug) {
-    Serial.println(F("===== Leyendo Sensor LDR ====="));
-  }
+bool LDRController::read() {
+#if EXTERNAL_LIGHT_DEBUG
+  Serial.println(F("===== Leyendo Sensor LDR ====="));
+#endif
   uint16_t value = analogRead(LDR_PIN);
   if (value >= this->threshold) {
     return true;
@@ -27,25 +27,25 @@ bool LDRController::read(bool debug) {
   return false;
 }
 
-void LDRController::turnOnLight(bool debug) {
-  if (debug) {
-    Serial.println(F("===== Encendiento Luz Exterior ====="));
-  }
+void LDRController::turnOnLight() {
+#if EXTERNAL_LIGHT_DEBUG
+  Serial.println(F("===== Encendiento Luz Exterior ====="));
+#endif
   digitalWrite(LDR_LED, 1);
 }
 
-void LDRController::turnOffLight(bool debug) {
-  if (debug) {
-    Serial.println(F("===== Apagando Luz Exterior ====="));
-  }
+void LDRController::turnOffLight() {
+#if EXTERNAL_LIGHT_DEBUG
+  Serial.println(F("===== Apagando Luz Exterior ====="));
+#endif
   digitalWrite(LDR_LED, 0);
 }
 
-void LDRController::run(bool debug) {
+void LDRController::run() {
   if (this->checkTimer->getFlag()) {
     if (this->timeManager->pastMil(*this->checkTimer)) {
-      if (this->read(debug)) {
-        this->turnOnLight(debug);
+      if (this->read()) {
+        this->turnOnLight();
         this->checkTimer->deactivateFlag();
         this->standByTimer->activateFlag();
       }
@@ -53,7 +53,7 @@ void LDRController::run(bool debug) {
   }
   if (this->standByTimer->getFlag()) {
     if (this->timeManager->pastMin(*this->standByTimer)) {
-      this->turnOffLight(debug);
+      this->turnOffLight();
       this->standByTimer->deactivateFlag();
       this->checkTimer->activateFlag();
     }
