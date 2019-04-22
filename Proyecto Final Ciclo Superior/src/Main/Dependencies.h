@@ -26,4 +26,6 @@
 
 #include "Debug.h"
 
+#include "LCDWrapper/LCDWrapper.h"
+
 #endif
