@@ -1,0 +1,84 @@
+{
+    "configurations": [
+        {
+            "name": "!!! WARNING !!! AUTO-GENERATED FILE, PLEASE DO NOT MODIFY IT AND USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "/home/presmanes3/.platformio/packages/framework-arduinoavr/cores/arduino",
+                "/home/presmanes3/.platformio/packages/framework-arduinoavr/variants/mega",
+                "/home/presmanes3/Programming/Github Projects/Proyecto Final Ciclo Superior/Proyecto Final Ciclo Superior/lib/Arduino-LiquidCrystal-I2C-library-master",
+                "/home/presmanes3/Programming/Github Projects/Proyecto Final Ciclo Superior/Proyecto Final Ciclo Superior/lib/DHT_sensor_library",
+                "/home/presmanes3/Programming/Github Projects/Proyecto Final Ciclo Superior/Proyecto Final Ciclo Superior/lib/DallasTemperature",
+                "/home/presmanes3/Programming/Github Projects/Proyecto Final Ciclo Superior/Proyecto Final Ciclo Superior/lib/OneWire",
+                "/home/presmanes3/Programming/Github Projects/Proyecto Final Ciclo Superior/Proyecto Final Ciclo Superior/lib/rfid-master/src",
+                "/home/presmanes3/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SPI/src",
+                "/home/presmanes3/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/Wire/src",
+                "/home/presmanes3/.platformio/lib/Adafruit Unified Sensor_ID31",
+                "/home/presmanes3/.platformio/lib/DHT_ID1671",
+                "/home/presmanes3/.platformio/lib/FastLED_ID126",
+                "/home/presmanes3/.platformio/lib/HX711-master",
+                "/home/presmanes3/.platformio/lib/LiquidCrystal_I2C_ID1574",
+                "/home/presmanes3/.platformio/lib/MFRC522_ID63/src",
+                "/home/presmanes3/.platformio/lib/SdFat_ID322/src",
+                "/home/presmanes3/.platformio/lib/arduinoFFT_ID1651/src",
+                "/home/presmanes3/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/EEPROM/src",
+                "/home/presmanes3/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/HID/src",
+                "/home/presmanes3/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SoftwareSerial/src",
+                "/home/presmanes3/.platformio/packages/tool-unity",
+                "/home/presmanes3/Programming/Github Projects/Proyecto Final Ciclo Superior/Proyecto Final Ciclo Superior/include",
+                "/home/presmanes3/Programming/Github Projects/Proyecto Final Ciclo Superior/Proyecto Final Ciclo Superior/src",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceRoot}/.vscode/.browse.c_cpp.db",
+                "path": [
+                    "/home/presmanes3/.platformio/packages/framework-arduinoavr/cores/arduino",
+                    "/home/presmanes3/.platformio/packages/framework-arduinoavr/variants/mega",
+                    "/home/presmanes3/Programming/Github Projects/Proyecto Final Ciclo Superior/Proyecto Final Ciclo Superior/lib/Arduino-LiquidCrystal-I2C-library-master",
+                    "/home/presmanes3/Programming/Github Projects/Proyecto Final Ciclo Superior/Proyecto Final Ciclo Superior/lib/DHT_sensor_library",
+                    "/home/presmanes3/Programming/Github Projects/Proyecto Final Ciclo Superior/Proyecto Final Ciclo Superior/lib/DallasTemperature",
+                    "/home/presmanes3/Programming/Github Projects/Proyecto Final Ciclo Superior/Proyecto Final Ciclo Superior/lib/OneWire",
+                    "/home/presmanes3/Programming/Github Projects/Proyecto Final Ciclo Superior/Proyecto Final Ciclo Superior/lib/rfid-master/src",
+                    "/home/presmanes3/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SPI/src",
+                    "/home/presmanes3/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/Wire/src",
+                    "/home/presmanes3/.platformio/lib/Adafruit Unified Sensor_ID31",
+                    "/home/presmanes3/.platformio/lib/DHT_ID1671",
+                    "/home/presmanes3/.platformio/lib/FastLED_ID126",
+                    "/home/presmanes3/.platformio/lib/HX711-master",
+                    "/home/presmanes3/.platformio/lib/LiquidCrystal_I2C_ID1574",
+                    "/home/presmanes3/.platformio/lib/MFRC522_ID63/src",
+                    "/home/presmanes3/.platformio/lib/SdFat_ID322/src",
+                    "/home/presmanes3/.platformio/lib/arduinoFFT_ID1651/src",
+                    "/home/presmanes3/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/EEPROM/src",
+                    "/home/presmanes3/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/HID/src",
+                    "/home/presmanes3/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SoftwareSerial/src",
+                    "/home/presmanes3/.platformio/packages/tool-unity",
+                    "/home/presmanes3/Programming/Github Projects/Proyecto Final Ciclo Superior/Proyecto Final Ciclo Superior/include",
+                    "/home/presmanes3/Programming/Github Projects/Proyecto Final Ciclo Superior/Proyecto Final Ciclo Superior/src",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=30606",
+                "ARDUINO_AVR_MEGA2560",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10805",
+                "__AVR_ATmega2560__",
+                ""
+            ],
+            "intelliSenseMode": "clang-x64",
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "/home/presmanes3/.platformio/packages/toolchain-atmelavr/bin/avr-gcc -mmcu=atmega2560"
+        }
+    ],
+    "version": 4
+}

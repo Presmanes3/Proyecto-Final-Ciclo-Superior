@@ -5,7 +5,6 @@
 void Main_program();
 
 /* ======================= Timers ======================= */
-
 Timer EmerDoorCheck = Timer(TIME_TO_CHECK_EMERGENCY_DOOR, millis(), true);
 Timer EmerDoorStandBy = Timer(INACTIVE_TIME_EMERGENCY_DOOR, millis(), false);
 
@@ -26,6 +25,7 @@ Timer RfidStandBy = Timer(INACTIVE_TIME_RFID, millis(), false);
 
 Timer ManualDoorCheck = Timer(TIME_TO_CHECK_IN_OUT_MANUAL, millis(), true);
 Timer ManualDoorStandBy = Timer(INACTIVE_TIME_MANUAL, millis(), false);
+
 
 /* ======================= Global Objects ======================= */
 
@@ -54,55 +54,71 @@ ManualDoorController myManualDoorController = ManualDoorController(
 
 /* ======================================================= */
 
-void setup() {
+void setup()
+{
   // put your setup code here, to run once:
   Serial.begin(115200);
   myEquip.setup();
   myAgenda.Setup();
 
-  if (SPECTS_BASIC) {
-    if (CONTROL_EMERGERCY_DOOR) {
+  if (SPECTS_BASIC)
+  {
+    if (CONTROL_EMERGERCY_DOOR)
+    {
       myEmerDoorCont.setup();
     }
-    if (CONTROL_CAPACITY) {
+    if (CONTROL_CAPACITY)
+    {
       myCapacityManager.Setup();
     }
-    if (CONTROL_SMART_CORRIDOR_LIGHT) {
+    if (CONTROL_SMART_CORRIDOR_LIGHT)
+    {
       myPIR.setup();
     }
-    if (CONTROL_TEMP) {
+    if (CONTROL_TEMP)
+    {
       myProbe.setup();
     }
-    if (CONTROL_EXTERNAL_LIGHT) {
+    if (CONTROL_EXTERNAL_LIGHT)
+    {
       myLDR.setup();
     }
-    if (CONTROL_HUMIDITY) {
+    if (CONTROL_HUMIDITY)
+    {
       myDHT.setup();
     }
   }
-  if (SPECTS_EXTRA) {
-    if (IN_OUT_BARRIER) {
+  if (SPECTS_EXTRA)
+  {
+    if (IN_OUT_BARRIER)
+    {
     }
-    if (IN_OUT_RFID) {
+    if (IN_OUT_RFID)
+    {
       myRFID.setup();
     }
-    if (IN_OUT_MANUAL) {
+    if (IN_OUT_MANUAL)
+    {
       myManualDoorController.setup();
     }
   }
 }
 
-void loop() {
+void loop()
+{
   // put your main code here, to run repeatedly:
   // myRFID.Read(myAgenda.Contact_List, 2, );
 
   Main_program();
 }
 
-void Main_program() {
+void Main_program()
+{
 
-  if (SPECTS_BASIC) {
-    if (CONTROL_EMERGERCY_DOOR) {
+  if (SPECTS_BASIC)
+  {
+    if (CONTROL_EMERGERCY_DOOR)
+    {
       myEmerDoorCont.run();
       /*if (EmergencyDoorCheck.flag) {
         // myEmergencyDoor.run();
@@ -121,7 +137,8 @@ void Main_program() {
         }
     }*/
     }
-    if (CONTROL_SMART_CORRIDOR_LIGHT) {
+    if (CONTROL_SMART_CORRIDOR_LIGHT)
+    {
       myPIR.run();
       /*if (CorridorLightCheck.flag) {
         if (Past_sec(CorridorLightCheck.time, CorridorLightCheck.var)) {
@@ -135,7 +152,8 @@ void Main_program() {
         }
     }*/
     }
-    if (CONTROL_TEMP) {
+    if (CONTROL_TEMP)
+    {
       myProbe.run();
       /* if (TempCheck.flag) {
          if (Past_mil(TempCheck.time, TempCheck.var)) {
@@ -149,7 +167,8 @@ void Main_program() {
          }
      }*/
     }
-    if (CONTROL_EXTERNAL_LIGHT) {
+    if (CONTROL_EXTERNAL_LIGHT)
+    {
       myLDR.run();
       /* if (LDRCheck.flag) {
          if (Past_mil(LDRCheck.time, LDRCheck.var)) {
@@ -165,7 +184,8 @@ void Main_program() {
          }
      }*/
     }
-    if (CONTROL_HUMIDITY) {
+    if (CONTROL_HUMIDITY)
+    {
       myDHT.run();
       /* if (HumidityCheck.flag) {
          if (Past_mil(HumidityCheck.time, HumidityCheck.var)) {
@@ -182,10 +202,13 @@ void Main_program() {
    }*/
     }
   }
-  if (SPECTS_EXTRA) {
-    if (IN_OUT_BARRIER) {
+  if (SPECTS_EXTRA)
+  {
+    if (IN_OUT_BARRIER)
+    {
     }
-    if (IN_OUT_RFID) {
+    if (IN_OUT_RFID)
+    {
       myRFID.run();
       /*if (RFIDCheck.flag) {
         if (Past_mil(RFIDCheck.time, RFIDCheck.var)) {
@@ -203,7 +226,8 @@ void Main_program() {
         }
     }*/
     }
-    if (IN_OUT_MANUAL) {
+    if (IN_OUT_MANUAL)
+    {
       myManualDoorController.run();
       /* if (ManualDoorCheck.flag) {
          if (Past_mil(ManualDoorCheck.time, ManualDoorCheck.var)) {
