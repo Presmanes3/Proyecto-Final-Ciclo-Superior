@@ -24,4 +24,6 @@
 
 #include "TempIntProbesClass/TempInt_PROBE.h"
 
+#include "Debug.h"
+
 #endif

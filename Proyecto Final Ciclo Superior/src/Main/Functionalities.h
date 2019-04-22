@@ -18,7 +18,4 @@
 #define IN_OUT_RFID true
 #define IN_OUT_MANUAL true
 
-#define DEBUG false
-#define SERIAL_GUI true
-
 #endif

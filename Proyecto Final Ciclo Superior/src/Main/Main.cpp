@@ -56,44 +56,44 @@ ManualDoorController myManualDoorController = ManualDoorController(
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  EQUIPO::Setup(SERIAL_GUI);
-  myAgenda.Setup(SERIAL_GUI);
+  EQUIPO::Setup();
+  myAgenda.Setup();
 
   if (SPECTS_BASIC) {
     if (CONTROL_EMERGERCY_DOOR) {
-      myEmerDoorCont.setup(SERIAL_GUI);
+      myEmerDoorCont.setup();
     }
     if (CONTROL_CAPACITY) {
-      myCapacityManager.Setup(SERIAL_GUI);
+      myCapacityManager.Setup();
     }
     if (CONTROL_SMART_CORRIDOR_LIGHT) {
-      myPIR.setup(SERIAL_GUI);
+      myPIR.setup();
     }
     if (CONTROL_TEMP) {
-      myProbe.setup(SERIAL_GUI);
+      myProbe.setup();
     }
     if (CONTROL_EXTERNAL_LIGHT) {
-      myLDR.setup(SERIAL_GUI);
+      myLDR.setup();
     }
     if (CONTROL_HUMIDITY) {
-      myDHT.setup(SERIAL_GUI);
+      myDHT.setup();
     }
   }
   if (SPECTS_EXTRA) {
     if (IN_OUT_BARRIER) {
     }
     if (IN_OUT_RFID) {
-      myRFID.setup(SERIAL_GUI);
+      myRFID.setup();
     }
     if (IN_OUT_MANUAL) {
-      myManualDoorController.setup(SERIAL_GUI);
+      myManualDoorController.setup();
     }
   }
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  // myRFID.Read(myAgenda.Contact_List, 2, DEBUG);
+  // myRFID.Read(myAgenda.Contact_List, 2, );
 
   Main_program();
 }
@@ -102,43 +102,43 @@ void Main_program() {
 
   if (SPECTS_BASIC) {
     if (CONTROL_EMERGERCY_DOOR) {
-      myEmerDoorCont.run(DEBUG);
+      myEmerDoorCont.run();
       /*if (EmergencyDoorCheck.flag) {
         // myEmergencyDoor.run();
         if (Past_mil(EmergencyDoorCheck.time, EmergencyDoorCheck.var)) {
           // Read the button
-          if (myEmergencyDoor.Read(DEBUG)) {
+          if (myEmergencyDoor.Read()) {
 
-            myEmergencyDoor.Turn_on_light(DEBUG);
+            myEmergencyDoor.Turn_on_light();
             EmergencyDoorCheck.flag = false;
           }
         }
       } else {
         if (Past_sec(INACTIVE_TIME_EMERGENCY_DOOR, EmergencyDoorCheck.var)) {
-          myEmergencyDoor.Turn_off_light(DEBUG);
+          myEmergencyDoor.Turn_off_light();
           EmergencyDoorCheck.flag = true;
         }
     }*/
     }
     if (CONTROL_SMART_CORRIDOR_LIGHT) {
-      myPIR.run(DEBUG);
+      myPIR.run();
       /*if (CorridorLightCheck.flag) {
         if (Past_sec(CorridorLightCheck.time, CorridorLightCheck.var)) {
-          if (myPIR.Read(DEBUG)) {
-            myPIR.Turn_on_light(DEBUG);
+          if (myPIR.Read()) {
+            myPIR.Turn_on_light();
           }
         }
       } else {
         if (Past_min(INACTIVE_TIME_CORRIDOR_LIGHT, CorridorLightCheck.var))
-{ myPIR.Turn_off_light(DEBUG); CorridorLightCheck.flag = true;
+{ myPIR.Turn_off_light(); CorridorLightCheck.flag = true;
         }
     }*/
     }
     if (CONTROL_TEMP) {
-      myProbe.run(DEBUG);
+      myProbe.run();
       /* if (TempCheck.flag) {
          if (Past_mil(TempCheck.time, TempCheck.var)) {
-           myProbe.Read(DEBUG);
+           myProbe.Read();
            myProbe.Show();
            TempCheck.flag = false;
          }
@@ -149,26 +149,26 @@ void Main_program() {
      }*/
     }
     if (CONTROL_EXTERNAL_LIGHT) {
-      myLDR.run(DEBUG);
+      myLDR.run();
       /* if (LDRCheck.flag) {
          if (Past_mil(LDRCheck.time, LDRCheck.var)) {
-           if (myLDR.Read(DEBUG)) {
-             myLDR.Turn_on_light(DEBUG);
+           if (myLDR.Read()) {
+             myLDR.Turn_on_light();
              LDRCheck.flag = false;
            }
          }
        } else {
          if (Past_min(INACTIVE_TIME_EXTERNAL_LIGHT, LDRCheck.var)) {
-           myLDR.Turn_off_light(DEBUG);
+           myLDR.Turn_off_light();
            LDRCheck.flag = true;
          }
      }*/
     }
     if (CONTROL_HUMIDITY) {
-      myDHT.run(DEBUG);
+      myDHT.run();
       /* if (HumidityCheck.flag) {
          if (Past_mil(HumidityCheck.time, HumidityCheck.var)) {
-           myDHT.Read(DEBUG);
+           myDHT.Read();
            myDHT.Show();
            HumidityCheck.flag = false;
          }
@@ -185,13 +185,13 @@ void Main_program() {
     if (IN_OUT_BARRIER) {
     }
     if (IN_OUT_RFID) {
-      myRFID.run(DEBUG);
+      myRFID.run();
       /*if (RFIDCheck.flag) {
         if (Past_mil(RFIDCheck.time, RFIDCheck.var)) {
-          if (DEBUG) {
+          if () {
             Serial.println(F("===== Leyendo RFID Sensor ====="));
           }
-          if (myRFID.Read(myRFID.getAgenda()->ContactList, 2, SERIAL_GUI)) {
+          if (myRFID.Read(myRFID.getAgenda()->ContactList, 2, )) {
             RFIDCheck.flag = false;
           }
         }
@@ -203,22 +203,22 @@ void Main_program() {
     }*/
     }
     if (IN_OUT_MANUAL) {
-      myManualDoorController.run(DEBUG);
+      myManualDoorController.run();
       /* if (ManualDoorCheck.flag) {
          if (Past_mil(ManualDoorCheck.time, ManualDoorCheck.var)) {
-           if (myManualDoorController.Read(DEBUG)) {
-             myManualDoorController.Turn_on_light(DEBUG);
+           if (myManualDoorController.Read()) {
+             myManualDoorController.Turn_on_light();
              if (myManualDoorController.getButtonOption()) {
-               myCapacityManager.Add(DEBUG);
+               myCapacityManager.Add();
              }
-             { myCapacityManager.Substract(DEBUG); }
+             { myCapacityManager.Substract(); }
            }
        }else{
-       myCapacityManager.Substract(DEBUG);
+       myCapacityManager.Substract();
    }
        } else {
          if (Past_mil(INACTIVE_TIME_MANUAL, ManualDoorCheck.var)) {
-           myManualDoorController.Turn_off_light(DEBUG);
+           myManualDoorController.Turn_off_light();
            ManualDoorCheck.flag = false;
          }
      }*/
