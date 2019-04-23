@@ -1,10 +1,13 @@
 #include "Capacity.h"
 
-CapacityManager::CapacityManager(uint32_t maxCapacity) {
+CapacityManager::CapacityManager(uint32_t max_capacity, LcdWrapper *myLcd, char *frameName)
+{
   CapacityManager::maxCapacity = maxCapacity;
+  this->simpleFrame = SimpleCapacityManagerFrame(this, myLcd, frameName);
 }
 
-void CapacityManager::Setup() {
+void CapacityManager::setup()
+{
 #if CAPACITY_DEBUG
   Serial.println(F("===== Iniciando Control de aforo ==="));
   Serial.print(F("Aforo Maximo: "));
@@ -16,7 +19,8 @@ void CapacityManager::Setup() {
     pinMode(MANUAL_DOOR_OUT_PIN, INPUT);*/
 }
 
-void CapacityManager::Show() {
+void CapacityManager::showDataSerial()
+{
 #if CAPACITY_DEBUG
   Serial.println(F("===== Mostrando Informacion Aforo ====="));
   Serial.print(F("Aforo Maximo: "));
@@ -27,26 +31,34 @@ void CapacityManager::Show() {
 #endif
 }
 
-void CapacityManager::Add() {
+void CapacityManager::addPerson()
+{
 #if CAPACITY_DEBUG
   Serial.println(F("===== Añadiendo una persona al aforo ====="));
 #endif
-  if (this->currentCustomersIn + 1 < this->maxCapacity) {
+  if (this->currentCustomersIn + 1 < this->maxCapacity)
+  {
     this->currentCustomersIn++;
-  } else {
+  }
+  else
+  {
 #if CAPACITY_DEBUG
     Serial.println(F("No cabe mas gente"));
 #endif
   }
 }
 
-void CapacityManager::Substract() {
+void CapacityManager::removePerson()
+{
 #if CAPACITY_DEBUG
   Serial.println(F("===== Retirando una persona al aforo ====="));
 #endif
-  if (this->currentCustomersIn - 1 >= 0) {
+  if (this->currentCustomersIn - 1 >= 0)
+  {
     this->currentCustomersIn--;
-  } else {
+  }
+  else
+  {
 #if CAPACITY_DEBUG
     Serial.println(F("No queda nadie"));
 #endif

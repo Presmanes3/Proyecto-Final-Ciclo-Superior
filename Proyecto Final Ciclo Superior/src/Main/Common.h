@@ -13,8 +13,7 @@
 #include "TimerClass/TimeManager.h"
 #include "TimerClass/Timer.h"
 
-#include "LCDWrapper/Frame.h"
-#include "LCDWrapper/LCDWrapper.h"
+#include "LCDWrapper/LCDFrame.h"
 
 /*====================================================================*/
 

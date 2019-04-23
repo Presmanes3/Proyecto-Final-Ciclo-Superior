@@ -4,7 +4,8 @@
 #include "Arduino.h"
 #include "Timer.h"
 
-class TimeManager {
+class TimeManager
+{
 
 public:
   bool pastMil(Timer &timer);

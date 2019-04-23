@@ -1,7 +1,8 @@
 #include "TempInt_DHT.h"
 
 DHT_S::DHT_S(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer)
-    : EventManager(timeManager, checkTimer, standByTimer) {
+    : EventManager(timeManager, checkTimer, standByTimer)
+{
 
   this->Temperature = 0;
   this->Humidity = 0;
@@ -12,13 +13,15 @@ DHT_S::DHT_S(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer)
   this->standByTimer->deactivateFlag();
 }
 
-void DHT_S::setup() {
+void DHT_S::setup()
+{
 #if DHT_DEBUG
   Serial.println(F("===== Iniciando Sensor Humedad DHT22 ====="));
 #endif
 
   this->dht.begin();
-  if (isnan(this->Humidity || this->Temperature || this->Heat)) {
+  if (isnan(this->Humidity || this->Temperature || this->Heat))
+  {
     this->State = false;
 #if DHT_DEBUG
     Serial.println(F("DHT_S22 no iniciado\n"));
@@ -26,7 +29,8 @@ void DHT_S::setup() {
     return;
   }
 
-  else {
+  else
+  {
     this->State = true;
 #if DHT_DEBUG
     Serial.println(F("DHT_S22 iniciado\n"));
@@ -37,8 +41,10 @@ void DHT_S::setup() {
   this->Alarm_time_reference = millis();
 }
 
-bool DHT_S::read() {
-  if (this->State) {
+bool DHT_S::read()
+{
+  if (this->State)
+  {
 #if DHT_DEBUG
     Serial.println(F("===== Leyendo Sensor Humedad DHT22 ====="));
 #endif
@@ -61,16 +67,20 @@ bool DHT_S::read() {
     Serial.println(F("====================================="));
 #endif
   }
+  return true;
 }
 
-void DHT_S::updateTemperature() {
+void DHT_S::updateTemperature()
+{
   this->Temperature = this->dht.readTemperature();
 }
 void DHT_S::updateHumidity() { this->Humidity = this->dht.readHumidity(); }
-void DHT_S::updateHeat() {
+void DHT_S::updateHeat()
+{
   this->Heat =
       this->dht.computeHeatIndex(this->Temperature, this->Humidity, false);
 }
+
 /*void DHT_S::Save_SD(char *time, bool header, ) {
   if (DHT_S::State) {
     LOGGUER::Change_dir(LOGGUER::FILES_PATH, true);
@@ -110,29 +120,35 @@ void DHT_S::updateHeat() {
   }
 }*/
 
-bool DHT_S::Alarm() {
-  if (millis() - DHT_S::Alarm_time_reference >= (1000 * 60 * 5)) {
+bool DHT_S::Alarm()
+{
+  if (millis() - DHT_S::Alarm_time_reference >= (1000 * 60 * 5))
+  {
     DHT_S::updateTemperature();
-    if (DHT_S::Temperature > Alarm_thresholds[0]) {
+    if (DHT_S::Temperature > Alarm_thresholds[0])
+    {
       DHT_S::Alarm_times_activated++;
       DHT_S::Alarm_time_reference = millis();
       DHT_S::Alarm_option = true;
-
-    } else if (DHT_S::Temperature < Alarm_thresholds[1]) {
+    }
+    else if (DHT_S::Temperature < Alarm_thresholds[1])
+    {
       DHT_S::Alarm_times_activated++;
       DHT_S::Alarm_time_reference = millis();
       DHT_S::Alarm_option = false;
     }
   }
   DHT_S::Alarm_time_reference = millis();
-  if (DHT_S::Alarm_times_activated >= 5) {
+  if (DHT_S::Alarm_times_activated >= 5)
+  {
     DHT_S::Alarm_times_activated = 0;
     return true;
   }
   return false;
 }
 
-void DHT_S::Show() {
+void DHT_S::Show()
+{
   Serial.println(F("===== Mostranso Informacion Sensor Humedad ====="));
   Serial.print(F("Temperatura : "));
   Serial.print(DHT_S::Temperature, 3);
@@ -142,17 +158,22 @@ void DHT_S::Show() {
   Serial.println(F("%"));
 }
 
-void DHT_S::run() {
-  if (this->checkTimer->getFlag()) {
-    if (this->timeManager->pastMil(*this->checkTimer)) {
+void DHT_S::run()
+{
+  if (this->checkTimer->getFlag())
+  {
+    if (this->timeManager->pastMil(*this->checkTimer))
+    {
       this->read();
       this->Show();
       this->checkTimer->deactivateFlag();
       this->standByTimer->activateFlag();
     }
   }
-  if (this->standByTimer->getFlag()) {
-    if (this->timeManager->pastMin(*this->standByTimer)) {
+  if (this->standByTimer->getFlag())
+  {
+    if (this->timeManager->pastMin(*this->standByTimer))
+    {
 
       this->standByTimer->deactivateFlag();
       this->checkTimer->activateFlag();

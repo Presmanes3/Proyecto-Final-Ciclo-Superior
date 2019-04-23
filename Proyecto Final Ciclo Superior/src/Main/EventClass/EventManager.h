@@ -6,7 +6,8 @@
 class Timer;
 class TimeManager;
 
-class EventManager {
+class EventManager
+{
 public:
   EventManager(TimeManager *timeManager, Timer *checkTimer,
                Timer *standByTimer);

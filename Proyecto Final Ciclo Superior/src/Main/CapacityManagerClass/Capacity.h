@@ -3,18 +3,31 @@
 
 #include "../Common.h"
 #include "Arduino.h"
+#include "SimpleCapacityManagerFrame.h"
 
-class CapacityManager {
+class CapacityManager
+{
 public:
-  CapacityManager(uint32_t max_capacity);
+  CapacityManager(uint32_t max_capacity, LcdWrapper *myLcd = nullptr, char *frameName = nullptr);
 
   uint32_t maxCapacity;
   uint32_t currentCustomersIn;
 
-  void Setup();
-  void Add();
-  void Substract();
-  void Show();
+  /*This function must be called at the setup*/
+  void setup();
+
+  /*Adds a person*/
+  void addPerson();
+
+  /*Remove a person*/
+  void removePerson();
+
+  /*Show data through Serial*/
+  void showDataSerial();
+
+private:
+  /*Basic Frame with basic information about capacity*/
+  SimpleCapacityManagerFrame simpleFrame = SimpleCapacityManagerFrame(this);
 };
 
 #endif

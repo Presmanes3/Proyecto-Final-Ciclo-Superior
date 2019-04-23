@@ -3,30 +3,35 @@
 
 #include "../Common.h"
 #include "Arduino.h"
-#include "Frame.h"
 #include "LiquidCrystal_I2C.h"
 #include "Wire.h"
 
-class LcdWrapper : public LiquidCrystal_I2C {
+class LcdWrapper : public LiquidCrystal_I2C
+{
 public:
   LcdWrapper(uint8_t lcd_Addr, uint8_t lcd_cols, uint8_t lcd_rows,
-             Frame *initialFrame = nullptr, Frame **framePool = nullptr);
+             LCDFrame *initialFrame = nullptr, LCDFrame **framePool = nullptr);
 
   /*Update the current frame*/
   void update();
 
   /*Change the current frame if possible*/
-  void changeFrame(Frame *frame);
+  void changeFrame(LCDFrame *frame);
 
   /*Add Frame to framePool if is not already in*/
-  void addFrame(Frame *newFrame);
+  void addFrame(LCDFrame *newFrame);
 
   /*Check if Frame is in the framePool*/
-  bool existsFrame(Frame *frame);
+  bool existsFrame(LCDFrame *frame);
 
 private:
-  Frame **framePool;
-  Frame *currentFrame;
+  /*Pool of frames*/
+  LCDFrame **framePool;
+
+  /*Frame which is being treated*/
+  LCDFrame *currentFrame;
+
+  /*Number of total frames*/
   uint8_t totalFrames;
 };
 

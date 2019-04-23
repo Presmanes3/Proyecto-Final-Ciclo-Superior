@@ -1,27 +1,31 @@
 #include "TempInt_PROBE.h"
 
 PROBE::PROBE(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer)
-    : EventManager(timeManager, checkTimer, standByTimer) {
+    : EventManager(timeManager, checkTimer, standByTimer)
+{
   this->NUM_SENSORS = PROBE_NUM_PROBES;
-  this->TEMP_VALUES[1];
-  this->State;
 
   this->checkTimer->activateFlag();
   this->standByTimer->deactivateFlag();
 }
 
-void PROBE::setup() {
+void PROBE::setup()
+{
 #if TEMP_PROBE_DEBUG
   Serial.println(F("===== Iniciando Sondas de Temperatura ====="));
 #endif
   this->sensorDS18B20.begin();
   this->Find_devices();
 }
-void PROBE::Find_devices() {
+void PROBE::Find_devices()
+{
   PROBE::NUM_SENSORS = this->sensorDS18B20.getDeviceCount();
-  if (PROBE::NUM_SENSORS <= 0) {
+  if (PROBE::NUM_SENSORS <= 0)
+  {
     this->State = false;
-  } else {
+  }
+  else
+  {
     this->State = true;
   }
 #if TEMP_PROBE_DEBUG
@@ -30,28 +34,35 @@ void PROBE::Find_devices() {
   Serial.println(this->NUM_SENSORS);
 #endif
 }
-bool PROBE::read() {
+bool PROBE::read()
+{
   this->Find_devices();
-  if (this->State) {
+  if (this->State)
+  {
 #if TEMP_PROBE_DEBUG
     Serial.println(F("===== Leyendo Sondas Temperatura ====="));
 #endif
 
     PROBE::sensorDS18B20.requestTemperatures();
-    for (uint8_t id = 0; id < this->NUM_SENSORS; id++) {
+    for (uint8_t id = 0; id < this->NUM_SENSORS; id++)
+    {
       this->TEMP_VALUES[id] = this->sensorDS18B20.getTempCByIndex(id);
     }
-  } else {
+  }
+  else
+  {
 #if TEMP_PROBE_DEBUG
     Serial.println(F("Error, sondas desconectadas\n"));
 #endif
   }
   return false;
 }
-void PROBE::Show() {
+void PROBE::Show()
+{
 #if TEMP_PROBE_DEBUG
   Serial.println(F("===== Mostrando Informacion Temperatura ====="));
-  for (uint8_t id = 0; id < this->NUM_SENSORS; id++) {
+  for (uint8_t id = 0; id < this->NUM_SENSORS; id++)
+  {
     Serial.print(F("Sonda Temperatura "));
     Serial.print(id);
     Serial.print(F(" : "));
@@ -105,17 +116,22 @@ void PROBE::Show() {
   }
 }*/
 
-void PROBE::run() {
-  if (this->checkTimer->getFlag()) {
-    if (this->timeManager->pastMil(*this->checkTimer)) {
+void PROBE::run()
+{
+  if (this->checkTimer->getFlag())
+  {
+    if (this->timeManager->pastMil(*this->checkTimer))
+    {
       this->read();
       this->Show();
       this->checkTimer->deactivateFlag();
       this->standByTimer->activateFlag();
     }
   }
-  if (this->standByTimer->getFlag()) {
-    if (this->timeManager->pastMin(*this->standByTimer)) {
+  if (this->standByTimer->getFlag())
+  {
+    if (this->timeManager->pastMin(*this->standByTimer))
+    {
       this->standByTimer->deactivateFlag();
       this->checkTimer->activateFlag();
     }
