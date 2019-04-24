@@ -3,7 +3,7 @@
 
 #include "../Common.h"
 #include "Arduino.h"
-#include "SimpleCapacityManagerFrame.h"
+#include "BasicCapacityManagerFrame.h"
 
 class CapacityManager
 {
@@ -27,7 +27,7 @@ public:
 
 private:
   /*Basic Frame with basic information about capacity*/
-  SimpleCapacityManagerFrame simpleFrame = SimpleCapacityManagerFrame(this);
+  BasicCapacityManagerFrame basicFrame = BasicCapacityManagerFrame(this);
 };
 
 #endif

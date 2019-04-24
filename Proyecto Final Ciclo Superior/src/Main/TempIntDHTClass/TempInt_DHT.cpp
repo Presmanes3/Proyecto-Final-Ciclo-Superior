@@ -1,6 +1,6 @@
 #include "TempInt_DHT.h"
 
-DHT_S::DHT_S(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer)
+DHT_S::DHT_S(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer, LcdWrapper *myLcd, char *frameName)
     : EventManager(timeManager, checkTimer, standByTimer)
 {
 
@@ -11,6 +11,8 @@ DHT_S::DHT_S(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer)
 
   this->checkTimer->activateFlag();
   this->standByTimer->deactivateFlag();
+
+  this->basicFrame = BasicDHTFrame(this, myLcd, frameName);
 }
 
 void DHT_S::setup()
@@ -147,8 +149,9 @@ bool DHT_S::Alarm()
   return false;
 }
 
-void DHT_S::Show()
+void DHT_S::showSerialData()
 {
+#if DHT_DEBUG
   Serial.println(F("===== Mostranso Informacion Sensor Humedad ====="));
   Serial.print(F("Temperatura : "));
   Serial.print(DHT_S::Temperature, 3);
@@ -156,6 +159,7 @@ void DHT_S::Show()
   Serial.print(F("Humedad Relativa : "));
   Serial.print(DHT_S::Humidity, 3);
   Serial.println(F("%"));
+#endif
 }
 
 void DHT_S::run()
@@ -165,7 +169,9 @@ void DHT_S::run()
     if (this->timeManager->pastMil(*this->checkTimer))
     {
       this->read();
-      this->Show();
+#if DHT_DEBUG
+      this->showSerialData();
+#endif
       this->checkTimer->deactivateFlag();
       this->standByTimer->activateFlag();
     }
@@ -179,4 +185,17 @@ void DHT_S::run()
       this->checkTimer->activateFlag();
     }
   }
+}
+
+float DHT_S::getTemperature()
+{
+  return this->Temperature;
+}
+float DHT_S::getHumidity()
+{
+  return this->Humidity;
+}
+float DHT_S::getHeat()
+{
+  return this->Heat;
 }

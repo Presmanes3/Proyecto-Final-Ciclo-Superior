@@ -26,7 +26,6 @@ Timer RfidStandBy = Timer(INACTIVE_TIME_RFID, millis(), false);
 Timer ManualDoorCheck = Timer(TIME_TO_CHECK_IN_OUT_MANUAL, millis(), true);
 Timer ManualDoorStandBy = Timer(INACTIVE_TIME_MANUAL, millis(), false);
 
-
 /* ======================= Global Objects ======================= */
 
 Equip myEquip = Equip();
@@ -69,7 +68,7 @@ void setup()
     }
     if (CONTROL_CAPACITY)
     {
-      myCapacityManager.Setup();
+      myCapacityManager.setup();
     }
     if (CONTROL_SMART_CORRIDOR_LIGHT)
     {

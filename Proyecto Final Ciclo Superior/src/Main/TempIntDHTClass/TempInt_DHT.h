@@ -6,11 +6,13 @@
 #include "../Common.h"
 #include "Arduino.h"
 #include "DHT.h"
+#include "BasicDHTFrame.h"
 
-class DHT_S : public EventManager, public AbstractSensor {
+class DHT_S : public EventManager, public AbstractSensor
+{
 
 public:
-  DHT_S(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer);
+  DHT_S(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer, LcdWrapper *myLcd = nullptr, char *frameName = nullptr);
 
   void updateTemperature();
   void updateHumidity();
@@ -23,9 +25,14 @@ public:
   /*void Save_SD(char *time, bool header = false, );*/
 
   bool Alarm();
-  void Show();
+  void showSerialData();
 
-private:
+  float getTemperature();
+  float getHumidity();
+  float getHeat();
+
+protected:
+  BasicDHTFrame basicFrame = BasicDHTFrame(this);
   DHT dht = DHT(DHT_PIN, DHT_TYPE);
 
   uint32_t Alarm_time_reference;
