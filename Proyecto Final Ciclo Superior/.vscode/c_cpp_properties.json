@@ -1,11 +1,7 @@
 {
     "configurations": [
         {
-            "name": "!!! WARNING !!! AUTO-GENERATED FILE, PLEASE DO NOT MODIFY IT AND USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags",
-            "intelliSenseMode": "gcc-x64",
-            "compilerPath": "/usr/bin/clang",
-            "cStandard": "c11",
-            "cppStandard": "c++17"
+            "name": "!!! WARNING !!! AUTO-GENERATED FILE, PLEASE DO NOT MODIFY IT AND USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags"
         },
         {
             "name": "Linux",
@@ -66,7 +62,7 @@
                 ]
             },
             "defines": [
-                "PLATFORMIO=30606",
+                "PLATFORMIO=30607",
                 "ARDUINO_AVR_MEGA2560",
                 "F_CPU=16000000L",
                 "ARDUINO_ARCH_AVR",
@@ -77,7 +73,7 @@
             "intelliSenseMode": "clang-x64",
             "cStandard": "c11",
             "cppStandard": "c++11",
-            "compilerPath": "/home/presmanes3/.platformio/packages/toolchain-atmelavr/bin/avr-gcc -mmcu=atmega2560"
+            "compilerPath": "\"/home/presmanes3/.platformio/packages/toolchain-atmelavr/bin/avr-gcc\" -mmcu=atmega2560"
         }
     ],
     "version": 4

@@ -4,12 +4,13 @@
 #include "Arduino.h"
 #include "../Common.h"
 
-class DHT_S;
+class CustomDHTClass;
 
 class BasicDHTFrame : public LCDFrame
 {
 public:
-    BasicDHTFrame(DHT_S *owner, LcdWrapper *myLcd = nullptr, char *frameName = nullptr);
+    /*This class needs a reference to a DHT object, LCD and name are optionals*/
+    BasicDHTFrame(CustomDHTClass *owner, LcdWrapper *myLcd = nullptr, char *frameName = nullptr);
 
     /*Show data through Lcd*/
     void showLcdData() override;

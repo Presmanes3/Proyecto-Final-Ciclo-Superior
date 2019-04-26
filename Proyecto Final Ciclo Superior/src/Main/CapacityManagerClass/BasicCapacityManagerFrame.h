@@ -9,6 +9,7 @@ class CapacityManager;
 class BasicCapacityManagerFrame : public LCDFrame
 {
 public:
+    /*This class needs a reference to a CapacityMAnager object, LCD and name are optional*/
     BasicCapacityManagerFrame(CapacityManager *owner, LcdWrapper *myLcd = nullptr, char *frameName = nullptr);
 
     /*Show data through Lcd*/

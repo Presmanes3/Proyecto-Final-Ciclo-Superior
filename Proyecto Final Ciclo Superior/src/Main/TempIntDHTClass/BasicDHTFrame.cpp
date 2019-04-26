@@ -1,8 +1,8 @@
 #include "BasicDHTFrame.h"
-#include "TempInt_DHT.h"
+#include "CustomDHTClass.h"
 #include "../LCDWrapper/LCDWrapper.h"
 
-BasicDHTFrame::BasicDHTFrame(DHT_S *owner, LcdWrapper *myLcd, char *frameName) : LCDFrame(myLcd, frameName)
+BasicDHTFrame::BasicDHTFrame(CustomDHTClass *owner, LcdWrapper *myLcd, char *frameName) : LCDFrame(myLcd, frameName)
 {
     this->owner = owner;
 }
@@ -10,11 +10,11 @@ BasicDHTFrame::BasicDHTFrame(DHT_S *owner, LcdWrapper *myLcd, char *frameName) :
 void BasicDHTFrame::showLcdData()
 {
     this->lcd->setCursor(0, 0);
-    this->lcd->print("  DHT22 Data");
+    this->lcd->print(F("DHT22 Data"));
     this->lcd->setCursor(0, 1);
-    this->lcd->print("T:");
+    this->lcd->print(F("T:"));
     this->lcd->print(this->owner->getTemperature());
     this->lcd->setCursor(7, 1);
-    this->lcd->print("H: ");
+    this->lcd->print(F("H: "));
     this->lcd->print(this->owner->getHumidity());
 }

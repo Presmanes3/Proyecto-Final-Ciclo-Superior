@@ -20,9 +20,9 @@
 
 #include "RFIDControllerClass/RFIDController.h"
 
-#include "TempIntDHTClass/TempInt_DHT.h"
+#include "TempIntDHTClass/CustomDHTClass.h"
 
-#include "TempIntProbesClass/TempInt_PROBE.h"
+#include "TempIntProbesClass/CustomProbeClass.h"
 
 #include "Debug.h"
 

@@ -28,27 +28,24 @@ Timer ManualDoorStandBy = Timer(INACTIVE_TIME_MANUAL, millis(), false);
 
 /* ======================= Global Objects ======================= */
 
-Equip myEquip = Equip();
-Agenda myAgenda = Agenda();
-TimeManager timeManager = TimeManager();
-CapacityManager myCapacityManager = CapacityManager(MAX_CAPACITY);
+Equip myEquip;
+Agenda myAgenda;
+TimeManager timeManager;
+CapacityManager myCapacityManager(MAX_CAPACITY);
 
-EmerDoorController myEmerDoorCont =
-    EmerDoorController(&timeManager, &EmerDoorCheck, &EmerDoorStandBy);
+EmerDoorController myEmerDoorCont(&timeManager, &EmerDoorCheck, &EmerDoorStandBy);
 
-PIRController myPIR =
-    PIRController(&timeManager, &CorrLightCheck, &CorrLightStandBy);
+PIRController myPIR(&timeManager, &CorrLightCheck, &CorrLightStandBy);
 
-PROBE myProbe = PROBE(&timeManager, &TempCheck, &TempStandBy);
+CustomProbeClass myProbe(&timeManager, &TempCheck, &TempStandBy);
 
-LDRController myLDR = LDRController(&timeManager, &LdrCheck, &LdrStandBy);
+LDRController myLDR(&timeManager, &LdrCheck, &LdrStandBy);
 
-DHT_S myDHT = DHT_S(&timeManager, &DhtCheck, &DhtStandBy);
+CustomDHTClass myDHT(&timeManager, &DhtCheck, &DhtStandBy);
 
-RFIDController myRFID =
-    RFIDController(&myAgenda, &timeManager, &RfidCheck, &RfidStandBy);
+RFIDController myRFID(&myAgenda, &timeManager, &RfidCheck, &RfidStandBy);
 
-ManualDoorController myManualDoorController = ManualDoorController(
+ManualDoorController myManualDoorController(
     &myCapacityManager, &timeManager, &ManualDoorCheck, &ManualDoorStandBy);
 
 /* ======================================================= */
