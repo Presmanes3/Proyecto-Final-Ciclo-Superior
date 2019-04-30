@@ -1,5 +1,3 @@
-/* We have between 2 and 5 temperature probes connected to pin 26 on Arduino*/
-
 #ifndef _TEMPINT_PROBE_H
 #define _TEMPINT_PROBE_H
 
@@ -16,8 +14,10 @@ public:
 
   /*This is the update function*/
   void run();
+
   /*This function must be called at startup*/
   void setup() override;
+
   /*Returns true if reading has be done*/
   bool read() override;
 
@@ -35,8 +35,12 @@ private:
   DallasTemperature sensorDS18B20 = DallasTemperature(&oneWireObjeto);
   BasicProbeFrame basicFrame = BasicProbeFrame(this);
 
+  /* Total number of probes coneected to the pin*/
   uint8_t totalProbesConnected;
+
+  /* Probes Values Array*/
   float probesConnectedValue[5];
+
   bool State;
 };
 #endif

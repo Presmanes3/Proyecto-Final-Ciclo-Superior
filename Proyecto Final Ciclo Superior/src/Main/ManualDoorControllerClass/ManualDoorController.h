@@ -14,13 +14,22 @@ public:
   bool button_option;
   bool read_flag;
 
+  /* Update function called at main loop*/
   void run();
+
+  /* Starts the sensor*/
   void setup() override;
+
+  /* Read the sensor*/
   bool read() override;
 
+  /* Turns on light configured on setup*/
   void turnOnLight();
+
+  /* Turns off light configured on setup*/
   void turnOffLight();
 
+  /*Return which button has been pressed*/
   bool getButtonOption();
 
 private:

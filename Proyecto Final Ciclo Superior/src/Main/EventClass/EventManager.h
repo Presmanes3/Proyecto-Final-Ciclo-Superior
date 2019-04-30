@@ -6,6 +6,7 @@
 class Timer;
 class TimeManager;
 
+/* Manages Event which have a Time Manager and two timers in order to control what happens with the timers*/
 class EventManager
 {
 public:

@@ -23,10 +23,20 @@ public:
 
   extern Contacto Contact_List[4];
   */
+
+  /* Starts the Agenda*/
   void Setup();
+
+  /* Print a contact from agenda through Serial*/
   void printContact(Contact contact);
+
+  /* Print a contact list from Agenda through Serial*/
   void printContactList(Contact *list, uint8_t size);
+
+  /* Sets all the values of a contact to 0*/
   void clearContact(Contact &contact);
+
+  /* Returns the Agenda contact list*/
   Contact *getContactList();
 
   Contact Contacto1 =
