@@ -3,7 +3,7 @@
 
 /* These two macros activate or deactivate main code */
 #define SPECTS_BASIC true
-#define SPECTS_EXTRA false
+#define SPECTS_EXTRA true
 
 /*Basic Features*/
 #define CONTROL_EMERGERCY_DOOR false
