@@ -123,8 +123,11 @@ void ManualDoorController::run()
         {
           this->capacityManager->removePerson();
         }
+
         this->checkTimer->deactivateFlag();
         this->standByTimer->activateFlag();
+
+        this->standByTimer->updateReference();
       }
     }
   }
@@ -133,8 +136,11 @@ void ManualDoorController::run()
     if (this->timeManager->pastMil(*this->standByTimer))
     {
       this->turnOffLight();
+
       this->standByTimer->deactivateFlag();
       this->checkTimer->activateFlag();
+
+      this->checkTimer->updateReference();
     }
   }
 }

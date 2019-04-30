@@ -16,7 +16,7 @@ public:
     void showLcdData() override;
 
 private:
-    DHT_S *owner;
+    CustomDHTClass *owner;
 };
 
 #endif // !_BASIC_DHT_FRAME_H_

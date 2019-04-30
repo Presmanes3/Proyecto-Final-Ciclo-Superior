@@ -1,12 +1,14 @@
 #include "CustomProbeClass.h"
 
-CustomProbeClass::CustomProbeClass(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer)
+CustomProbeClass::CustomProbeClass(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer, LcdWrapper *myLcd, char *frameName)
     : EventManager(timeManager, checkTimer, standByTimer)
 {
   this->totalProbesConnected = PROBE_NUM_PROBES;
 
   this->checkTimer->activateFlag();
   this->standByTimer->deactivateFlag();
+
+  this->basicFrame = BasicProbeFrame(this, myLcd, frameName);
 }
 
 void CustomProbeClass::setup()
@@ -124,8 +126,11 @@ void CustomProbeClass::run()
     {
       this->read();
       this->showSerialData();
+
       this->checkTimer->deactivateFlag();
       this->standByTimer->activateFlag();
+
+      this->standByTimer->updateReference();
     }
   }
   if (this->standByTimer->getFlag())
@@ -134,6 +139,8 @@ void CustomProbeClass::run()
     {
       this->standByTimer->deactivateFlag();
       this->checkTimer->activateFlag();
+
+      this->checkTimer->updateReference();
     }
   }
 }

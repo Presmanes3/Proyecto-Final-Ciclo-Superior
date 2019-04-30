@@ -154,10 +154,10 @@ void CustomDHTClass::showSerialData()
 #if DHT_DEBUG
   Serial.println(F("===== Mostranso Informacion Sensor Humedad ====="));
   Serial.print(F("Temperatura : "));
-  Serial.print(DHT_S::Temperature, 3);
+  Serial.print(this->Temperature, 3);
   Serial.println(F("ºC"));
   Serial.print(F("Humedad Relativa : "));
-  Serial.print(DHT_S::Humidity, 3);
+  Serial.print(this->Humidity, 3);
   Serial.println(F("%"));
 #endif
 }
@@ -172,8 +172,12 @@ void CustomDHTClass::run()
 #if DHT_DEBUG
       this->showSerialData();
 #endif
+
+
       this->checkTimer->deactivateFlag();
       this->standByTimer->activateFlag();
+
+      this->standByTimer->updateReference();
     }
   }
   if (this->standByTimer->getFlag())
@@ -183,6 +187,8 @@ void CustomDHTClass::run()
 
       this->standByTimer->deactivateFlag();
       this->checkTimer->activateFlag();
+
+      this->checkTimer->updateReference();
     }
   }
 }

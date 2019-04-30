@@ -2,7 +2,7 @@
 
 CapacityManager::CapacityManager(uint32_t max_capacity, LcdWrapper *myLcd, char *frameName)
 {
-  CapacityManager::maxCapacity = maxCapacity;
+  this->maxCapacity = max_capacity;
   this->basicFrame = BasicCapacityManagerFrame(this, myLcd, frameName);
 }
 

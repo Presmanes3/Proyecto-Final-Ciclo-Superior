@@ -26,18 +26,18 @@ bool PIRController::read() {
   }
   return false;
 }
-void PIRController::turnOnLight() {
+void PIRController::turnOffLight() {
 #if SMART_CORRIDOR_LIGHT_DEBUG
   Serial.println(F("===== Apagando Luz PIR ====="));
 #endif
-  digitalWrite(PIR_LED, 0);
+  digitalWrite(4, 0);
 }
 
-void PIRController::turnOffLight() {
+void PIRController::turnOnLight() {
 #if SMART_CORRIDOR_LIGHT_DEBUG
   Serial.println(F("===== Encendiendo Luz PIR ====="));
 #endif
-  digitalWrite(PIR_LED, 1);
+  digitalWrite(4, 1);
 }
 
 void PIRController::run() {
@@ -45,16 +45,22 @@ void PIRController::run() {
     if (this->timeManager->pastSec(*this->checkTimer)) {
       if (this->read()) {
         this->turnOnLight();
+
         this->checkTimer->deactivateFlag();
         this->standByTimer->activateFlag();
+
+        this->standByTimer->updateReference();
       }
     }
   }
   if (this->standByTimer->getFlag()) {
-    if (this->timeManager->pastMin(*this->standByTimer)) {
+    if (this->timeManager->pastSec(*this->standByTimer)) {
       this->turnOffLight();
+
       this->standByTimer->deactivateFlag();
       this->checkTimer->activateFlag();
+
+      this->checkTimer->updateReference();
     }
   }
 }

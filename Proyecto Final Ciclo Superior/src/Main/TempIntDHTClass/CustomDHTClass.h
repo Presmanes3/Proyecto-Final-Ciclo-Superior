@@ -10,7 +10,6 @@
 
 class CustomDHTClass : public EventManager, public AbstractSensor
 {
-
 public:
   CustomDHTClass(TimeManager *timeManager, Timer *checkTimer, Timer *standByTimer, LcdWrapper *myLcd = nullptr, char *frameName = nullptr);
 
@@ -31,6 +30,8 @@ public:
   /*void Save_SD(char *time, bool header = false, );*/
 
   bool Alarm();
+
+  /*If debug, show formated data through Serial Port*/
   void showSerialData();
 
   /*Returns Temperature as float*/

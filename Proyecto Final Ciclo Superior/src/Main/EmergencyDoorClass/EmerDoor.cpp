@@ -45,16 +45,22 @@ void EmerDoorController::run() {
     if (this->timeManager->pastMil(*this->checkTimer)) {
       if (this->read()) {
         this->turnOnLight();
+        
         this->checkTimer->deactivateFlag();
         this->standByTimer->activateFlag();
+
+        this->standByTimer->updateReference();
       }
     }
   }
   if (this->standByTimer->getFlag()) {
-    if (this->timeManager->pastMil(*this->standByTimer)) {
+    if (this->timeManager->pastSec(*this->standByTimer)) {
       this->turnOffLight();
+      
       this->standByTimer->deactivateFlag();
       this->checkTimer->activateFlag();
+
+      this->checkTimer->updateReference();
     }
   }
 }

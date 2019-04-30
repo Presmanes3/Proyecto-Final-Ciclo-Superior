@@ -16,7 +16,7 @@ public:
     void showLcdData() override;
 
 private:
-    PROBE *owner;
+    CustomProbeClass *owner;
 };
 
 #endif // !_BASIC_PROBE_FRAME_H_

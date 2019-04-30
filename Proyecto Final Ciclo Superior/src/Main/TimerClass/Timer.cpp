@@ -26,3 +26,5 @@ bool Timer::getFlag() { return this->flag; }
 /*=====     =====*/
 void Timer::activateFlag() { this->flag = true; }
 void Timer::deactivateFlag() { this->flag = false; }
+
+void Timer::updateReference(){this->reference = millis();}

@@ -1,5 +1,5 @@
-#include "BasicDHTFrame.h"
 #include "CustomDHTClass.h"
+//#include "BasicDHTFrame.h"
 #include "../LCDWrapper/LCDWrapper.h"
 
 BasicDHTFrame::BasicDHTFrame(CustomDHTClass *owner, LcdWrapper *myLcd, char *frameName) : LCDFrame(myLcd, frameName)

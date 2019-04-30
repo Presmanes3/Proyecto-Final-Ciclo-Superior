@@ -9,10 +9,11 @@
 #define MAX_SIZE_MAIL 30
 #define MAX_SIZE_PHONENUMBER 10
 
-class Contact {
+class Contact
+{
 public:
   Contact(char *_ID, char *_name, char *_surname, char *_mail,
-          char *_phoneNumber);
+          char *_phoneNumber, bool permission = false);
 
   /*===== Setters =====*/
   void setID(char *newID);
@@ -20,6 +21,7 @@ public:
   void setSurname(char *newSurName);
   void setMail(char *newMail);
   void setPhoneNumer(char *newPhoneNumber);
+  void setPermission(bool newPermission);
 
   /*===== Getters =====*/
   char *getID();
@@ -27,6 +29,7 @@ public:
   char *getSurname();
   char *getMail();
   char *getPhoneNumber();
+  bool getPermission();
 
   /*=====     =====*/
   void showSerialData();
@@ -39,5 +42,6 @@ private:
   char surname[MAX_SIZE_SURNAME];
   char mail[MAX_SIZE_MAIL];
   char phoneNumber[MAX_SIZE_PHONENUMBER];
+  bool permission;
 };
 #endif

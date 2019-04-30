@@ -8,13 +8,14 @@ BasicProbeFrame::BasicProbeFrame(CustomProbeClass *owner, LcdWrapper *myLcd, cha
 }
 
 void BasicProbeFrame::showLcdData()
-{ /*
+{
+    this->owner->read();
     this->lcd->setCursor(0, 0);
-    this->lcd->print(F("DHT22 Data"));
+    this->lcd->print(F("Probe 0 "));
+    this->lcd->print(this->owner->getTemperatureFromDevice(0));
+    this->lcd->print(F("ºC"));
     this->lcd->setCursor(0, 1);
-    this->lcd->print(F("T:"));
-    this->lcd->print(this->owner->getTemperature());
-    this->lcd->setCursor(7, 1);
-    this->lcd->print(F("H: "));
-    this->lcd->print(this->owner->getHumidity());*/
+    this->lcd->print(F("Probe 1 "));
+    this->lcd->print(this->owner->getTemperatureFromDevice(1));
+    this->lcd->print(F("ºC"));
 }

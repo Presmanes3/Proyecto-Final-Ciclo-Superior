@@ -7,7 +7,8 @@
 
 #define NUM_CONTACTS 4
 
-class Agenda {
+class Agenda
+{
 public:
   Agenda();
 
@@ -28,7 +29,6 @@ public:
   void clearContact(Contact &contact);
   Contact *getContactList();
 
-protected:
   Contact Contacto1 =
       Contact((char *)CONTACTO1_ID, (char *)CONTACTO1_NOMBRE,
               (char *)CONTACTO1_APELLIDO, (char *)CONTACTO1_CORREO,

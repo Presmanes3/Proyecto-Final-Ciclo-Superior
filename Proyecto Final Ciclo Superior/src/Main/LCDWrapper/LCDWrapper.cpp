@@ -23,7 +23,8 @@ void LcdWrapper::changeFrame(LCDFrame *frame)
   if (this->existsFrame(frame) && !(this->currentFrame == frame))
   {
 #if LCD_SERIAL_DEBUG
-    Serial.println(F("Changuing to ") + this->framePool[id]->getName());
+    Serial.print(F("Changuing to "));
+    Serial.println(this->currentFrame->getName());
 #endif
     this->currentFrame = frame;
   }
@@ -50,8 +51,9 @@ void LcdWrapper::addFrame(LCDFrame *newFrame)
     this->framePool[this->totalFrames] = newFrame;
     this->totalFrames++;
 #if LCD_SERIAL_DEBUG
-    Serial.println(F("Frame added :") +
-                   this->framePool[thi->totalFrames - 1]->getName());
+    Serial.print(F("Frame added :"));
+    Serial.println(this->framePool[this->totalFrames - 1]->getName()); 
+                   
 #endif
   }
 }
