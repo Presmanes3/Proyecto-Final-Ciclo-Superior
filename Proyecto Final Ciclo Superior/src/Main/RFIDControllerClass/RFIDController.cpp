@@ -101,12 +101,14 @@ void RFIDController::run()
     {
       if (this->Read(this->agenda->ContactList, this->agenda->size))
       {
+
+        this->basicFrame.showLcdData();
+
+        this->checkTimer->deactivateFlag();
+        this->standByTimer->activateFlag();
+
+        this->standByTimer->updateReference();
       }
-
-      this->checkTimer->deactivateFlag();
-      this->standByTimer->activateFlag();
-
-      this->standByTimer->updateReference();
     }
   }
 

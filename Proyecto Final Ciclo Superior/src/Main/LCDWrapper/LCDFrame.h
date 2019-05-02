@@ -20,12 +20,23 @@ public:
   /*Changes Frame name*/
   void setName(char *newName);
 
+  /*Set flag to true*/
+  void activateFlag();
+
+  /*Set flag to false*/
+  void deActivateFlag();
+
+  /*Returns true if flag is true*/
+  bool isActivated();
+
 protected:
   /*Pointer to Lcd*/
   LcdWrapper *lcd;
 
   /*Frame's name*/
   char name[15];
+
+  bool flag;
 };
 
 #endif

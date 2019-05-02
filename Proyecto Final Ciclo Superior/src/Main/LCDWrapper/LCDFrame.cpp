@@ -8,3 +8,16 @@ LCDFrame::LCDFrame(LcdWrapper *myLcd, char *frameName)
 
 void LCDFrame::setName(char *newName) { snprintf(this->name, 15, "%s", newName); }
 char *LCDFrame::getName() { return this->name; }
+
+void LCDFrame::activateFlag()
+{
+  this->flag = true;
+}
+void LCDFrame::deActivateFlag()
+{
+  this->flag = false;
+}
+bool LCDFrame::isActivated()
+{
+  return this->flag;
+}
