@@ -158,37 +158,12 @@ void Main_program()
 #if SPECTS_BASIC
 #if CONTROL_EMERGERCY_DOOR
   myEmerDoorCont.run();
-  /*if (EmergencyDoorCheck.flag) {
-        // myEmergencyDoor.run();
-        if (Past_mil(EmergencyDoorCheck.time, EmergencyDoorCheck.var)) {
-          // Read the button
-          if (myEmergencyDoor.Read()) {
 
-            myEmergencyDoor.Turn_on_light();
-            EmergencyDoorCheck.flag = false;
-          }
-        }
-      } else {
-        if (Past_sec(INACTIVE_TIME_EMERGENCY_DOOR, EmergencyDoorCheck.var)) {
-          myEmergencyDoor.Turn_off_light();
-          EmergencyDoorCheck.flag = true;
-        }
-    }*/
 #endif
 
 #if CONTROL_SMART_CORRIDOR_LIGHT
   myPIR.run();
-  /*if (CorridorLightCheck.flag) {
-        if (Past_sec(CorridorLightCheck.time, CorridorLightCheck.var)) {
-          if (myPIR.Read()) {
-            myPIR.Turn_on_light();
-          }
-        }
-      } else {
-        if (Past_min(INACTIVE_TIME_CORRIDOR_LIGHT, CorridorLightCheck.var))
-{ myPIR.Turn_off_light(); CorridorLightCheck.flag = true;
-        }
-    }*/
+
 #endif
 
 #if CONTROL_TEMP

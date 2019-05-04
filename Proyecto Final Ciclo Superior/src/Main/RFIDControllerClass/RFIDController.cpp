@@ -48,31 +48,31 @@ bool RFIDController::Read(Contact *list, uint8_t size)
   String UID = "";
   for (byte i = 0; i < mfrc522.uid.size; i++)
   {
-    /*#if IN_OUT_RFID_DEBUG
+    #if IN_OUT_RFID_DEBUG
       Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
       Serial.print(mfrc522.uid.uidByte[i], HEX);
       #endif
-  }*/
+  
 
     UID.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " "));
     UID.concat(String(mfrc522.uid.uidByte[i], HEX));
-  }
-  /* #if IN_OUT_RFID_DEBUG
+  
+  #if IN_OUT_RFID_DEBUG
      Serial.println();
      #endif
- }*/
+ }
   UID.toUpperCase();
   for (uint8_t index = 0; index < size; index++)
   {
     Contact currentContact = list[index];
-    /*
+    
 #if IN_OUT_RFID_DEBUG
     Serial.print(F("Contact "));
     Serial.print(index);
     Serial.print(F(" ID : "));
     Serial.println(list[index].ID);
 
-    #endif*/
+    #endif
 
     /*If the contact is allowed print the info and send to lcd*/
 
@@ -90,6 +90,7 @@ bool RFIDController::Read(Contact *list, uint8_t size)
   }
   return false;
 }
+
 
 Agenda *RFIDController::getAgenda() { return this->agenda; }
 

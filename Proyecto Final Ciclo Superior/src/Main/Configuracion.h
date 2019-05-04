@@ -41,11 +41,11 @@
 #define INACTIVE_TIME_BARRIER          100  // Milliseconds
 
 /*In Out RFID*/
-#define TIME_TO_CHECK_IN_OUT_RFID      50   // Milliseconds
+#define TIME_TO_CHECK_IN_OUT_RFID      500   // Milliseconds
 #define INACTIVE_TIME_RFID             5    // Seconds
 
 /*In Out Manual*/
 #define TIME_TO_CHECK_IN_OUT_MANUAL    50   // Milliseconds
-#define INACTIVE_TIME_MANUAL           50   // Milliseconds
+#define INACTIVE_TIME_MANUAL           250   // Milliseconds
 
 #endif
