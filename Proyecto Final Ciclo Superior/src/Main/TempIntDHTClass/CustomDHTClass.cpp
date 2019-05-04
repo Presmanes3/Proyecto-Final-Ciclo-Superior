@@ -17,8 +17,8 @@ CustomDHTClass::CustomDHTClass(TimeManager *timeManager, Timer *checkTimer, Time
 
 void CustomDHTClass::setup()
 {
-#if DHT_DEBUG
-  Serial.println(F("===== Iniciando Sensor Humedad DHT22 ====="));
+#if DHT_SERIAL_GUI
+  Serial.println(F("========= Iniciando Sensor Humedad DHT22 ========="));
 #endif
 
   this->dht.begin();
@@ -26,7 +26,8 @@ void CustomDHTClass::setup()
   {
     this->State = false;
 #if DHT_DEBUG
-    Serial.println(F("DHT_S22 no iniciado\n"));
+    Serial.print(F(SERIAL_DEBUG_TAG));
+    Serial.println(F("DHT_S22 no iniciado"));
 #endif
     return;
   }
@@ -35,7 +36,8 @@ void CustomDHTClass::setup()
   {
     this->State = true;
 #if DHT_DEBUG
-    Serial.println(F("DHT_S22 iniciado\n"));
+    Serial.print(F(SERIAL_DEBUG_TAG));
+    Serial.println(F("DHT_S22 iniciado"));
 #endif
   }
   this->Alarm_times_activated = 0;
@@ -48,26 +50,12 @@ bool CustomDHTClass::read()
   if (this->State)
   {
 #if DHT_DEBUG
-    Serial.println(F("===== Leyendo Sensor Humedad DHT22 ====="));
+    Serial.print(F(SERIAL_DEBUG_TAG));
+    Serial.println(F("Leyendo Sensor Humedad DHT22"));
 #endif
     this->updateTemperature();
     this->updateHumidity();
     this->updateHeat();
-
-#if DHT_DEBUG
-    char buff[10];
-    dtostrf(this->Temperature, 3, 2, buff);
-    Serial.print(F("Temperatura : "));
-    Serial.println(buff);
-    dtostrf(this->Humidity, 3, 2, buff);
-    Serial.print(F("Humedad : "));
-    Serial.println(buff);
-    dtostrf(this->Heat, 3, 2, buff);
-    Serial.print(F("Calor : "));
-    Serial.println(buff);
-    Serial.println();
-    Serial.println(F("====================================="));
-#endif
   }
   return true;
 }
@@ -151,14 +139,19 @@ bool CustomDHTClass::Alarm()
 
 void CustomDHTClass::showSerialData()
 {
-#if DHT_DEBUG
-  Serial.println(F("===== Mostranso Informacion Sensor Humedad ====="));
+#if DHT_SERIAL_GUI
+  Serial.println();
+  Serial.println(F("======= Mostrando Informacion Sensor Humedad ======="));
+  Serial.print(F(SERIAL_TAB));
   Serial.print(F("Temperatura : "));
-  Serial.print(this->Temperature, 3);
+  Serial.print(this->Temperature);
   Serial.println(F("ºC"));
+  Serial.print(F(SERIAL_TAB));
   Serial.print(F("Humedad Relativa : "));
-  Serial.print(this->Humidity, 3);
+  Serial.print(this->Humidity);
   Serial.println(F("%"));
+  Serial.println(F(SERIAL_SPLITTER));
+  Serial.println();
 #endif
 }
 
@@ -166,19 +159,14 @@ void CustomDHTClass::run()
 {
   if (this->checkTimer->getFlag())
   {
-    if (this->timeManager->pastMil(*this->checkTimer))
-    {
-      this->read();
-#if DHT_DEBUG
-      this->showSerialData();
-#endif
+    this->read();
 
+    this->showSerialData();
 
-      this->checkTimer->deactivateFlag();
-      this->standByTimer->activateFlag();
+    this->checkTimer->deactivateFlag();
+    this->standByTimer->activateFlag();
 
-      this->standByTimer->updateReference();
-    }
+    this->standByTimer->updateReference();
   }
   if (this->standByTimer->getFlag())
   {

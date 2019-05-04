@@ -4,13 +4,15 @@ ManualDoorController::ManualDoorController(CapacityManager *capacityManager,
                                            TimeManager *timeManager,
                                            Timer *checkTimer,
                                            Timer *standByTimer)
-    : EventManager(timeManager, checkTimer, standByTimer){
+    : EventManager(timeManager, checkTimer, standByTimer)
+{
   this->capacityManager = capacityManager;
   this->checkTimer->activateFlag();
   this->standByTimer->deactivateFlag();
 }
 
-void ManualDoorController::setup(){
+void ManualDoorController::setup()
+{
 #if IN_OUT_MANUAL_DEBUG
   Serial.println(
       F("===== Iniciando Controlador Apertura Manual Puertas ====="));
@@ -25,13 +27,16 @@ void ManualDoorController::setup(){
   this->read_flag = false;
 }
 
-bool ManualDoorController::read(){
+bool ManualDoorController::read()
+{
 #if IN_OUT_MANUAL_DEBUG
-  Serial.println(F("===== Leyendo Controlador Apertura Manual Puertas ====="));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Leyendo Controlador Apertura Manual Puertas"));
 #endif
   if (digitalRead(MANUAL_DOOR_IN_PIN))
   {
 #if IN_OUT_MANUAL_DEBUG
+    Serial.print(F(SERIAL_DEBUG_TAG));
     Serial.println(F("Boton Entrada Detectado"));
 #endif
     this->button_option = true;
@@ -41,6 +46,7 @@ bool ManualDoorController::read(){
   else if (digitalRead(MANUAL_DOOR_OUT_PIN))
   {
 #if IN_OUT_MANUAL_DEBUG
+    Serial.print(F(SERIAL_DEBUG_TAG));
     Serial.println(F("Boton Salida Detectado"));
 #endif
     this->button_option = false;
@@ -50,40 +56,51 @@ bool ManualDoorController::read(){
   return false;
 }
 
-void ManualDoorController::turnOnExitLight(){
+void ManualDoorController::turnOnExitLight()
+{
 #if IN_OUT_MANUAL_DEBUG
-  Serial.println(F("===== Encenciendo Led Salida ====="));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Encenciendo Led Salida"));
 #endif
   digitalWrite(MANUAL_OUT_LED, 1);
 }
-void ManualDoorController::turnOnEnterLight(){
+void ManualDoorController::turnOnEnterLight()
+{
 #if IN_OUT_MANUAL_DEBUG
-  Serial.println(F("===== Encenciendo Led Entrada ====="));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Encenciendo Led Entrada"));
 #endif
   digitalWrite(MANUAL_IN_LED, 1);
 }
 
-void ManualDoorController::turnOffExitLight(){
+void ManualDoorController::turnOffExitLight()
+{
 #if IN_OUT_MANUAL_DEBUG
-  Serial.println(F("===== Apagando Led Entrada ====="));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Apagando Led Entrada"));
 #endif
   digitalWrite(MANUAL_OUT_LED, 0);
 }
-void ManualDoorController::turnOffEnterLight(){
+void ManualDoorController::turnOffEnterLight()
+{
 #if IN_OUT_MANUAL_DEBUG
-  Serial.println(F("===== Apagando Led Salida ====="));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Apagando Led Salida"));
 #endif
   digitalWrite(MANUAL_IN_LED, 0);
 }
 
-bool ManualDoorController::getButtonOption(){
+bool ManualDoorController::getButtonOption()
+{
 #if IN_OUT_MANUAL_DEBUG
-  Serial.println(F("===== Devolviendo el valor de Button Option ====="));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Devolviendo el valor de Button Option"));
 #endif
   return this->button_option;
 }
 
-void ManualDoorController::run(){
+void ManualDoorController::run()
+{
   if (this->checkTimer->getFlag())
   {
     if (this->timeManager->pastMil(*this->checkTimer))

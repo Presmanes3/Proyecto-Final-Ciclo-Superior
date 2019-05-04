@@ -2,37 +2,47 @@
 
 EmerDoorController::EmerDoorController(TimeManager *timeManager,
                                        Timer *checkTimer, Timer *standByTimer)
-    : EventManager(timeManager, checkTimer, standByTimer) {
+    : EventManager(timeManager, checkTimer, standByTimer)
+{
   this->checkTimer->activateFlag();
   this->standByTimer->deactivateFlag();
 }
 
-void EmerDoorController::turnOnLight() {
+void EmerDoorController::turnOnLight()
+{
 #if EMER_DOOR_DEBUG
-  Serial.println(F("===== Encendiendo Luz Emergencia ====="));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Encendiendo Luz Emergencia"));
 #endif
   digitalWrite(EMERGENCY_LED, 1);
 }
-void EmerDoorController::turnOffLight() {
+void EmerDoorController::turnOffLight()
+{
 #if EMER_DOOR_DEBUG
-  Serial.println(F("===== Apagando Luz Emergencia ====="));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Apagando Luz Emergencia"));
 #endif
   digitalWrite(EMERGENCY_LED, 0);
 }
 
-void EmerDoorController::setup() {
+void EmerDoorController::setup()
+{
 #if EMER_DOOR_DEBUG
   Serial.println(F("===== Iniciando Controlador Puerta Emergencia ====="));
 #endif
   pinMode(EMERGENCY_DOOR_PIN, INPUT);
   pinMode(EMERGENCY_LED, OUTPUT);
 }
-bool EmerDoorController::read() {
+bool EmerDoorController::read()
+{
 #if EMER_DOOR_DEBUG
-  Serial.println(F("===== Leyendo Sensor Puerta Emergencia ====="));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Leyendo Sensor Puerta Emergencia"));
 #endif
-  if (digitalRead(EMERGENCY_DOOR_PIN)) {
+  if (digitalRead(EMERGENCY_DOOR_PIN))
+  {
 #if EMER_DOOR_DEBUG
+    Serial.print(F(SERIAL_DEBUG_TAG));
     Serial.println(F("Puerta de emergencia abierta"));
 #endif
     return true;
@@ -40,12 +50,16 @@ bool EmerDoorController::read() {
   return false;
 }
 
-void EmerDoorController::run() {
-  if (this->checkTimer->getFlag()) {
-    if (this->timeManager->pastMil(*this->checkTimer)) {
-      if (this->read()) {
+void EmerDoorController::run()
+{
+  if (this->checkTimer->getFlag())
+  {
+    if (this->timeManager->pastMil(*this->checkTimer))
+    {
+      if (this->read())
+      {
         this->turnOnLight();
-        
+
         this->checkTimer->deactivateFlag();
         this->standByTimer->activateFlag();
 
@@ -53,10 +67,12 @@ void EmerDoorController::run() {
       }
     }
   }
-  if (this->standByTimer->getFlag()) {
-    if (this->timeManager->pastSec(*this->standByTimer)) {
+  if (this->standByTimer->getFlag())
+  {
+    if (this->timeManager->pastSec(*this->standByTimer))
+    {
       this->turnOffLight();
-      
+
       this->standByTimer->deactivateFlag();
       this->checkTimer->activateFlag();
 

@@ -2,48 +2,62 @@
 
 PIRController::PIRController(TimeManager *timeManager, Timer *checkTimer,
                              Timer *standByTimer)
-    : EventManager(timeManager, checkTimer, standByTimer) {
+    : EventManager(timeManager, checkTimer, standByTimer)
+{
   this->checkTimer->activateFlag();
   this->standByTimer->deactivateFlag();
 }
 
-void PIRController::setup() {
+void PIRController::setup()
+{
 #if SMART_CORRIDOR_LIGHT_DEBUG
   Serial.println(F("===== Iniciando Sensor PIR ====="));
 #endif
   pinMode(PIR_PIN, INPUT);
 }
 
-bool PIRController::read() {
+bool PIRController::read()
+{
 #if SMART_CORRIDOR_LIGHT_DEBUG
-  Serial.println(F("===== Leyendo Sensor PIR ====="));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Leyendo Sensor PIR"));
 #endif
-  if (digitalRead(PIR_PIN)) {
+  if (digitalRead(PIR_PIN))
+  {
 #if SMART_CORRIDOR_LIGHT_DEBUG
+    Serial.print(F(SERIAL_DEBUG_TAG));
     Serial.println(F("Sensor PIR Activado"));
 #endif
     return true;
   }
   return false;
 }
-void PIRController::turnOffLight() {
+void PIRController::turnOffLight()
+{
 #if SMART_CORRIDOR_LIGHT_DEBUG
-  Serial.println(F("===== Apagando Luz PIR ====="));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Apagando Luz PIR"));
 #endif
   digitalWrite(PIR_PIN, 0);
 }
 
-void PIRController::turnOnLight() {
+void PIRController::turnOnLight()
+{
 #if SMART_CORRIDOR_LIGHT_DEBUG
-  Serial.println(F("===== Encendiendo Luz PIR ====="));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Encendiendo Luz PIR"));
 #endif
   digitalWrite(PIR_PIN, 1);
 }
 
-void PIRController::run() {
-  if (this->checkTimer->getFlag()) {
-    if (this->timeManager->pastSec(*this->checkTimer)) {
-      if (this->read()) {
+void PIRController::run()
+{
+  if (this->checkTimer->getFlag())
+  {
+    if (this->timeManager->pastSec(*this->checkTimer))
+    {
+      if (this->read())
+      {
         this->turnOnLight();
 
         this->checkTimer->deactivateFlag();
@@ -53,8 +67,10 @@ void PIRController::run() {
       }
     }
   }
-  if (this->standByTimer->getFlag()) {
-    if (this->timeManager->pastSec(*this->standByTimer)) {
+  if (this->standByTimer->getFlag())
+  {
+    if (this->timeManager->pastSec(*this->standByTimer))
+    {
       this->turnOffLight();
 
       this->standByTimer->deactivateFlag();

@@ -13,8 +13,8 @@ CustomProbeClass::CustomProbeClass(TimeManager *timeManager, Timer *checkTimer, 
 
 void CustomProbeClass::setup()
 {
-#if TEMP_CustomProbeClass_DEBUG
-  Serial.println(F("===== Iniciando Sondas de Temperatura ====="));
+#if TEMP_PROBE_SERIAL_GUI
+  Serial.println(F("========= Iniciando Sondas de Temperatura ========="));
 #endif
   this->sensorDS18B20.begin();
   this->findDevices();
@@ -30,8 +30,10 @@ void CustomProbeClass::findDevices()
   {
     this->State = true;
   }
-#if TEMP_CustomProbeClass_DEBUG
+#if TEMP_PROBE_DEBUG
+  Serial.print(F(SERIAL_DEBUG_TAG));
   Serial.println(F("Buscando dispositivos"));
+  Serial.print(F(SERIAL_DEBUG_TAG));
   Serial.print(F("Encontrados: "));
   Serial.println(this->totalProbesConnected);
 #endif
@@ -41,8 +43,9 @@ bool CustomProbeClass::read()
   this->findDevices();
   if (this->State)
   {
-#if TEMP_CustomProbeClass_DEBUG
-    Serial.println(F("===== Leyendo Sondas Temperatura ====="));
+#if TEMP_PROBE_DEBUG
+    Serial.print(F(SERIAL_DEBUG_TAG));
+    Serial.println(F("Leyendo Sondas Temperatura"));
 #endif
 
     this->sensorDS18B20.requestTemperatures();
@@ -53,7 +56,8 @@ bool CustomProbeClass::read()
   }
   else
   {
-#if TEMP_CustomProbeClass_DEBUG
+#if TEMP_PROBE_DEBUG
+    Serial.print(F(SERIAL_DEBUG_TAG));
     Serial.println(F("Error, sondas desconectadas\n"));
 #endif
   }
@@ -61,15 +65,17 @@ bool CustomProbeClass::read()
 }
 void CustomProbeClass::showSerialData()
 {
-#if TEMP_CustomProbeClass_DEBUG
-  Serial.println(F("===== Mostrando Informacion Temperatura ====="));
-  for (uint8_t id = 0; id < this->NUM_SENSORS; id++)
+#if TEMP_PROBE_SERIAL_GUI
+  Serial.println(F("======== Mostrando Informacion Temperatura ========"));
+  for (uint8_t id = 0; id < this->totalProbesConnected; id++)
   {
+    Serial.print(F(SERIAL_TAB));
     Serial.print(F("Sonda Temperatura "));
     Serial.print(id);
     Serial.print(F(" : "));
     Serial.println(this->probesConnectedValue[id]);
   }
+  Serial.println(F(SERIAL_SPLITTER));
   Serial.println();
 #endif
 }
