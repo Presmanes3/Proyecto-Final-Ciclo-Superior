@@ -30,14 +30,14 @@ void PIRController::turnOffLight() {
 #if SMART_CORRIDOR_LIGHT_DEBUG
   Serial.println(F("===== Apagando Luz PIR ====="));
 #endif
-  digitalWrite(4, 0);
+  digitalWrite(PIR_PIN, 0);
 }
 
 void PIRController::turnOnLight() {
 #if SMART_CORRIDOR_LIGHT_DEBUG
   Serial.println(F("===== Encendiendo Luz PIR ====="));
 #endif
-  digitalWrite(4, 1);
+  digitalWrite(PIR_PIN, 1);
 }
 
 void PIRController::run() {

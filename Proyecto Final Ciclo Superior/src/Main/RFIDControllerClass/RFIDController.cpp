@@ -95,6 +95,7 @@ Agenda *RFIDController::getAgenda() { return this->agenda; }
 
 void RFIDController::run()
 {
+
   if (this->checkTimer->getFlag())
   {
     if (this->timeManager->pastMil(*this->checkTimer))
@@ -102,7 +103,7 @@ void RFIDController::run()
       if (this->Read(this->agenda->ContactList, this->agenda->size))
       {
 
-        this->basicFrame.showLcdData();
+        this->basicFrame.activateFlag();
 
         this->checkTimer->deactivateFlag();
         this->standByTimer->activateFlag();
@@ -114,8 +115,9 @@ void RFIDController::run()
 
   if (this->standByTimer->getFlag())
   {
-    if (this->timeManager->pastMil(*this->standByTimer))
+    if (this->timeManager->pastSec(*this->standByTimer))
     {
+      this->basicFrame.deActivateFlag();
 
       this->standByTimer->deactivateFlag();
       this->checkTimer->activateFlag();

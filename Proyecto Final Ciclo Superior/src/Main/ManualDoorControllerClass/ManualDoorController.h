@@ -23,11 +23,11 @@ public:
   /* Read the sensor*/
   bool read() override;
 
-  /* Turns on light configured on setup*/
-  void turnOnLight();
+  void turnOnExitLight();
+  void turnOnEnterLight();
 
-  /* Turns off light configured on setup*/
-  void turnOffLight();
+  void turnOffExitLight();
+  void turnOffEnterLight();
 
   /*Return which button has been pressed*/
   bool getButtonOption();

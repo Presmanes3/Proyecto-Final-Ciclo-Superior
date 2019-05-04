@@ -36,6 +36,7 @@ protected:
   /*Frame's name*/
   char name[15];
 
+  /*This flag is used to activate or deactivate the Frame*/
   bool flag;
 };
 

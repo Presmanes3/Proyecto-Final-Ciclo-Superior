@@ -9,6 +9,7 @@ BasicRFIDFrame::BasicRFIDFrame(RFIDController *owner, LcdWrapper *myLcd, char *f
 
 void BasicRFIDFrame::showLcdData()
 {
+    //this->lcd->clear()
     this->lcd->setCursor(0, 0);
     this->lcd->print(this->contact->getName()[0]);
     this->lcd->print(F("."));

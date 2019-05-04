@@ -2,7 +2,6 @@
 #include "Dependencies.h"
 #include "Functionalities.h"
 
-
 void Main_program();
 
 /* ======================= Timers ======================= */
@@ -93,46 +92,48 @@ void setup()
   myEquip.setup();
   myAgenda.Setup();
 
-   #if CONTROL_CAPACITY
-      myCapacityManager.setup();
-    #endif
-
-  #if SPECTS_BASIC
-    #if CONTROL_EMERGERCY_DOOR
-      myEmerDoorCont.setup();
-    #endif
-
-    #if CONTROL_SMART_CORRIDOR_LIGHT
-      myPIR.setup();
-    #endif
-
-    #if CONTROL_TEMP
-      myProbe.setup();
-    #endif
-
-    #if CONTROL_EXTERNAL_LIGHT
-      myLDR.setup();
-    #endif
-
-    #if CONTROL_HUMIDITY
-      myDHT.setup();
-    #endif
-
-  #endif
-
-  #if SPECTS_EXTRA
   
-    #if IN_OUT_BARRIER
-    #endif
 
-    #if IN_OUT_RFID
-      myRFID.setup();
-    #endif
+#if CONTROL_CAPACITY
+  myCapacityManager.setup();
+#endif
 
-    #if IN_OUT_MANUAL
-      myManualDoorController.setup();
-    #endif
-  #endif
+#if SPECTS_BASIC
+#if CONTROL_EMERGERCY_DOOR
+  myEmerDoorCont.setup();
+#endif
+
+#if CONTROL_SMART_CORRIDOR_LIGHT
+  myPIR.setup();
+#endif
+
+#if CONTROL_TEMP
+  myProbe.setup();
+#endif
+
+#if CONTROL_EXTERNAL_LIGHT
+  myLDR.setup();
+#endif
+
+#if CONTROL_HUMIDITY
+  myDHT.setup();
+#endif
+
+#endif
+
+#if SPECTS_EXTRA
+
+#if IN_OUT_BARRIER
+#endif
+
+#if IN_OUT_RFID
+  myRFID.setup();
+#endif
+
+#if IN_OUT_MANUAL
+  myManualDoorController.setup();
+#endif
+#endif
 }
 
 void loop()
@@ -146,10 +147,10 @@ void loop()
 void Main_program()
 {
 
-  #if SPECTS_BASIC
-    #if CONTROL_EMERGERCY_DOOR
-      myEmerDoorCont.run();
-      /*if (EmergencyDoorCheck.flag) {
+#if SPECTS_BASIC
+#if CONTROL_EMERGERCY_DOOR
+  myEmerDoorCont.run();
+  /*if (EmergencyDoorCheck.flag) {
         // myEmergencyDoor.run();
         if (Past_mil(EmergencyDoorCheck.time, EmergencyDoorCheck.var)) {
           // Read the button
@@ -165,11 +166,11 @@ void Main_program()
           EmergencyDoorCheck.flag = true;
         }
     }*/
-    #endif
+#endif
 
-    #if CONTROL_SMART_CORRIDOR_LIGHT
-      myPIR.run();
-      /*if (CorridorLightCheck.flag) {
+#if CONTROL_SMART_CORRIDOR_LIGHT
+  myPIR.run();
+  /*if (CorridorLightCheck.flag) {
         if (Past_sec(CorridorLightCheck.time, CorridorLightCheck.var)) {
           if (myPIR.Read()) {
             myPIR.Turn_on_light();
@@ -180,11 +181,11 @@ void Main_program()
 { myPIR.Turn_off_light(); CorridorLightCheck.flag = true;
         }
     }*/
-    #endif
+#endif
 
-    #if CONTROL_TEMP
-      myProbe.run();
-      /* if (TempCheck.flag) {
+#if CONTROL_TEMP
+  myProbe.run();
+  /* if (TempCheck.flag) {
          if (Past_mil(TempCheck.time, TempCheck.var)) {
            myProbe.Read();
            myProbe.Show();
@@ -195,11 +196,11 @@ void Main_program()
            TempCheck.flag = true;
          }
      }*/
-    #endif
+#endif
 
-    #if CONTROL_EXTERNAL_LIGHT
-      myLDR.run();
-      /* if (LDRCheck.flag) {
+#if CONTROL_EXTERNAL_LIGHT
+  myLDR.run();
+  /* if (LDRCheck.flag) {
          if (Past_mil(LDRCheck.time, LDRCheck.var)) {
            if (myLDR.Read()) {
              myLDR.Turn_on_light();
@@ -212,11 +213,11 @@ void Main_program()
            LDRCheck.flag = true;
          }
      }*/
-    #endif
+#endif
 
-    #if CONTROL_HUMIDITY
-      myDHT.run();
-      /* if (HumidityCheck.flag) {
+#if CONTROL_HUMIDITY
+  myDHT.run();
+  /* if (HumidityCheck.flag) {
          if (Past_mil(HumidityCheck.time, HumidityCheck.var)) {
            myDHT.Read();
            myDHT.Show();
@@ -229,17 +230,17 @@ void Main_program()
          }
        }
    }*/
-    #endif
-  #endif
+#endif
+#endif
 
-  #if SPECTS_EXTRA
-  
-    #if IN_OUT_BARRIER
-    #endif 
+#if SPECTS_EXTRA
 
-    #if IN_OUT_RFID
-      myRFID.run();
-      /*if (RFIDCheck.flag) {
+#if IN_OUT_BARRIER
+#endif
+
+#if IN_OUT_RFID
+  myRFID.run();
+  /*if (RFIDCheck.flag) {
         if (Past_mil(RFIDCheck.time, RFIDCheck.var)) {
           if () {
             Serial.println(F("===== Leyendo RFID Sensor ====="));
@@ -254,11 +255,11 @@ void Main_program()
           RFIDCheck.flag = true;
         }
     }*/
-    #endif
+#endif
 
-    #if IN_OUT_MANUAL
-      myManualDoorController.run();
-      /* if (ManualDoorCheck.flag) {
+#if IN_OUT_MANUAL
+  myManualDoorController.run();
+  /* if (ManualDoorCheck.flag) {
          if (Past_mil(ManualDoorCheck.time, ManualDoorCheck.var)) {
            if (myManualDoorController.Read()) {
              myManualDoorController.Turn_on_light();
@@ -276,6 +277,6 @@ void Main_program()
            ManualDoorCheck.flag = false;
          }
      }*/
-    #endif
-  #endif
+#endif
+#endif
 }
