@@ -3,6 +3,9 @@
 #include "Functionalities.h"
 
 void Main_program();
+#if SERIAL_GUI
+void setupShowFunctionalities();
+#endif
 
 /* ======================= Timers ======================= */
 #if SPECTS_BASIC
@@ -88,11 +91,16 @@ ManualDoorController myManualDoorController(
 void setup()
 {
   // put your setup code here, to run once:
+  #if MAIN_DEBUG
   Serial.begin(115200);
+  #endif
+
   myEquip.setup();
   myAgenda.Setup();
 
-  
+  #if SERIAL_GUI
+setupShowFunctionalities();
+  #endif
 
 #if CONTROL_CAPACITY
   myCapacityManager.setup();
@@ -280,3 +288,29 @@ void Main_program()
 #endif
 #endif
 }
+
+#if SERIAL_GUI
+void setupShowFunctionalities(){
+Serial.println();
+Serial.println(F("======================================="));
+Serial.println(F("====== Mostrando Funcionalidades ======"));
+Serial.print(F("Control de Emergencia : "));
+Serial.println(CONTROL_EMERGERCY_DOOR);
+Serial.print(F("Control de Aforo : "));
+Serial.println(CONTROL_CAPACITY);
+Serial.print(F("Control de Pasillos Inteligente : "));
+Serial.println(CONTROL_SMART_CORRIDOR_LIGHT);
+Serial.print(F("Control de Temperatura : "));
+Serial.println(CONTROL_TEMP);
+Serial.print(F("Control de Luz Externa : "));
+Serial.println(CONTROL_EXTERNAL_LIGHT);
+Serial.print(F("Control de Humedad Relativa : "));
+Serial.println(CONTROL_HUMIDITY);
+Serial.print(F("Control de Aforo RFID : "));
+Serial.println(IN_OUT_RFID);
+Serial.print(F("Control de Aforo Manual : "));
+Serial.println(IN_OUT_MANUAL);
+Serial.println(F("======================================="));
+Serial.println();
+}
+#endif

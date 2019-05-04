@@ -9,7 +9,7 @@ CapacityManager::CapacityManager(uint32_t max_capacity, LcdWrapper *myLcd, char 
 
 void CapacityManager::setup()
 {
-#if CAPACITY_DEBUG
+#if CAPACITY_SERIAL_GUI
   Serial.println(F("===== Iniciando Control de aforo ==="));
   Serial.print(F("Aforo Maximo: "));
   Serial.println(this->maxCapacity);
@@ -22,7 +22,7 @@ void CapacityManager::setup()
 
 void CapacityManager::showDataSerial()
 {
-#if CAPACITY_DEBUG
+#if CAPACITY_SERIAL_GUI
 Serial.println();
 Serial.println(F("======================================="));
 Serial.println(F("===== Mostrando Informacion Aforo ====="));
