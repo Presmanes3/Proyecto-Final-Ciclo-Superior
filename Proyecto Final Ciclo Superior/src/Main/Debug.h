@@ -5,9 +5,9 @@
 
 #define MAIN_DEBUG true // Controls Debug functionality
 
-#define SERIAL_DEBUG MAIN_DEBUG && false // Allows Serial Debug
-#define SERIAL_GUI MAIN_DEBUG && true    // Aloows Serial GUI
-#define LCD_DEBUG MAIN_DEBUG && true     // Allows LCD GUI
+#define SERIAL_DEBUG MAIN_DEBUG && true // Allows Serial Debug
+#define SERIAL_GUI MAIN_DEBUG && true   // Aloows Serial GUI
+#define LCD_DEBUG MAIN_DEBUG && true    // Allows LCD GUI
 
 /*===========================================*/
 #if SERIAL_DEBUG //S.Debug
@@ -49,6 +49,6 @@
 
 #define SERIAL_SPLITTER "======================================="
 #define SERIAL_DEBUG_TAG "[DEBUG] "
-#define SERIAL_TAB "[......] "
+#define SERIAL_TAB "[******] "
 
 #endif // _DEBUG_H_
