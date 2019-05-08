@@ -68,7 +68,7 @@ CustomProbeClass myProbe(&timeManager, &TempCheck, &TempStandBy);
 #endif
 
 #if CONTROL_EXTERNAL_LIGHT
-LDRController myLDR(&timeManager, &LdrCheck, &LdrStandBy);
+LDRController myLDR(LDR_THRESHOLD,&timeManager, &LdrCheck, &LdrStandBy);
 #endif
 
 #if CONTROL_HUMIDITY
@@ -88,6 +88,12 @@ ManualDoorController myManualDoorController(
 #endif
 /* ======================================================= */
 
+#if LCD_DEBUG
+LcdWrapper mainLcd(0x3F, 16, 2, myCapacityManager.getBasicFrame());
+#endif
+
+/* ======================================================= */
+
 void setup()
 {
 // put your setup code here, to run once:
@@ -104,43 +110,61 @@ void setup()
 
 #if CONTROL_CAPACITY
   myCapacityManager.setup();
+  myCapacityManager.setLcd(&mainLcd);
 #endif
 
 #if SPECTS_BASIC
-#if CONTROL_EMERGERCY_DOOR
-  myEmerDoorCont.setup();
-#endif
+  #if CONTROL_EMERGERCY_DOOR
+    myEmerDoorCont.setup();
+  #endif
 
-#if CONTROL_SMART_CORRIDOR_LIGHT
-  myPIR.setup();
-#endif
+  #if CONTROL_SMART_CORRIDOR_LIGHT
+    myPIR.setup();
+  #endif
 
-#if CONTROL_TEMP
-  myProbe.setup();
-#endif
+  #if CONTROL_TEMP
+    myProbe.setup();
+    myProbe.setLcd(&mainLcd);
+  #endif
 
-#if CONTROL_EXTERNAL_LIGHT
-  myLDR.setup();
-#endif
+  #if CONTROL_EXTERNAL_LIGHT
+    myLDR.setup();
+  #endif
 
-#if CONTROL_HUMIDITY
-  myDHT.setup();
-#endif
-
+  #if CONTROL_HUMIDITY
+    myDHT.setup();
+    myDHT.setLcd(&mainLcd);
+  #endif
 #endif
 
 #if SPECTS_EXTRA
+  #if IN_OUT_BARRIER
+  #endif
 
-#if IN_OUT_BARRIER
+  #if IN_OUT_RFID
+    myRFID.setup();
+    myRFID.setLcd(&mainLcd);
+  #endif
+
+  #if IN_OUT_MANUAL
+    myManualDoorController.setup();
+  #endif
 #endif
 
-#if IN_OUT_RFID
-  myRFID.setup();
-#endif
+#if LCD_DEBUG
+  mainLcd.begin();
 
-#if IN_OUT_MANUAL
-  myManualDoorController.setup();
-#endif
+  #if CONTROL_TEMP && TEMP_LCD_DEBUG
+    mainLcd.addFrame(myProbe.getBasicFrame());
+  #endif
+
+  #if CONTROL_HUMIDITY && HUMIDITY_LCD_DEBUG
+    mainLcd.addFrame(myDHT.getBasicFrame());
+  #endif
+
+  #if IN_OUT_RFID && IN_OUT_RFID_LCD_DEBUG
+    mainLcd.addFrame(myRFID.getBasicFrame());
+  #endif
 #endif
 }
 
@@ -154,6 +178,10 @@ void loop()
 
 void Main_program()
 {
+
+  #if LCD_DEBUG
+mainLcd.update();
+  #endif
 
 #if SPECTS_BASIC
 #if CONTROL_EMERGERCY_DOOR

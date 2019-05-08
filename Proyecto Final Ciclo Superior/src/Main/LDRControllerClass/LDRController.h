@@ -7,7 +7,7 @@
 class LDRController : public EventManager, public AbstractSensor {
 
 public:
-  LDRController(TimeManager *timeManager, Timer *checkTimer,
+  LDRController(uint16_t threshold,TimeManager *timeManager, Timer *checkTimer,
                 Timer *standByTimer);
 
   /* Update function called at main loop*/

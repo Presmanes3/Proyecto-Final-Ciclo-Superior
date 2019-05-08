@@ -7,6 +7,7 @@
 #include "MFRC522.h"
 #include "SPI.h"
 #include "BasicRFIDFrame.h"
+#include "../LCDWrapper/LCDWrapper.h"
 
 class RFIDController : public EventManager, public AbstractSensor
 {
@@ -32,8 +33,13 @@ Lcd Frame the contact as pointer*/
   /*Return a pointer to a Contact list*/
   Agenda *getAgenda();
 
+  BasicRFIDFrame *getBasicFrame();
+
+  void setLcd(LcdWrapper *newLcd);
+
 protected:
   BasicRFIDFrame basicFrame = BasicRFIDFrame(this);
+  LcdWrapper *lcd;
   MFRC522 mfrc522 = MFRC522(RFID_SDA, RFID_RST);
   Agenda *agenda;
 

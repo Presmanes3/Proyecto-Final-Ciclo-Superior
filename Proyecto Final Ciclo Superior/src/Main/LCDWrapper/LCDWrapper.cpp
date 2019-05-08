@@ -5,11 +5,14 @@ LcdWrapper::LcdWrapper(uint8_t lcd_Addr, uint8_t lcd_cols, uint8_t lcd_rows,
     : LiquidCrystal_I2C(lcd_Addr, lcd_cols, lcd_rows)
 {
 
-  if (framePool == nullptr)
+  if ((framePool == nullptr) && (initialFrame != nullptr))
   {
     this->addFrame(initialFrame);
+    this->currentFrame = initialFrame;
+  }else if(framePool != nullptr){
+    this->currentFrame = framePool[0];
   }
-  this->currentFrame = initialFrame;
+  this->defaultFrame = this->currentFrame;
 }
 
 /*Update the current frame*/
@@ -69,4 +72,8 @@ bool LcdWrapper::existsFrame(LCDFrame *frame)
     }
   }
   return false;
+}
+
+LCDFrame* LcdWrapper::getDefaultFrame(){
+  return this->defaultFrame;
 }

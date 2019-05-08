@@ -7,6 +7,7 @@
 #include "Arduino.h"
 #include "DHT.h"
 #include "BasicDHTFrame.h"
+#include "../LCDWrapper/LCDWrapper.h"
 
 class CustomDHTClass : public EventManager, public AbstractSensor
 {
@@ -47,8 +48,13 @@ public:
   /*Return Heat as float*/
   float getHeat();
 
+  BasicDHTFrame* getBasicFrame();
+
+  void setLcd(LcdWrapper *newLcd);
+
 protected:
   BasicDHTFrame basicFrame = BasicDHTFrame(this);
+  LcdWrapper *lcd;
   DHT dht = DHT(DHT_PIN, DHT_TYPE);
 
   uint32_t Alarm_time_reference;   // Not used for this project

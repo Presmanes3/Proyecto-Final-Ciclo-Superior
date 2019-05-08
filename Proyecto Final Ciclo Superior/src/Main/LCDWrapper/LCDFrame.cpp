@@ -21,3 +21,11 @@ bool LCDFrame::isActivated()
 {
   return this->flag;
 }
+
+void LCDFrame::setLcd(LcdWrapper *lcd){
+  this->lcd = lcd;
+}
+
+LcdWrapper* LCDFrame::getLcd(){
+  return this->lcd;
+}

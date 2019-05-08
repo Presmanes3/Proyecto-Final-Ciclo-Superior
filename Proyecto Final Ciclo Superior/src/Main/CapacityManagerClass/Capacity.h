@@ -4,6 +4,7 @@
 #include "../Common.h"
 #include "Arduino.h"
 #include "BasicCapacityManagerFrame.h"
+#include "../LCDWrapper/LCDWrapper.h"
 
 class CapacityManager
 {
@@ -25,9 +26,14 @@ public:
   /*Show data through Serial*/
   void showDataSerial();
 
+  BasicCapacityManagerFrame* getBasicFrame();
+
+  void setLcd(LcdWrapper *newLcd);
+
 private:
   /*Basic Frame with basic information about capacity*/
   BasicCapacityManagerFrame basicFrame = BasicCapacityManagerFrame(this);
+  LcdWrapper *lcd;
 };
 
 #endif

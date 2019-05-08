@@ -9,6 +9,7 @@ CustomProbeClass::CustomProbeClass(TimeManager *timeManager, Timer *checkTimer, 
   this->standByTimer->deactivateFlag();
 
   this->basicFrame = BasicProbeFrame(this, myLcd, frameName);
+  this->lcd = nullptr;
 }
 
 void CustomProbeClass::setup()
@@ -133,6 +134,10 @@ void CustomProbeClass::run()
       this->read();
       this->showSerialData();
 
+      #if TEMP_LCD_DEBUG
+        this->lcd->changeFrame(&this->basicFrame);
+      #endif
+
       this->checkTimer->deactivateFlag();
       this->standByTimer->activateFlag();
 
@@ -154,4 +159,17 @@ void CustomProbeClass::run()
 float CustomProbeClass::getTemperatureFromDevice(uint8_t index)
 {
   return this->probesConnectedValue[index];
+}
+
+BasicProbeFrame* CustomProbeClass::getBasicFrame(){
+  return &this->basicFrame;
+}
+
+void CustomProbeClass::setLcd(LcdWrapper* newLcd){
+  #if TEMP_PROBE_DEBUG
+    Serial.print(F(SERIAL_DEBUG_TAG));
+    Serial.println(F("Setting Temp Probe Lcd"));
+  #endif
+
+  this->lcd = newLcd;
 }

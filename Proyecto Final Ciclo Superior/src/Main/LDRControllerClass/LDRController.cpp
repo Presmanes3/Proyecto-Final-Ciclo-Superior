@@ -1,17 +1,21 @@
 #include "LDRController.h"
 
-LDRController::LDRController(TimeManager *timeManager, Timer *checkTimer,
+LDRController::LDRController(uint16_t threshold, TimeManager *timeManager, Timer *checkTimer,
                              Timer *standByTimer)
     : EventManager(timeManager, checkTimer, standByTimer)
 {
   this->checkTimer->activateFlag();
   this->standByTimer->deactivateFlag();
+
+  this->threshold = threshold;
 }
 
 void LDRController::setup()
 {
 #if EXTERNAL_LIGHT_DEBUG
   Serial.println(F("===== Iniciando Controlador LDR ====="));
+  Serial.print(F("Threshold set at: "));
+  Serial.println();
 #endif
   pinMode(LDR_PIN, INPUT);
   pinMode(LDR_LED, OUTPUT);

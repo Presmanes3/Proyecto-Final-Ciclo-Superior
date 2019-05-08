@@ -16,20 +16,24 @@ public:
   void update();
 
   /*Change the current frame if possible*/
-  void changeFrame(LCDFrame *frame);
+  void changeFrame(LCDFrame *frame );
 
   /*Add Frame to framePool if is not already in*/
-  void addFrame(LCDFrame *newFrame);
+  void addFrame(LCDFrame *newFrame = nullptr);
 
   /*Check if Frame is in the framePool*/
   bool existsFrame(LCDFrame *frame);
 
+  LCDFrame *getDefaultFrame();
+  
 private:
   /*Pool of frames*/
   LCDFrame **framePool;
 
   /*Frame which is being treated*/
   LCDFrame *currentFrame;
+
+  LCDFrame *defaultFrame;
 
   /*Number of total frames*/
   uint8_t totalFrames;

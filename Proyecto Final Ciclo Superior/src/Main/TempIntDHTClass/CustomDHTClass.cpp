@@ -13,6 +13,7 @@ CustomDHTClass::CustomDHTClass(TimeManager *timeManager, Timer *checkTimer, Time
   this->standByTimer->deactivateFlag();
 
   this->basicFrame = BasicDHTFrame(this, myLcd, frameName);
+  this->lcd = nullptr;
 }
 
 void CustomDHTClass::setup()
@@ -163,6 +164,10 @@ void CustomDHTClass::run()
 
     this->showSerialData();
 
+    #if HUMIDITY_LCD_DEBUG
+      this->lcd->changeFrame(&this->basicFrame);
+    #endif
+    
     this->checkTimer->deactivateFlag();
     this->standByTimer->activateFlag();
 
@@ -192,4 +197,17 @@ float CustomDHTClass::getHumidity()
 float CustomDHTClass::getHeat()
 {
   return this->Heat;
+}
+
+BasicDHTFrame * CustomDHTClass::getBasicFrame(){
+  return &this->basicFrame;
+}
+
+void CustomDHTClass::setLcd(LcdWrapper* newLcd){
+  #if DHT_DEBUG
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Setting DHT Lcd"));
+  #endif
+
+  this->lcd = newLcd;
 }

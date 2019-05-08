@@ -1,5 +1,7 @@
 #include "RFIDController.h"
 
+
+
 RFIDController::RFIDController(Agenda *agenda, TimeManager *timeManager,
                                Timer *checkTimer, Timer *standByTimer, LcdWrapper *myLcd, char *frameName)
     : EventManager(timeManager, checkTimer, standByTimer)
@@ -8,6 +10,7 @@ RFIDController::RFIDController(Agenda *agenda, TimeManager *timeManager,
   this->agenda = agenda;
 
   this->basicFrame = BasicRFIDFrame(this, myLcd, frameName);
+  this->lcd = nullptr;
 
   this->checkTimer->activateFlag();
   this->standByTimer->deactivateFlag();
@@ -101,8 +104,9 @@ void RFIDController::run()
     {
       if (this->Read(this->agenda->ContactList, this->agenda->size))
       {
-
-        this->basicFrame.activateFlag();
+        #if IN_OUT_RFID_LCD_DEBUG
+          this->lcd->changeFrame(&this->basicFrame);
+        #endif
 
         this->checkTimer->deactivateFlag();
         this->standByTimer->activateFlag();
@@ -116,7 +120,8 @@ void RFIDController::run()
   {
     if (this->timeManager->pastSec(*this->standByTimer))
     {
-      this->basicFrame.deActivateFlag();
+
+      this->lcd->changeFrame(this->lcd->getDefaultFrame());
 
       this->standByTimer->deactivateFlag();
       this->checkTimer->activateFlag();
@@ -127,3 +132,16 @@ void RFIDController::run()
 }
 
 bool RFIDController::read() { return false; }
+
+BasicRFIDFrame *RFIDController::getBasicFrame(){
+  return &this->basicFrame;
+}
+
+void RFIDController::setLcd(LcdWrapper* newLcd){
+  #if IN_OUT_RFID_DEBUG
+  Serial.print(SERIAL_DEBUG_TAG);
+  Serial.println(F("Setting RFID Lcd"));
+  #endif
+  
+  this->lcd = newLcd;
+}

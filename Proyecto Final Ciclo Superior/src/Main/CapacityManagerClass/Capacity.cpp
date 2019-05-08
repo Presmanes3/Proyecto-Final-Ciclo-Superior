@@ -4,7 +4,9 @@ CapacityManager::CapacityManager(uint32_t max_capacity, LcdWrapper *myLcd, char 
 {
   this->maxCapacity = max_capacity;
   this->currentCustomersIn = 0;
+
   this->basicFrame = BasicCapacityManagerFrame(this, myLcd, frameName);
+  this->lcd = nullptr;
 }
 
 void CapacityManager::setup()
@@ -79,4 +81,17 @@ void CapacityManager::removePerson()
     Serial.println(F("No queda nadie"));
 #endif
   }
+}
+
+BasicCapacityManagerFrame* CapacityManager::getBasicFrame(){
+  return &(this->basicFrame);
+}
+
+void CapacityManager::setLcd(LcdWrapper *newLcd){
+  #if CAPACITY_DEBUG
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Setting Capacity Manager Lcd"));
+  #endif
+
+  this->lcd = newLcd;
 }

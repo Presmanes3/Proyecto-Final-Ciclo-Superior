@@ -29,6 +29,10 @@ public:
   /*Returns true if flag is true*/
   bool isActivated();
 
+  void setLcd(LcdWrapper* lcd);
+
+  LcdWrapper* getLcd();
+
 protected:
   /*Pointer to Lcd*/
   LcdWrapper *lcd;
