@@ -16,6 +16,8 @@ void CustomProbeClass::setup()
 {
 #if TEMP_PROBE_SERIAL_GUI
   Serial.println(F("========= Iniciando Sondas de Temperatura ========="));
+  Serial.println(F(SERIAL_SPLITTER));
+  Serial.println();
 #endif
   this->sensorDS18B20.begin();
   this->findDevices();

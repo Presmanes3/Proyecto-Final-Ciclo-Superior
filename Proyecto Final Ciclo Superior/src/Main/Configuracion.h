@@ -27,7 +27,7 @@
 
 /*Control External Light*/
 #define TIME_TO_CHECK_EXTERNAL_LIGHT   250  // Milliseconds
-#define INACTIVE_TIME_EXTERNAL_LIGHT   1    // Minutes
+#define INACTIVE_TIME_EXTERNAL_LIGHT   10  // Seconds
 #define LDR_THRESHOLD                  512
 
 /*Control Humidity*/

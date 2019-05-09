@@ -27,8 +27,10 @@ void EmerDoorController::turnOffLight()
 
 void EmerDoorController::setup()
 {
-#if EMER_DOOR_DEBUG
-  Serial.println(F("===== Iniciando Controlador Puerta Emergencia ====="));
+#if EMER_DOOR_SERIAL_GUI
+  Serial.println(F("======= Iniciando Controlador Puerta Emergencia ======="));
+  Serial.println(F(SERIAL_SPLITTER));
+  Serial.println();
 #endif
   pinMode(EMERGENCY_DOOR_PIN, INPUT);
   pinMode(EMERGENCY_LED, OUTPUT);

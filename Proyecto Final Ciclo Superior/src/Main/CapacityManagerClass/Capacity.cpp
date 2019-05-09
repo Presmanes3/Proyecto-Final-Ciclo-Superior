@@ -16,6 +16,7 @@ void CapacityManager::setup()
   Serial.print(F(SERIAL_TAB));
   Serial.print(F("Aforo Maximo: "));
   Serial.println(this->maxCapacity);
+  Serial.println(F(SERIAL_SPLITTER));
   Serial.println();
 #endif
   /*
@@ -31,7 +32,7 @@ void CapacityManager::showDataSerial()
   Serial.print(F(SERIAL_TAB));
   Serial.print(F("Aforo Maximo: "));
   Serial.print(this->maxCapacity);
-  Serial.println(F(" presonas."));
+  Serial.println(F(" personas."));
   Serial.print(F(SERIAL_TAB));
   Serial.print(F("Actualmente hay: "));
   Serial.print(this->currentCustomersIn);

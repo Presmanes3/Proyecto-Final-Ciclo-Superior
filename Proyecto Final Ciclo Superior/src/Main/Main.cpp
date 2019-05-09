@@ -1,3 +1,4 @@
+
 #include "Common.h"
 #include "Dependencies.h"
 #include "Functionalities.h"
@@ -110,7 +111,10 @@ void setup()
 
 #if CONTROL_CAPACITY
   myCapacityManager.setup();
+
+  #if LCD_DEBUG
   myCapacityManager.setLcd(&mainLcd);
+  #endif
 #endif
 
 #if SPECTS_BASIC
@@ -124,7 +128,10 @@ void setup()
 
   #if CONTROL_TEMP
     myProbe.setup();
+
+    #if TEMP_LCD_DEBUG
     myProbe.setLcd(&mainLcd);
+    #endif
   #endif
 
   #if CONTROL_EXTERNAL_LIGHT
@@ -133,7 +140,10 @@ void setup()
 
   #if CONTROL_HUMIDITY
     myDHT.setup();
+
+    #if HUMIDITY_LCD_DEBUG
     myDHT.setLcd(&mainLcd);
+    #endif
   #endif
 #endif
 
@@ -143,7 +153,10 @@ void setup()
 
   #if IN_OUT_RFID
     myRFID.setup();
+
+    #if IN_OUT_RFID_LCD_DEBUG
     myRFID.setLcd(&mainLcd);
+    #endif
   #endif
 
   #if IN_OUT_MANUAL

@@ -12,9 +12,13 @@ LDRController::LDRController(uint16_t threshold, TimeManager *timeManager, Timer
 
 void LDRController::setup()
 {
-#if EXTERNAL_LIGHT_DEBUG
-  Serial.println(F("===== Iniciando Controlador LDR ====="));
+#if EXTERNAL_LIGHT_SERIAL_GUI
+  Serial.println(F("=========== Iniciando Controlador LDR ============"));
   Serial.print(F("Threshold set at: "));
+  float percentaje = LDR_THRESHOLD * 100.0 / 1024.0;
+  Serial.print(percentaje, 3);
+  Serial.println(F("%"));
+  Serial.println(F(SERIAL_SPLITTER));
   Serial.println();
 #endif
   pinMode(LDR_PIN, INPUT);
@@ -25,7 +29,8 @@ void LDRController::setup()
 bool LDRController::read()
 {
 #if EXTERNAL_LIGHT_DEBUG
-  Serial.println(F(">>>>> Leyendo Sensor LDR"));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Leyendo Sensor LDR"));
 #endif
   uint16_t value = analogRead(LDR_PIN);
   if (value >= this->threshold)
@@ -38,7 +43,8 @@ bool LDRController::read()
 void LDRController::turnOnLight()
 {
 #if EXTERNAL_LIGHT_DEBUG
-  Serial.println(F(">>>>> Encendiento Luz Exterior"));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Encendiento Luz Exterior"));
 #endif
   digitalWrite(LDR_LED, 1);
 }
@@ -46,7 +52,8 @@ void LDRController::turnOnLight()
 void LDRController::turnOffLight()
 {
 #if EXTERNAL_LIGHT_DEBUG
-  Serial.println(F(">>>>> Apagando Luz Exterior"));
+  Serial.print(F(SERIAL_DEBUG_TAG));
+  Serial.println(F("Apagando Luz Exterior"));
 #endif
   digitalWrite(LDR_LED, 0);
 }
@@ -70,7 +77,7 @@ void LDRController::run()
   }
   if (this->standByTimer->getFlag())
   {
-    if (this->timeManager->pastMin(*this->standByTimer))
+    if (this->timeManager->pastSec(*this->standByTimer))
     {
       this->turnOffLight();
 

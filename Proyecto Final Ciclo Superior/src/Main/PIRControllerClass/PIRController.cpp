@@ -10,10 +10,13 @@ PIRController::PIRController(TimeManager *timeManager, Timer *checkTimer,
 
 void PIRController::setup()
 {
-#if SMART_CORRIDOR_LIGHT_DEBUG
-  Serial.println(F("===== Iniciando Sensor PIR ====="));
+#if SMART_CORRIDOR_LIGHT_SERIAL_GUI
+  Serial.println(F("============= Iniciando Sensor PIR ============="));
+  Serial.println(F(SERIAL_SPLITTER));
+  Serial.println();
 #endif
   pinMode(PIR_PIN, INPUT);
+  pinMode(PIR_LED, OUTPUT);
 }
 
 bool PIRController::read()
@@ -38,7 +41,7 @@ void PIRController::turnOffLight()
   Serial.print(F(SERIAL_DEBUG_TAG));
   Serial.println(F("Apagando Luz PIR"));
 #endif
-  digitalWrite(PIR_PIN, 0);
+  digitalWrite(PIR_LED, 0);
 }
 
 void PIRController::turnOnLight()
@@ -47,7 +50,7 @@ void PIRController::turnOnLight()
   Serial.print(F(SERIAL_DEBUG_TAG));
   Serial.println(F("Encendiendo Luz PIR"));
 #endif
-  digitalWrite(PIR_PIN, 1);
+  digitalWrite(PIR_LED, 1);
 }
 
 void PIRController::run()

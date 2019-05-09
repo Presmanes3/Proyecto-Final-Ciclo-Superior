@@ -44,6 +44,10 @@ void CustomDHTClass::setup()
   this->Alarm_times_activated = 0;
   this->Alarm_option = false;
   this->Alarm_time_reference = millis();
+
+  #if DHT_SERIAL_GUI
+    Serial.println(F(SERIAL_SPLITTER));
+  #endif
 }
 
 bool CustomDHTClass::read()
