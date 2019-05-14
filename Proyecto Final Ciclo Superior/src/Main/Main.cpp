@@ -69,7 +69,7 @@ CustomProbeClass myProbe(&timeManager, &TempCheck, &TempStandBy);
 #endif
 
 #if CONTROL_EXTERNAL_LIGHT
-LDRController myLDR(LDR_THRESHOLD,&timeManager, &LdrCheck, &LdrStandBy);
+LDRController myLDR(LDR_THRESHOLD, &timeManager, &LdrCheck, &LdrStandBy);
 #endif
 
 #if CONTROL_HUMIDITY
@@ -90,8 +90,10 @@ ManualDoorController myManualDoorController(
 /* ======================================================= */
 
 #if LCD_DEBUG
-LcdWrapper mainLcd(0x3F, 16, 2, myCapacityManager.getBasicFrame());
+LcdWrapper mainLcd(0x27, 16, 2, myCapacityManager.getBasicFrame());
 #endif
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 /* ======================================================= */
 
@@ -101,7 +103,6 @@ void setup()
 #if MAIN_DEBUG
   Serial.begin(115200);
 #endif
-
   myEquip.setup();
   myAgenda.Setup();
 
@@ -112,148 +113,114 @@ void setup()
 #if CONTROL_CAPACITY
   myCapacityManager.setup();
 
-  #if LCD_DEBUG
+#if LCD_DEBUG
   myCapacityManager.setLcd(&mainLcd);
-  #endif
+#endif
 #endif
 
 #if SPECTS_BASIC
-  #if CONTROL_EMERGERCY_DOOR
-    myEmerDoorCont.setup();
-  #endif
+#if CONTROL_EMERGERCY_DOOR
+  myEmerDoorCont.setup();
+#endif
 
-  #if CONTROL_SMART_CORRIDOR_LIGHT
-    myPIR.setup();
-  #endif
+#if CONTROL_SMART_CORRIDOR_LIGHT
+  myPIR.setup();
+#endif
 
-  #if CONTROL_TEMP
-    myProbe.setup();
+#if CONTROL_TEMP
+  myProbe.setup();
 
-    #if TEMP_LCD_DEBUG
-    myProbe.setLcd(&mainLcd);
-    #endif
-  #endif
+#if TEMP_LCD_DEBUG
+  myProbe.setLcd(&mainLcd);
+#endif
+#endif
 
-  #if CONTROL_EXTERNAL_LIGHT
-    myLDR.setup();
-  #endif
+#if CONTROL_EXTERNAL_LIGHT
+  myLDR.setup();
+#endif
 
-  #if CONTROL_HUMIDITY
-    myDHT.setup();
+#if CONTROL_HUMIDITY
+  myDHT.setup();
 
-    #if HUMIDITY_LCD_DEBUG
-    myDHT.setLcd(&mainLcd);
-    #endif
-  #endif
+#if HUMIDITY_LCD_DEBUG
+  myDHT.setLcd(&mainLcd);
+#endif
+#endif
 #endif
 
 #if SPECTS_EXTRA
-  #if IN_OUT_BARRIER
-  #endif
+#if IN_OUT_BARRIER
+#endif
 
-  #if IN_OUT_RFID
-    myRFID.setup();
+#if IN_OUT_RFID
+  myRFID.setup();
 
-    #if IN_OUT_RFID_LCD_DEBUG
-    myRFID.setLcd(&mainLcd);
-    #endif
-  #endif
+#if IN_OUT_RFID_LCD_DEBUG
+  myRFID.setLcd(&mainLcd);
+#endif
+#endif
 
-  #if IN_OUT_MANUAL
-    myManualDoorController.setup();
-  #endif
+#if IN_OUT_MANUAL
+  myManualDoorController.setup();
+#endif
 #endif
 
 #if LCD_DEBUG
-  mainLcd.begin();
+  mainLcd.setup();
 
-  #if CONTROL_TEMP && TEMP_LCD_DEBUG
-    mainLcd.addFrame(myProbe.getBasicFrame());
-  #endif
+#if CONTROL_TEMP && TEMP_LCD_DEBUG
+  mainLcd.addFrame(myProbe.getBasicFrame());
+#endif
 
-  #if CONTROL_HUMIDITY && HUMIDITY_LCD_DEBUG
-    mainLcd.addFrame(myDHT.getBasicFrame());
-  #endif
+#if CONTROL_HUMIDITY && HUMIDITY_LCD_DEBUG
+  mainLcd.addFrame(myDHT.getBasicFrame());
+#endif
 
-  #if IN_OUT_RFID && IN_OUT_RFID_LCD_DEBUG
-    mainLcd.addFrame(myRFID.getBasicFrame());
-  #endif
+#if IN_OUT_RFID && IN_OUT_RFID_LCD_DEBUG
+  mainLcd.addFrame(myRFID.getBasicFrame());
+#endif
 #endif
 }
 
 void loop()
 {
-  // put your main code here, to run repeatedly:
-  // myRFID.Read(myAgenda.Contact_List, 2, );
-
+  //mainLcd.changeFrame(myDHT.getBasicFrame());
+  // mainLcd.update();
+  /*
+  lcd.init();
+  lcd.backlight();
+  lcd.print("HOLA");
+  lcd.home();
+*/
   Main_program();
 }
 
 void Main_program()
 {
 
-  #if LCD_DEBUG
-mainLcd.update();
-  #endif
+#if LCD_DEBUG
+  mainLcd.update();
+#endif
 
 #if SPECTS_BASIC
 #if CONTROL_EMERGERCY_DOOR
   myEmerDoorCont.run();
-
 #endif
 
 #if CONTROL_SMART_CORRIDOR_LIGHT
   myPIR.run();
-
 #endif
 
 #if CONTROL_TEMP
   myProbe.run();
-  /* if (TempCheck.flag) {
-         if (Past_mil(TempCheck.time, TempCheck.var)) {
-           myProbe.Read();
-           myProbe.Show();
-           TempCheck.flag = false;
-         }
-       } else {
-         if (Past_min(INACTIVE_TIME_TEMPERATURE, TempCheck.var)) {
-           TempCheck.flag = true;
-         }
-     }*/
 #endif
 
 #if CONTROL_EXTERNAL_LIGHT
   myLDR.run();
-  /* if (LDRCheck.flag) {
-         if (Past_mil(LDRCheck.time, LDRCheck.var)) {
-           if (myLDR.Read()) {
-             myLDR.Turn_on_light();
-             LDRCheck.flag = false;
-           }
-         }
-       } else {
-         if (Past_min(INACTIVE_TIME_EXTERNAL_LIGHT, LDRCheck.var)) {
-           myLDR.Turn_off_light();
-           LDRCheck.flag = true;
-         }
-     }*/
 #endif
 
 #if CONTROL_HUMIDITY
   myDHT.run();
-  /* if (HumidityCheck.flag) {
-         if (Past_mil(HumidityCheck.time, HumidityCheck.var)) {
-           myDHT.Read();
-           myDHT.Show();
-           HumidityCheck.flag = false;
-         }
-       } else {
-         if (Past_min(INACTIVE_TIME_HUMIDITY, HumidityCheck.var)) {
-
-           HumidityCheck.flag = true;
-         }
-       }
-   }*/
 #endif
 #endif
 
@@ -264,43 +231,10 @@ mainLcd.update();
 
 #if IN_OUT_RFID
   myRFID.run();
-  /*if (RFIDCheck.flag) {
-        if (Past_mil(RFIDCheck.time, RFIDCheck.var)) {
-          if () {
-            Serial.println(F("===== Leyendo RFID Sensor ====="));
-          }
-          if (myRFID.Read(myRFID.getAgenda()->ContactList, 2, )) {
-            RFIDCheck.flag = false;
-          }
-        }
-      } else {
-        if (Past_sec(INACTIVE_TIME_RFID, RFIDCheck.var)) {
-
-          RFIDCheck.flag = true;
-        }
-    }*/
 #endif
 
 #if IN_OUT_MANUAL
   myManualDoorController.run();
-  /* if (ManualDoorCheck.flag) {
-         if (Past_mil(ManualDoorCheck.time, ManualDoorCheck.var)) {
-           if (myManualDoorController.Read()) {
-             myManualDoorController.Turn_on_light();
-             if (myManualDoorController.getButtonOption()) {
-               myCapacityManager.Add();
-             }
-             { myCapacityManager.Substract(); }
-           }
-       }else{
-       myCapacityManager.Substract();
-   }
-       } else {
-         if (Past_mil(INACTIVE_TIME_MANUAL, ManualDoorCheck.var)) {
-           myManualDoorController.Turn_off_light();
-           ManualDoorCheck.flag = false;
-         }
-     }*/
 #endif
 #endif
 }

@@ -1,20 +1,28 @@
 #include "LCDWrapper.h"
 
 LcdWrapper::LcdWrapper(uint8_t lcd_Addr, uint8_t lcd_cols, uint8_t lcd_rows,
-                       LCDFrame *initialFrame, LCDFrame **framePool)
+                       LCDFrame *initialFrame)
     : LiquidCrystal_I2C(lcd_Addr, lcd_cols, lcd_rows)
 {
 
-  if ((framePool == nullptr) && (initialFrame != nullptr))
-  {
-    this->addFrame(initialFrame);
-    this->currentFrame = initialFrame;
-  }else if(framePool != nullptr){
-    this->currentFrame = framePool[0];
-  }
+  this->addFrame(initialFrame);
+  this->currentFrame = initialFrame;
   this->defaultFrame = this->currentFrame;
 }
 
+void LcdWrapper::setup()
+{
+#if LCD_SERIAL_DEBUG
+  Serial.println(F("=============== Iniciando Lcd =============="))
+      Serial.println(F(SERIAL_SPLITTER));
+  Serial.println();
+#endif
+  this->init();
+  this->backlight();
+  this->home();
+  this->print(F("Iniciando Lcd"));
+  this->home();
+}
 /*Update the current frame*/
 void LcdWrapper::update() { this->currentFrame->showLcdData(); }
 
@@ -55,8 +63,8 @@ void LcdWrapper::addFrame(LCDFrame *newFrame)
     this->totalFrames++;
 #if LCD_SERIAL_DEBUG
     Serial.print(F("Frame added :"));
-    Serial.println(this->framePool[this->totalFrames - 1]->getName()); 
-                   
+    Serial.println(this->framePool[this->totalFrames - 1]->getName());
+
 #endif
   }
 }
@@ -74,6 +82,7 @@ bool LcdWrapper::existsFrame(LCDFrame *frame)
   return false;
 }
 
-LCDFrame* LcdWrapper::getDefaultFrame(){
+LCDFrame *LcdWrapper::getDefaultFrame()
+{
   return this->defaultFrame;
 }
