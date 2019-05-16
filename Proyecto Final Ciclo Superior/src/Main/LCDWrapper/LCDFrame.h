@@ -5,37 +5,36 @@
 
 class LcdWrapper;
 
-class LCDFrame
-{
-public:
+class LCDFrame {
+  public:
   /*This class needs an Lcd and a name as parameters*/
-  LCDFrame(LcdWrapper *myLcd = nullptr, char *frameName = nullptr);
+  LCDFrame(LcdWrapper* myLcd = nullptr, char* frameName = "DefaultName");
 
   /*Abstract functions to show what we want to show on Lcd*/
-  virtual void showLcdData() = 0;
+  virtual void showLcdData( ) = 0;
 
   /*Returns Frame name*/
-  char *getName();
+  char* getName( );
 
   /*Changes Frame name*/
-  void setName(char *newName);
+  void setName(char* newName);
 
   /*Set flag to true*/
-  void activateFlag();
+  void activateFlag( );
 
   /*Set flag to false*/
-  void deActivateFlag();
+  void deActivateFlag( );
 
   /*Returns true if flag is true*/
-  bool isActivated();
+  bool isActivated( );
 
   void setLcd(LcdWrapper* lcd);
 
-  LcdWrapper* getLcd();
+  LcdWrapper* getLcd( );
 
-protected:
+  protected:
   /*Pointer to Lcd*/
-  LcdWrapper *lcd;
+  LcdWrapper* lcd;
 
   /*Frame's name*/
   char name[15];
