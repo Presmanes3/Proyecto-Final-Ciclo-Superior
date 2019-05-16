@@ -55,6 +55,10 @@ void Contact::showSerialData( ) {
   Serial.print(F(SERIAL_TAB));
   Serial.print(F("Phone Number : "));
   Serial.println(this->phoneNumber);
+
+  Serial.print(F(SERIAL_TAB));
+  Serial.print(F("Status : "));
+  Serial.println(this->permission ? "Allowed" : "Not Allowed");
 }
 
 void Contact::showLcdData( ) {
