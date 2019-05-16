@@ -4,17 +4,13 @@
 #ifndef _COMMON_H_
 #define _COMMON_H_
 
-#include "Debug.h"
 #include "Configuracion.h"
-
+#include "Debug.h"
 #include "EventClass/EventManager.h"
-
+#include "LCDWrapper/LCDFrame.h"
 #include "SensorAbstractClass/SensorClass.h"
-
 #include "TimerClass/TimeManager.h"
 #include "TimerClass/Timer.h"
-
-#include "LCDWrapper/LCDFrame.h"
 
 /*====================================================================*/
 
@@ -43,11 +39,11 @@
 /*In Out Barrier*/
 
 /*In Out RFID*/
-#define RFID_SDA 9
+#define RFID_SDA 53
 #define RFID_SCK 52
 #define RFID_MOSI 51
 #define RFID_MISO 50
-#define RFID_RST 8
+#define RFID_RST 9
 
 /*In Out Manual*/
 #define MANUAL_DOOR_IN_PIN 23
@@ -57,6 +53,5 @@
 #define MANUAL_IN_LED 5
 
 /*====================================================================*/
-
 
 #endif

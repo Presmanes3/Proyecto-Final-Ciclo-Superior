@@ -7,13 +7,9 @@
 
 #define NUM_CONTACTS 4
 
-class Agenda
-{
-public:
-  Agenda();
-
-  Contact *ContactList;
-  uint16_t size;
+class Agenda {
+  public:
+  Agenda( );
 
   /*
   extern Contacto Contacto1;
@@ -25,36 +21,35 @@ public:
   */
 
   /* Starts the Agenda*/
-  void Setup();
+  void Setup( );
 
   /* Print a contact from agenda through Serial*/
   void printContact(Contact contact);
 
   /* Print a contact list from Agenda through Serial*/
-  void printContactList(Contact *list, uint8_t size);
+  void printContactList(Contact* list, uint8_t size);
 
   /* Sets all the values of a contact to 0*/
-  void clearContact(Contact &contact);
+  void clearContact(Contact& contact);
 
   /* Returns the Agenda contact list*/
-  Contact *getContactList();
+  Contact* getContactList( );
 
   Contact Contacto1 =
-      Contact((char *)CONTACTO1_ID, (char *)CONTACTO1_NOMBRE,
-              (char *)CONTACTO1_APELLIDO, (char *)CONTACTO1_CORREO,
-              (char *)CONTACTO1_TELEFONO);
+      Contact(CONTACTO1_ID, CONTACTO1_NOMBRE, CONTACTO1_APELLIDO,
+              CONTACTO1_CORREO, CONTACTO1_TELEFONO);
   Contact Contacto2 =
-      Contact((char *)CONTACTO2_ID, (char *)CONTACTO2_NOMBRE,
-              (char *)CONTACTO2_APELLIDO, (char *)CONTACTO2_CORREO,
-              (char *)CONTACTO2_TELEFONO);
+      Contact(CONTACTO2_ID, CONTACTO2_NOMBRE, CONTACTO2_APELLIDO,
+              CONTACTO2_CORREO, CONTACTO2_TELEFONO);
   Contact Contacto3 =
-      Contact((char *)CONTACTO3_ID, (char *)CONTACTO3_NOMBRE,
-              (char *)CONTACTO3_APELLIDO, (char *)CONTACTO3_CORREO,
-              (char *)CONTACTO3_TELEFONO);
+      Contact(CONTACTO3_ID, CONTACTO3_NOMBRE, CONTACTO3_APELLIDO,
+              CONTACTO3_CORREO, CONTACTO3_TELEFONO);
   Contact Contacto4 =
-      Contact((char *)CONTACTO4_ID, (char *)CONTACTO4_NOMBRE,
-              (char *)CONTACTO4_APELLIDO, (char *)CONTACTO4_CORREO,
-              (char *)CONTACTO4_TELEFONO);
+      Contact(CONTACTO4_ID, CONTACTO4_NOMBRE, CONTACTO4_APELLIDO,
+              CONTACTO4_CORREO, CONTACTO4_TELEFONO);
+
+  Contact  ContactList[4] = {Contacto1, Contacto2, Contacto3, Contacto4};
+  uint16_t size;
 
 }; // namespace AGENDA
 
