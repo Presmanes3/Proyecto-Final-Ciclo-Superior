@@ -165,7 +165,7 @@ void CustomDHTClass::run( ) {
       this->checkTimer->deactivateFlag( );
       this->standByTimer->activateFlag( );
 
-      this->standByTimer->updateReference( );
+      this->standByTimer->updateReferenceMillis( );
     }
   }
   if(this->standByTimer->getFlag( )) {
@@ -177,7 +177,7 @@ void CustomDHTClass::run( ) {
       this->standByTimer->deactivateFlag( );
       this->checkTimer->activateFlag( );
 
-      this->checkTimer->updateReference( );
+      this->checkTimer->updateReferenceMillis( );
     }
   }
 }

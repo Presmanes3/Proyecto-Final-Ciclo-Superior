@@ -57,7 +57,7 @@ void PIRController::run( ) {
         this->checkTimer->deactivateFlag( );
         this->standByTimer->activateFlag( );
 
-        this->standByTimer->updateReference( );
+        this->standByTimer->updateReferenceMillis( );
       }
     }
   }
@@ -68,7 +68,7 @@ void PIRController::run( ) {
       this->standByTimer->deactivateFlag( );
       this->checkTimer->activateFlag( );
 
-      this->checkTimer->updateReference( );
+      this->checkTimer->updateReferenceMillis( );
     }
   }
 }

@@ -19,7 +19,7 @@ public:
   void setFlag(bool newFlag);
 
 /*Update reference automaticly to millis()*/
-  void updateReference();
+  void updateReferenceMillis();
 
   /*===== Getters =====*/
   /*Get the time that must past*/

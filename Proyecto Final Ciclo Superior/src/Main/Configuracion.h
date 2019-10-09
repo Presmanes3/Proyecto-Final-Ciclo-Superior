@@ -32,7 +32,7 @@
 
 /*Control Humidity*/
 #define TIME_TO_CHECK_HUMIDITY 40 // Seconds
-#define INACTIVE_TIME_HUMIDITY 5  // Seconds
+#define INACTIVE_TIME_HUMIDITY 10 // Seconds
 
 /*====================================================================*/
 
